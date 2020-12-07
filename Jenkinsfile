@@ -11,13 +11,13 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'ng test --watch=false --browsers=ChromeHeadless'
+                sh 'npm run test -- --watch=false --browsers=ChromeHeadless'
             }
         }
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'ng build --prod'
+                sh 'npm run build --prod'
             }
         }
         stage('Deploy') {
