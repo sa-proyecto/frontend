@@ -1,7 +1,7 @@
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -25,6 +25,8 @@ import { AppComponent } from './app.component';
 
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { RegisterpageComponent } from './registerpage/registerpage.component';
+import { AuthService } from './api/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,8 +36,9 @@ import { RegisterpageComponent } from './registerpage/registerpage.component';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     FormsModule,
-    RouterModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
@@ -52,9 +55,15 @@ import { RegisterpageComponent } from './registerpage/registerpage.component';
     AlertModule.forRoot(),
     BsDatepickerModule.forRoot(),
     CarouselModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    RouterModule.forRoot([
+      { path: 'login', component: LoginpageComponent },
+      { path: '**', redirectTo: 'inicio', pathMatch: 'full' }
+    ])
   ],
-  providers: [],
+  providers: [
+    AuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
