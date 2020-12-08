@@ -58,6 +58,7 @@ import { HttpClientModule } from '@angular/common/http';
     ModalModule.forRoot(),
     RouterModule.forRoot([
       { path: 'login', component: LoginpageComponent },
+      { path: 'register', component: RegisterpageComponent },
       { path: '**', redirectTo: 'inicio', pathMatch: 'full' }
     ])
   ],
