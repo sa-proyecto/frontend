@@ -9,59 +9,66 @@
   <div class="container">
     <div class="col-lg-5 col-md-8 mx-auto">
       <div class="card card-login">
-        <form action="" class="form" method="">
+        <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}</div>
+        <form action="" class="form" method="" [formGroup]="loginForm">
           <div class="card-header">
-            <img
-              alt="Card image"
-              class="card-img"
-              src="assets/img/square1-red.png"
-            />
+            <img alt="Card image" class="card-img" src="assets/img/square1-red.png" />
 
             <h4 class="card-title">Inicio</h4>
           </div>
           <div class="card-body">
-            <div
-              class="input-group input-lg"
-              [ngClass]="{ 'input-group-focus': focus === true }"
-            >
+            <div class="input-group input-lg" [ngClass]="{ 'input-group-focus': focus === true }">
               <div class="input-group-prepend">
                 <span class="input-group-text">
                   <i class="tim-icons icon-single-02"> </i>
                 </span>
               </div>
-              <input
-                class="form-control"
-                placeholder="Usuario"
-                type="text"
-                (blur)="focus = false"
-                (focus)="focus = true"
-              />
+              <input class="form-control" placeholder="Usuario" type="text" (blur)="focus = false"
+                (focus)="focus = true" formControlName="email" />
+              <div *ngIf="f.email.errors">
+                <div *ngIf="f.email.errors.required" class="invalid-feedback d-block text-right">Requerido
+                </div>
+              </div>
             </div>
-            <div
-              class="input-group input-lg"
-              [ngClass]="{ 'input-group-focus': focus1 === true }"
-            >
+            <div class="input-group input-lg" [ngClass]="{ 'input-group-focus': focus1 === true }">
               <div class="input-group-prepend">
                 <span class="input-group-text">
                   <i class="tim-icons icon-caps-small"> </i>
                 </span>
               </div>
-              <input
-                class="form-control"
-                placeholder="Contraseña"
-                type="password"
-                (blur)="focus1 = false"
-                (focus)="focus1 = true"
-              />
+              <input class="form-control" placeholder="Contraseña" type="password" (blur)="focus1 = false"
+                (focus)="focus1 = true" formControlName="contrasena" />
+              <div *ngIf="f.contrasena.errors">
+                <div *ngIf="f.contrasena.errors.required" class="invalid-feedback d-block text-right">Requerido
+                </div>
+              </div>
             </div>
+
+            <div class="input-group input-lg" [ngClass]="{ 'input-group-focus': focus2 === true }">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="tim-icons icon-caps-small"> </i>
+                </span>
+              </div>
+
+              <select class="form-control" placeholder="Tipo usuario" type="text" (blur)="focus2 = false"
+              (focus)="focus2 = true" formControlName="tipousuario" >
+                <option background-color="green" [value]="item" *ngFor="let item of tipoUsuario">{{item}}</option>
+                </select>
+              <!-- <input class="form-control" placeholder="Tipo usuario" type="text" (blur)="focus2 = false"
+                (focus)="focus2 = true" formControlName="tipousuario" /> -->
+              <div *ngIf="f.tipousuario.errors">
+                <div *ngIf="f.tipousuario.errors.required" class="invalid-feedback d-block text-right">Requerido
+                </div>
+              </div>
+            </div>
+
+
           </div>
           <div class="card-footer text-center">
-            <a
-              class="btn btn-danger btn-round btn-lg btn-block"
-              href="javascript:void(0)"
-            >
+            <button class="btn btn-danger btn-round btn-lg btn-block" (click)="login()">
               Ingresar!
-            </a>
+            </button>
           </div>
           <div class="pull-left ml-3 mb-3">
             <h6>
