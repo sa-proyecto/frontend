@@ -9,12 +9,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./loginpage.component.scss']
 })
 export class LoginpageComponent implements OnInit, OnDestroy {
-  focus;
-  focus1;
-  focus2;
+  focus: boolean;
+  focus1: boolean;
+  focus2: boolean;
+  private submitted = false;
   loginForm: FormGroup;
   alerta = '';
-  tipoUsuario: string[] = ['Cliente', 'Proveedor'];
+  tipoUsuario: { id: number, text: string }[] = [{ id: 1, text: 'Cliente' }, { id: 2, text: 'Proveedor' }];
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -23,6 +24,10 @@ export class LoginpageComponent implements OnInit, OnDestroy {
 
   get f() {
     return this.loginForm.controls;
+  }
+
+  get Submitted(): boolean {
+    return this.submitted;
   }
 
   ngOnInit() {
@@ -52,7 +57,10 @@ export class LoginpageComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
-    this.loginForm.value.tipousuario = this.loginForm.value.tipousuario === 'Cliente' ? 1: 2;
+    this.submitted = true;
+    if (!this.loginForm.valid) {
+      return;
+    }
     console.log(this.loginForm.value)
     this.authService.login(this.loginForm.value)
       .subscribe((res) => {
@@ -62,7 +70,7 @@ export class LoginpageComponent implements OnInit, OnDestroy {
         } else {
           setTimeout(() => this.alerta = 'Alerta: credenciales no validas', 0);
         }
-      }, (err)=>{
+      }, (err) => {
         setTimeout(() => this.alerta = 'Error: ' + err.error.mensaje, 0);
       });
   }
