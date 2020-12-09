@@ -26,12 +26,16 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { RegisterpageComponent } from './registerpage/registerpage.component';
 import { AuthService } from './api/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ModificarClienteComponent } from './modificar-cliente/modificar-cliente.component';
+import { ModificarProveedorComponent } from './modificar-proveedor/modificar-proveedor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginpageComponent,
     RegisterpageComponent,
+    ModificarClienteComponent,
+    ModificarProveedorComponent,
   ],
   imports: [
     CommonModule,

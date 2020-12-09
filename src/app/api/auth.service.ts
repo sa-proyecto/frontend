@@ -30,4 +30,12 @@ export class AuthService {
     return this.httpClient.post<ResponseObject>(httpAddress + '/crearCliente', registerData, httpOptions);
   }
 
+  clienteUpdate(clienteData: {}): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/modificarCliente', clienteData, httpOptions);
+  }
+
+  proveedorUpdate(proveedorData: {}): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/modificarProveedor', proveedorData, httpOptions);
+  }
+
 }

@@ -257,8 +257,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
       ],
       celular: ['',
         Validators.compose([
-          Validators.required,
-          Validators.max(8)
+          Validators.required
         ]),
       ],
       contrasena_confirm: ['',
@@ -274,7 +273,6 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
   proveedorRegister() {
     this.sumbitted = true;
     if (!this.registerProveedorForm.valid) {
-      console.log('ho');
       return;
     }
     this.authService.proveedorRegister(this.registerProveedorForm.value)
@@ -290,7 +288,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
   }
 
   clienteRegister() {
-    this.sumbitted = true;
+    this.sumbitted2 = true;
     if (!this.registerClienteForm.valid) {
       return;
     }
