@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ModificarClienteComponent } from './modificar-cliente.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ModificarClienteComponent', () => {
   let component: ModificarClienteComponent;
@@ -8,9 +10,15 @@ describe('ModificarClienteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModificarClienteComponent ]
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([]),
+
+      ],
+      declarations: [ModificarClienteComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +27,7 @@ describe('ModificarClienteComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

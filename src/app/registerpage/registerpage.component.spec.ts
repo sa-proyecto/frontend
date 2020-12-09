@@ -3,11 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ModificarProveedorComponent } from './modificar-proveedor.component';
+import { RegisterpageComponent } from './registerpage.component';
 
 describe('ModificarProveedorComponent', () => {
-  let component: ModificarProveedorComponent;
-  let fixture: ComponentFixture<ModificarProveedorComponent>;
+  let component: RegisterpageComponent;
+  let fixture: ComponentFixture<RegisterpageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,13 +17,13 @@ describe('ModificarProveedorComponent', () => {
         RouterTestingModule.withRoutes([]),
 
       ],
-      declarations: [ ModificarProveedorComponent ]
+      declarations: [ RegisterpageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModificarProveedorComponent);
+    fixture = TestBed.createComponent(RegisterpageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
