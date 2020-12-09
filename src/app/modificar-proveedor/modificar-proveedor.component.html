@@ -1,0 +1,102 @@
+<div class="wrapper">
+  <div class="page-header">
+    <div class="page-header-image"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-12 mx-auto">
+          <div class="square square-7" id="square7"></div>
+          <div class="square square-8" id="square8"></div>
+          <div class="card card-nav-tabs text-center">
+            <div class="card-header card-header-primary">
+              Modificar Datos Proveedor
+            </div>
+            <!--  -->
+            <div class="card-body">
+              <form class="form" [formGroup]="providerDataForm">
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus1 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-single-02"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Nombre de la empresa" type="text" (blur)="Focus1 = false"
+                    (focus)="Focus1 = true" formControlName="nombre_empresa" />
+                </div>
+                <div *ngIf="Submitted && Form.nombre_empresa.errors">
+                  <div *ngIf="Form.nombre_empresa.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus2 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-email-85"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Email" type="email" (blur)="Focus2 = false"
+                    (focus)="Focus2 = true" formControlName="email" />
+                </div>
+                <div *ngIf="Form.email.errors && Form.email.errors.email">
+                  <div class="invalid-feedback d-block text-right">Porfavor ingrese un
+                    email válido
+                  </div>
+                </div>
+                <div *ngIf="Submitted && Form.email.errors">
+                  <div *ngIf="Form.email.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus3 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-square-pin"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Dirección" type="text" (blur)="Focus3 = false"
+                    (focus)="Focus3 = true" formControlName="direccion" />
+                </div>
+                <div *ngIf="Submitted && Form.direccion.errors">
+                  <div *ngIf="Form.direccion.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus4 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-lock-circle"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Contraseña" type="password" (blur)="Focus4 = false"
+                    (focus)="Focus4 = true" formControlName="contrasena" />
+                </div>
+                <div *ngIf="Submitted && Form.contrasena.errors">
+                  <div *ngIf="Form.contrasena.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus5 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-lock-circle"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Confirme la contraseña" type="password"
+                    (blur)="Focus5 = false" (focus)="Focus5 = true" formControlName="contrasena_confirm" />
+                </div>
+                <div *ngIf="Submitted && Form.contrasena_confirm.errors">
+                  <div *ngIf="Form.contrasena_confirm.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+              </form>
+              <button class="btn btn-danger btn-round btn-lg" (click)="submit()">
+                Actualizar Proveedor
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="register-bg"></div>
+  </div>
+</div>

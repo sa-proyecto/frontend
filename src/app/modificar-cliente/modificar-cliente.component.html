@@ -1,0 +1,116 @@
+<div class="wrapper">
+  <div class="page-header">
+    <div class="page-header-image"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-12 mx-auto">
+          <div class="square square-7" id="square7"></div>
+          <div class="square square-8" id="square8"></div>
+          <div class="card card-nav-tabs text-center">
+            <div class="card-header card-header-primary">
+              <h1 class="card-title">Modificar Datos Cliente</h1>
+            </div>
+            <!--  -->
+            <div class="card-body">
+              <form class="form" [formGroup]="clientDataForm">
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus21 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-single-02"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Nombre" type="text" (blur)="Focus21 = false"
+                    (focus)="Focus21 = true" formControlName="nombre" />
+                </div>
+                <div *ngIf="Submitted && Form.nombre.errors">
+                  <div *ngIf="Form.nombre.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus22 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-single-02"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Apellido" type="text" (blur)="Focus22 = false"
+                    (focus)="Focus22 = true" formControlName="apellido" />
+                </div>
+                <div *ngIf="Submitted && Form.apellido.errors">
+                  <div *ngIf="Form.apellido.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus26 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-tablet-2"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Celular" type="number" (blur)="Focus26 = false"
+                    (focus)="Focus26 = true" formControlName="celular" />
+                </div>
+                <div *ngIf="Submitted && Form.celular.errors">
+                  <div *ngIf="Form.celular.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus23 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-email-85"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Email" type="email" (blur)="Focus23 = false"
+                    (focus)="Focus23 = true" formControlName="email" />
+                </div>
+                <div *ngIf="Form.email.errors && Form.email.errors.email">
+                  <div class="invalid-feedback d-block text-right">Porfavor ingrese un
+                    email válido
+                  </div>
+                </div>
+                <div *ngIf="Submitted && Form.email.errors">
+                  <div *ngIf="Form.email.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus24 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-lock-circle"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Contraseña" type="password" (blur)="Focus24 = false"
+                    (focus)="Focus24 = true" formControlName="contrasena" />
+                </div>
+                <div *ngIf="Submitted && Form.contrasena.errors">
+                  <div *ngIf="Form.contrasena.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus25 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-lock-circle"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Confirme la contraseña" type="password"
+                    (blur)="Focus25 = false" (focus)="Focus25 = true" formControlName="contrasena_confirm" />
+                </div>
+                <div *ngIf="Submitted && Form.contrasena_confirm.errors">
+                  <div *ngIf="Form.contrasena_confirm.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+              </form>
+              <button class="btn btn-danger btn-round btn-lg" (click)="submit()">
+                Actualizar Cliente
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="register-bg"></div>
+  </div>
+</div>
