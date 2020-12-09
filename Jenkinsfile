@@ -1,4 +1,5 @@
 #!/usr/bin/env groovy
+/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
     stages {
@@ -6,6 +7,12 @@ pipeline {
             steps {
                 echo 'Installing...'
                 sh 'npm i'
+            }
+        }
+        stage('Lint') {
+            steps {
+                echo 'Checking lint. '
+                sh 'npm run lint'
             }
         }
         stage('Test') {
