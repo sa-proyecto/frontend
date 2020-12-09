@@ -285,7 +285,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
         setTimeout(() => this.alerta = res.message, 0);
       }
     }, (err) => {
-      setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
+      setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
     });
   }
 
@@ -303,7 +303,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
         setTimeout(() => this.alerta = res.message, 0);
       }
     }, (err) => {
-      setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
+      setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
     });
   }
 

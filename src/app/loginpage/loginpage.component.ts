@@ -64,7 +64,7 @@ export class LoginpageComponent implements OnInit, OnDestroy {
     this.authService.login(this.loginForm.value)
       .subscribe((res) => {
         if (res.status === 'success') {
-          if (this.loginForm.value.tipousuario === 1) {
+          if (Number(this.loginForm.value.tipousuario) === 1) {
             sessionStorage.setItem('apellido', res.data.apellido);
             sessionStorage.setItem('celular', res.data.celular);
             sessionStorage.setItem('contrasena', res.data.contrasena);
@@ -88,7 +88,8 @@ export class LoginpageComponent implements OnInit, OnDestroy {
           setTimeout(() => this.alerta = res.message, 0);
         }
       }, (err) => {
-        setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
+        console.log(err);
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
       });
   }
 
