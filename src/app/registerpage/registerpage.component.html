@@ -8,88 +8,214 @@
           <div class="square square-8" id="square8"></div>
           <div class="card card-register">
             <div class="card-header">
-              <img
-                alt="Card image"
-                class="card-img"
-                src="assets/img/square1-red.png"
-              />
+              <img alt="Card image" class="card-img" src="assets/img/square1-red.png" />
 
-              <h4 class="card-title">Register</h4>
+              <h4 class="card-title">Registro</h4>
             </div>
-            <div class="card-body">
-              <form class="form">
-                <div
-                  class="input-group"
-                  [ngClass]="{ 'input-group-focus': focus === true }"
-                >
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="tim-icons icon-single-02"> </i>
-                    </div>
+            <!--  -->
+            <div class="card-header">
+              <tabset class="nav-tabs-primary">
+                <tab>
+                  <ng-template tabHeading>
+                    <i class="tim-icons icon-spaceship"></i> Proveedor
+                  </ng-template>
+                  <div class="card-body">
+                    <form class="form" [formGroup]="registerProveedorForm">
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus1 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-single-02"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Nombre de la empresa" type="text"
+                          (blur)="Focus1 = false" (focus)="Focus1 = true" formControlName="nombre_empresa" />
+                      </div>
+                      <div *ngIf="Submitted && fproveedor.nombre_empresa.errors">
+                        <div *ngIf="fproveedor.nombre_empresa.errors.required"
+                          class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus2 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-email-85"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Email" type="email" (blur)="Focus2 = false"
+                          (focus)="Focus2 = true" formControlName="email" />
+                      </div>
+                      <div *ngIf="fproveedor.email.errors && fproveedor.email.errors.email">
+                        <div class="invalid-feedback d-block text-right">Porfavor ingrese un email válido
+                        </div>
+                      </div>
+                      <div *ngIf="Submitted && fproveedor.email.errors">
+                        <div *ngIf="fproveedor.email.errors.required" class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus3 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-square-pin"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Dirección" type="text" (blur)="Focus3 = false"
+                          (focus)="Focus3 = true" formControlName="direccion" />
+                      </div>
+                      <div *ngIf="Submitted && fproveedor.direccion.errors">
+                        <div *ngIf="fproveedor.direccion.errors.required" class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus4 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-lock-circle"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Contraseña" type="password" (blur)="Focus4 = false"
+                          (focus)="Focus4 = true" formControlName="contrasena" />
+                      </div>
+                      <div *ngIf="Submitted && fproveedor.contrasena.errors">
+                        <div *ngIf="fproveedor.contrasena.errors.required" class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus5 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-lock-circle"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Confirme la contraseña" type="password"
+                          (blur)="Focus5 = false" (focus)="Focus5 = true" formControlName="contrasena_confirm" />
+                      </div>
+                      <div *ngIf="Submitted && fproveedor.contrasena_confirm.errors">
+                        <div *ngIf="fproveedor.contrasena_confirm.errors.required"
+                          class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                    </form>
                   </div>
-                  <input
-                    class="form-control"
-                    placeholder="Full Name"
-                    type="text"
-                    (blur)="focus = false"
-                    (focus)="focus = true"
-                  />
-                </div>
-                <div
-                  class="input-group"
-                  [ngClass]="{ 'input-group-focus': focus1 === true }"
-                >
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="tim-icons icon-email-85"> </i>
-                    </div>
+                  <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}</div>
+                  <div class="card-footer">
+                    <button class="btn btn-danger btn-round btn-lg" (click)="proveedorRegister()">
+                      Registrar Proveedor
+                    </button>
                   </div>
-                  <input
-                    class="form-control"
-                    placeholder="Email"
-                    type="text"
-                    (blur)="focus1 = false"
-                    (focus)="focus1 = true"
-                  />
-                </div>
-                <div
-                  class="input-group"
-                  [ngClass]="{ 'input-group-focus': focus2 === true }"
-                >
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="tim-icons icon-lock-circle"> </i>
-                    </div>
+                </tab>
+                <tab>
+                  <ng-template tabHeading>
+                    <i class="tim-icons icon-spaceship"></i> Cliente
+                  </ng-template>
+                  <!--  -->
+                  <div class="card-body">
+                    <form class="form" [formGroup]="registerClienteForm">
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus21 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-single-02"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Nombre" type="text" (blur)="Focus21 = false"
+                          (focus)="Focus21 = true" formControlName="nombre" />
+                      </div>
+                      <div *ngIf="Submitted && fcliente.nombre.errors">
+                        <div *ngIf="fcliente.nombre.errors.required"
+                          class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus22 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-single-02"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Apellido" type="text" (blur)="Focus22 = false"
+                          (focus)="Focus22 = true" formControlName="apellido" />
+                      </div>
+                      <div *ngIf="Submitted && fcliente.apellido.errors">
+                        <div *ngIf="fcliente.apellido.errors.required" class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus26 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-tablet-2"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Celular" type="number" (blur)="Focus26 = false"
+                          (focus)="Focus26 = true" formControlName="celular" />
+                      </div>
+                      <div *ngIf="Submitted && fcliente.celular.errors">
+                        <div *ngIf="fcliente.celular.errors.required" class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus23 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-email-85"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Email" type="email" (blur)="Focus23 = false"
+                          (focus)="Focus23 = true" formControlName="email" />
+                      </div>
+                      <div *ngIf="fcliente.email.errors && fcliente.email.errors.email">
+                        <div class="invalid-feedback d-block text-right">Porfavor ingrese un email válido
+                        </div>
+                      </div>
+                      <div *ngIf="Submitted && fcliente.email.errors">
+                        <div *ngIf="fcliente.email.errors.required" class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus24 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-lock-circle"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Contraseña" type="password" (blur)="Focus24 = false"
+                          (focus)="Focus24 = true" formControlName="contrasena" />
+                      </div>
+                      <div *ngIf="Submitted && fcliente.contrasena.errors">
+                        <div *ngIf="fcliente.contrasena.errors.required" class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus25 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-lock-circle"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Confirme la contraseña" type="password"
+                          (blur)="Focus25 = false" (focus)="Focus25 = true" formControlName="contrasena_confirm" />
+                      </div>
+                      <div *ngIf="Submitted && fcliente.contrasena_confirm.errors">
+                        <div *ngIf="fcliente.contrasena_confirm.errors.required"
+                          class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+                    </form>
                   </div>
-                  <input
-                    class="form-control"
-                    placeholder="Password"
-                    type="text"
-                    (blur)="focus2 = false"
-                    (focus)="focus2 = true"
-                  />
-                </div>
-                <div class="form-check text-left">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" />
+                  <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}</div>
+                  <div class="card-footer">
+                    <button class="btn btn-danger btn-round btn-lg" (click)="clienteRegister()">
+                      Registrar Cliente
+                    </button>
+                  </div>
+                  <!--  -->
+                </tab>
+              </tabset>
+            </div>
 
-                    <span class="form-check-sign"> </span> I agree to the
-                    <a href="javascript:void(0)" class="text-danger">
-                      terms and conditions
-                    </a>
-                    .
-                  </label>
-                </div>
-              </form>
-            </div>
-            <div class="card-footer">
-              <a
-                class="btn btn-danger btn-round btn-lg"
-                href="javascript:void(0)"
-              >
-                Get Started
-              </a>
-            </div>
           </div>
         </div>
       </div>
