@@ -89,7 +89,8 @@ export class ModificarClienteComponent implements OnInit {
       celular: ['',
         Validators.compose([
           Validators.required,
-          Validators.max(8)
+          Validators.maxLength(8),
+          Validators.minLength(8)
         ]),
       ],
       email: ['',
@@ -138,7 +139,7 @@ export class ModificarClienteComponent implements OnInit {
           setTimeout(() => this.alerta = res.message, 0);
         }
       }, (err) => {
-        setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
       });
   }
 
