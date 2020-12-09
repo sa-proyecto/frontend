@@ -2,7 +2,6 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -56,10 +55,6 @@ import { HttpClientModule } from '@angular/common/http';
     BsDatepickerModule.forRoot(),
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
-    RouterModule.forRoot([
-      { path: 'login', component: LoginpageComponent },
-      { path: '**', redirectTo: 'inicio', pathMatch: 'full' }
-    ])
   ],
   providers: [
     AuthService,
