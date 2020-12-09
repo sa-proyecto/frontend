@@ -36,6 +36,7 @@ export class LoginpageComponent implements OnInit, OnDestroy {
       email: ['',
         Validators.compose([
           Validators.required,
+          Validators.email,
         ]),
       ],
       contrasena: ['',

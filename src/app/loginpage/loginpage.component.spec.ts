@@ -31,4 +31,28 @@ describe('ModificarProveedorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('formulario invalido cuando esta vacio', () => {
+    expect(component.loginForm.valid).toBeFalsy();
+  });
+
+  it('validar formulario', () => {
+    component.loginForm.patchValue({
+      email: 'a@a',
+      contrasena: 'a',
+      tipousuario: 1
+    });
+    expect(component.loginForm.valid).toBeTruthy();
+  });
+
+  it('validar formulario correo correcto', () => {
+    component.loginForm.patchValue({
+      email: 'a',
+      contrasena: 'a',
+      tipousuario: 1
+    });
+    const email = component.loginForm.controls.email;
+    const errors = email.errors;
+    expect(errors.email).toBeTruthy();
+  });
 });
