@@ -258,8 +258,8 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
       celular: ['',
         Validators.compose([
           Validators.required,
-          Validators.max(8),
-          Validators.min(8)
+          Validators.maxLength(8),
+          Validators.minLength(8)
         ]),
       ],
       contrasena_confirm: ['',

@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { RegisterpageComponent } from './registerpage.component';
 
-describe('ModificarProveedorComponent', () => {
+describe('RegisterpageComponent', () => {
   let component: RegisterpageComponent;
   let fixture: ComponentFixture<RegisterpageComponent>;
 
@@ -73,4 +73,78 @@ describe('ModificarProveedorComponent', () => {
     console.log(errors);
     expect(errors.mustMatch).toBeTruthy();
   });
+
+  it('formulario de proveedor invalido cuando esta vacio', () => {
+    expect(component.registerClienteForm.valid).toBeFalsy();
+  });
+
+  it('validar formulario cliente', () => {
+    component.registerClienteForm.patchValue({
+      nombre: 'a',
+      apellido: 'a',
+      celular: '12345678',
+      email: 'a@a',
+      contrasena: 'a',
+      contrasena_confirm: 'a'
+    });
+    expect(component.registerClienteForm.valid).toBeTruthy();
+  });
+
+  it('validar formulario celular correcto', () => {
+    component.registerClienteForm.patchValue({
+      nombre: 'a',
+      apellido: 'a',
+      celular: '1234567',
+      email: 'a@a',
+      contrasena: 'a',
+      contrasena_confirm: 'a'
+    });
+    const celular = component.registerClienteForm.controls.celular;
+    const errors = celular.errors;
+    expect(errors.minlength).toBeTruthy();
+  });
+
+  it('validar formulario celular correcto', () => {
+    component.registerClienteForm.patchValue({
+      nombre: 'a',
+      apellido: 'a',
+      celular: '123456789',
+      email: 'a@a',
+      contrasena: 'a',
+      contrasena_confirm: 'a'
+    });
+    const celular = component.registerClienteForm.controls.celular;
+    const errors = celular.errors;
+    expect(errors.maxlength).toBeTruthy();
+  });
+
+  it('validar formulario contrasena correcto', () => {
+    component.registerClienteForm.patchValue({
+      nombre: 'a',
+      apellido: 'a',
+      celular: '12345678',
+      email: 'a@a',
+      contrasena: 'a',
+      contrasena_confirm: 'b'
+    });
+    const contrasena_confirm = component.registerClienteForm.controls.contrasena_confirm;
+    const errors = contrasena_confirm.errors;
+    console.log(errors);
+    expect(errors.mustMatch).toBeTruthy();
+  });
+
+  it('validar formulario correo correcto', () => {
+    component.registerClienteForm.patchValue({
+      nombre: 'a',
+      apellido: 'a',
+      celular: '12345678',
+      email: 'a',
+      contrasena: 'a',
+      contrasena_confirm: 'a'
+    });
+    const email = component.registerClienteForm.controls.email;
+    const errors = email.errors;
+    expect(errors.email).toBeTruthy();
+  });
+
 });
