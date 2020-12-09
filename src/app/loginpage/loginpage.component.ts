@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loginpage',
-  templateUrl: 'loginpage.component.html',
-  styleUrls: ['./loginpage.component.scss']
+  templateUrl: 'loginpage.component.html'
 })
 export class LoginpageComponent implements OnInit, OnDestroy {
   focus: boolean;
@@ -61,17 +60,16 @@ export class LoginpageComponent implements OnInit, OnDestroy {
     if (!this.loginForm.valid) {
       return;
     }
-    console.log(this.loginForm.value)
     this.authService.login(this.loginForm.value)
       .subscribe((res) => {
-        if (res.data.status === 'success') {
+        if (res.status === 'success') {
           sessionStorage.setItem('userid', res.data);
           this.router.navigate([''])
         } else {
-          setTimeout(() => this.alerta = 'Alerta: credenciales no validas', 0);
+          setTimeout(() => this.alerta = res.message, 0);
         }
       }, (err) => {
-        setTimeout(() => this.alerta = 'Error: ' + err.error.mensaje, 0);
+        setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
       });
   }
 

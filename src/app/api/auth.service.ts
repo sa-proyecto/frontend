@@ -22,4 +22,12 @@ export class AuthService {
     return this.httpClient.post<ResponseObject>(httpAddress + '/login', loginData, httpOptions);
   }
 
+  proveedorRegister(registerData: {}): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/crearProveedor', registerData, httpOptions);
+  }
+
+  clienteRegister(registerData: {}): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/crearCliente', registerData, httpOptions);
+  }
+
 }
