@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CategoriaComponent } from './categoria/categoria.component';
 
 
 import { LoginpageComponent } from './loginpage/loginpage.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginpageComponent, pathMatch: 'full' },
   { path: 'modificar-cliente', component: ModificarClienteComponent, pathMatch: 'full' },
   { path: 'modificar-proveedor', component: ModificarProveedorComponent, pathMatch: 'full' },
+  { path: 'categoria', component: CategoriaComponent, pathMatch: 'full' },
   { path: 'register', component: RegisterpageComponent, pathMatch: 'full' },
   // { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
