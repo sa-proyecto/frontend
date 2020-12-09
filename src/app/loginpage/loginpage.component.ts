@@ -63,20 +63,24 @@ export class LoginpageComponent implements OnInit, OnDestroy {
     this.authService.login(this.loginForm.value)
       .subscribe((res) => {
         if (res.status === 'success') {
-          sessionStorage.setItem('apellido', res.data.apellido);
-          sessionStorage.setItem('celular', res.data.celular);
-          sessionStorage.setItem('contrasena', res.data.contrasena);
-          sessionStorage.setItem('email', res.data.email);
-          sessionStorage.setItem('foto', res.data.foto);
-          sessionStorage.setItem('id_cliente', res.data.id_cliente);
-          sessionStorage.setItem('nombre', res.data.nombre);
-          sessionStorage.setItem('tarjetas', res.data.tarjetas.length);
-          for (let index = 0; index < res.data.tarjetas.length; index++) {
-            const tarjeta = res.data.tarjetas[index];
-            sessionStorage.setItem(index + 'estado', tarjeta.estado);
-            sessionStorage.setItem(index + 'fecha_vencimiento', tarjeta.fecha_vencimiento);
-            sessionStorage.setItem(index + 'numero_tarjeta', tarjeta.numero_tarjeta);
-            sessionStorage.setItem(index + 'pin', tarjeta.pin);
+          if (this.loginForm.value.tipousuario === 1) {
+            sessionStorage.setItem('apellido', res.data.apellido);
+            sessionStorage.setItem('celular', res.data.celular);
+            sessionStorage.setItem('contrasena', res.data.contrasena);
+            sessionStorage.setItem('email', res.data.email);
+            sessionStorage.setItem('foto', res.data.foto);
+            sessionStorage.setItem('id_cliente', res.data.id_cliente);
+            sessionStorage.setItem('nombre', res.data.nombre);
+            sessionStorage.setItem('tarjetas', res.data.tarjetas.length);
+            for (let index = 0; index < res.data.tarjetas.length; index++) {
+              const tarjeta = res.data.tarjetas[index];
+              sessionStorage.setItem(index + 'estado', tarjeta.estado);
+              sessionStorage.setItem(index + 'fecha_vencimiento', tarjeta.fecha_vencimiento);
+              sessionStorage.setItem(index + 'numero_tarjeta', tarjeta.numero_tarjeta);
+              sessionStorage.setItem(index + 'pin', tarjeta.pin);
+            }
+          } else {
+            sessionStorage.setItem('id_proveedor', res.data);
           }
           this.router.navigate([''])
         } else {
