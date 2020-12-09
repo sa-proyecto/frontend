@@ -257,7 +257,9 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
       ],
       celular: ['',
         Validators.compose([
-          Validators.required
+          Validators.required,
+          Validators.maxLength(8),
+          Validators.minLength(8)
         ]),
       ],
       contrasena_confirm: ['',
@@ -283,7 +285,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
         setTimeout(() => this.alerta = res.message, 0);
       }
     }, (err) => {
-      setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
+      setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
     });
   }
 
@@ -301,7 +303,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
         setTimeout(() => this.alerta = res.message, 0);
       }
     }, (err) => {
-      setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
+      setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
     });
   }
 

@@ -3,11 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ModificarProveedorComponent } from './modificar-proveedor.component';
+import { LoginpageComponent } from './loginpage.component';
 
 describe('ModificarProveedorComponent', () => {
-  let component: ModificarProveedorComponent;
-  let fixture: ComponentFixture<ModificarProveedorComponent>;
+  let component: LoginpageComponent;
+  let fixture: ComponentFixture<LoginpageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,13 +17,13 @@ describe('ModificarProveedorComponent', () => {
         RouterTestingModule.withRoutes([]),
 
       ],
-      declarations: [ ModificarProveedorComponent ]
+      declarations: [ LoginpageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModificarProveedorComponent);
+    fixture = TestBed.createComponent(LoginpageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -33,33 +33,26 @@ describe('ModificarProveedorComponent', () => {
   });
 
   it('formulario invalido cuando esta vacio', () => {
-    expect(component.providerDataForm.valid).toBeFalsy();
+    expect(component.loginForm.valid).toBeFalsy();
   });
 
   it('validar formulario', () => {
-    component.providerDataForm.patchValue({
-      nombre: 'a',
+    component.loginForm.patchValue({
       email: 'a@a',
-      direccion: 'a',
       contrasena: 'a',
-      contrasena_confirm: 'a',
-      id: '1'
+      tipousuario: 1
     });
-    expect(component.providerDataForm.valid).toBeTruthy();
+    expect(component.loginForm.valid).toBeTruthy();
   });
 
   it('validar formulario correo correcto', () => {
-    component.providerDataForm.patchValue({
-      nombre: 'a',
+    component.loginForm.patchValue({
       email: 'a',
-      direccion: 'a',
       contrasena: 'a',
-      contrasena_confirm: 'a',
-      id: '1'
+      tipousuario: 1
     });
-    const email = component.providerDataForm.controls.email;
+    const email = component.loginForm.controls.email;
     const errors = email.errors;
     expect(errors.email).toBeTruthy();
   });
-
 });
