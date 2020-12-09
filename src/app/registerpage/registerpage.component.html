@@ -158,6 +158,12 @@
                         <div *ngIf="fcliente.celular.errors.required" class="invalid-feedback d-block text-right">
                           Requerido
                         </div>
+                        <div *ngIf="fcliente.celular.errors.maxlength" class="invalid-feedback d-block text-right">
+                          Debe de ser de 8 digitos
+                        </div>
+                        <div *ngIf="fcliente.celular.errors.minlength" class="invalid-feedback d-block text-right">
+                          Debe de ser de 8 digitos
+                        </div>
                       </div>
                       <div class="input-group" [ngClass]="{ 'input-group-focus': Focus23 === true }">
                         <div class="input-group-prepend">

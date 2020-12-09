@@ -257,7 +257,9 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
       ],
       celular: ['',
         Validators.compose([
-          Validators.required
+          Validators.required,
+          Validators.max(8),
+          Validators.min(8)
         ]),
       ],
       contrasena_confirm: ['',

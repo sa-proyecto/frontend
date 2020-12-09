@@ -47,12 +47,18 @@
                       <i class="tim-icons icon-tablet-2"> </i>
                     </div>
                   </div>
-                  <input class="form-control" placeholder="Celular" type="number" (blur)="Focus26 = false"
+                  <input class="form-control" placeholder="Celular" type="text" (blur)="Focus26 = false"
                     (focus)="Focus26 = true" formControlName="celular" />
                 </div>
                 <div *ngIf="Submitted && Form.celular.errors">
                   <div *ngIf="Form.celular.errors.required" class="invalid-feedback d-block text-right">
                     Requerido
+                  </div>
+                  <div *ngIf="Form.celular.errors.maxlength" class="invalid-feedback d-block text-right">
+                    Debe de ser de 8 digitos
+                  </div>
+                  <div *ngIf="Form.celular.errors.minlength" class="invalid-feedback d-block text-right">
+                    Debe de ser de 8 digitos
                   </div>
                 </div>
                 <div class="input-group" [ngClass]="{ 'input-group-focus': Focus23 === true }">
@@ -100,6 +106,9 @@
                 <div *ngIf="Submitted && Form.contrasena_confirm.errors">
                   <div *ngIf="Form.contrasena_confirm.errors.required" class="invalid-feedback d-block text-right">
                     Requerido
+                  </div>
+                  <div *ngIf="Form.contrasena_confirm.errors.mustMatch" class="invalid-feedback d-block text-right">
+                    Constraseñas no coinciden
                   </div>
                 </div>
               </form>

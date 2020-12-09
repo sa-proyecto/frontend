@@ -89,7 +89,8 @@ export class ModificarClienteComponent implements OnInit {
       celular: ['',
         Validators.compose([
           Validators.required,
-          Validators.max(8)
+          Validators.maxLength(8),
+          Validators.minLength(8)
         ]),
       ],
       email: ['',
