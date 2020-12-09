@@ -96,6 +96,10 @@
                           class="invalid-feedback d-block text-right">
                           Requerido
                         </div>
+                        <div *ngIf="fproveedor.contrasena_confirm.errors.mustMatch"
+                          class="invalid-feedback d-block text-right">
+                          Constraseñas no coinciden
+                        </div>
                       </div>
                     </form>
                   </div>
@@ -122,9 +126,8 @@
                         <input class="form-control" placeholder="Nombre" type="text" (blur)="Focus21 = false"
                           (focus)="Focus21 = true" formControlName="nombre" />
                       </div>
-                      <div *ngIf="Submitted && fcliente.nombre.errors">
-                        <div *ngIf="fcliente.nombre.errors.required"
-                          class="invalid-feedback d-block text-right">
+                      <div *ngIf="Submitted2 && fcliente.nombre.errors">
+                        <div *ngIf="fcliente.nombre.errors.required" class="invalid-feedback d-block text-right">
                           Requerido
                         </div>
                       </div>
@@ -137,7 +140,7 @@
                         <input class="form-control" placeholder="Apellido" type="text" (blur)="Focus22 = false"
                           (focus)="Focus22 = true" formControlName="apellido" />
                       </div>
-                      <div *ngIf="Submitted && fcliente.apellido.errors">
+                      <div *ngIf="Submitted2 && fcliente.apellido.errors">
                         <div *ngIf="fcliente.apellido.errors.required" class="invalid-feedback d-block text-right">
                           Requerido
                         </div>
@@ -151,7 +154,7 @@
                         <input class="form-control" placeholder="Celular" type="number" (blur)="Focus26 = false"
                           (focus)="Focus26 = true" formControlName="celular" />
                       </div>
-                      <div *ngIf="Submitted && fcliente.celular.errors">
+                      <div *ngIf="Submitted2 && fcliente.celular.errors">
                         <div *ngIf="fcliente.celular.errors.required" class="invalid-feedback d-block text-right">
                           Requerido
                         </div>
@@ -169,7 +172,7 @@
                         <div class="invalid-feedback d-block text-right">Porfavor ingrese un email válido
                         </div>
                       </div>
-                      <div *ngIf="Submitted && fcliente.email.errors">
+                      <div *ngIf="Submitted2 && fcliente.email.errors">
                         <div *ngIf="fcliente.email.errors.required" class="invalid-feedback d-block text-right">
                           Requerido
                         </div>
@@ -183,7 +186,7 @@
                         <input class="form-control" placeholder="Contraseña" type="password" (blur)="Focus24 = false"
                           (focus)="Focus24 = true" formControlName="contrasena" />
                       </div>
-                      <div *ngIf="Submitted && fcliente.contrasena.errors">
+                      <div *ngIf="Submitted2 && fcliente.contrasena.errors">
                         <div *ngIf="fcliente.contrasena.errors.required" class="invalid-feedback d-block text-right">
                           Requerido
                         </div>
@@ -197,10 +200,14 @@
                         <input class="form-control" placeholder="Confirme la contraseña" type="password"
                           (blur)="Focus25 = false" (focus)="Focus25 = true" formControlName="contrasena_confirm" />
                       </div>
-                      <div *ngIf="Submitted && fcliente.contrasena_confirm.errors">
+                      <div *ngIf="Submitted2 && fcliente.contrasena_confirm.errors">
                         <div *ngIf="fcliente.contrasena_confirm.errors.required"
                           class="invalid-feedback d-block text-right">
                           Requerido
+                        </div>
+                        <div *ngIf="fcliente.contrasena_confirm.errors.mustMatch"
+                          class="invalid-feedback d-block text-right">
+                          Constraseñas no coinciden
                         </div>
                       </div>
                     </form>

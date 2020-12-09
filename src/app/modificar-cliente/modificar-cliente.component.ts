@@ -18,6 +18,7 @@ export class ModificarClienteComponent implements OnInit {
   private focus5: boolean;
   private sumbitted = false;
   clientDataForm: FormGroup;
+  alerta = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -107,6 +108,8 @@ export class ModificarClienteComponent implements OnInit {
           Validators.required,
         ]),
       ],
+      idcliente: [''],
+      foto: [''],
     }, {
       validator: MustMatch('contrasena', 'contrasena_confirm'),
     });
@@ -114,19 +117,29 @@ export class ModificarClienteComponent implements OnInit {
 
   submit() {
     this.sumbitted = true;
+    this.clientDataForm.patchValue({
+      idcliente: sessionStorage.getItem('id_cliente'),
+      foto: sessionStorage.getItem('foto'),
+    });
     if (!this.clientDataForm.valid) {
       return;
     }
-    // this.authService.clienteUpdate(this.clientDataForm.value)
-    // .subscribe((res) => {
-    //   if (res.status === 'success') {
-    //     this.router.navigate(['']); // Ir al inicio
-    //   } else {
-    //     // Mostrar Error
-    //   }
-    // }, (err) => {
-    //   // Mostrar Error
-    // });
+    this.authService.clienteUpdate(this.clientDataForm.value)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          sessionStorage.setItem('nombre', this.clientDataForm.value.nombre);
+          sessionStorage.setItem('apellido', this.clientDataForm.value.apellido);
+          sessionStorage.setItem('email', this.clientDataForm.value.email);
+          sessionStorage.setItem('contrasena', this.clientDataForm.value.contrasena);
+          sessionStorage.setItem('foto', this.clientDataForm.value.foto);
+          sessionStorage.setItem('celular', this.clientDataForm.value.celular);
+          this.router.navigate(['']); // Ir al inicio
+        } else {
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
+      });
   }
 
 }
