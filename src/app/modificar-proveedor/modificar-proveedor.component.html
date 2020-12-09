@@ -20,10 +20,10 @@
                     </div>
                   </div>
                   <input class="form-control" placeholder="Nombre de la empresa" type="text" (blur)="Focus1 = false"
-                    (focus)="Focus1 = true" formControlName="nombre_empresa" />
+                    (focus)="Focus1 = true" formControlName="nombre" />
                 </div>
-                <div *ngIf="Submitted && Form.nombre_empresa.errors">
-                  <div *ngIf="Form.nombre_empresa.errors.required" class="invalid-feedback d-block text-right">
+                <div *ngIf="Submitted && Form.nombre.errors">
+                  <div *ngIf="Form.nombre.errors.required" class="invalid-feedback d-block text-right">
                     Requerido
                   </div>
                 </div>
@@ -89,6 +89,7 @@
                   </div>
                 </div>
               </form>
+              <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}</div>
               <button class="btn btn-danger btn-round btn-lg" (click)="submit()">
                 Actualizar Proveedor
               </button>

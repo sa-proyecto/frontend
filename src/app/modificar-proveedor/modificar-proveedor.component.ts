@@ -17,6 +17,7 @@ export class ModificarProveedorComponent implements OnInit {
   private focus5: boolean;
   private sumbitted = false;
   providerDataForm: FormGroup;
+  alerta = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -75,7 +76,7 @@ export class ModificarProveedorComponent implements OnInit {
 
   ngOnInit(): void {
     this.providerDataForm = this.formBuilder.group({
-      nombre_empresa: ['',
+      nombre: ['',
         Validators.compose([
           Validators.required,
         ]),
@@ -101,6 +102,7 @@ export class ModificarProveedorComponent implements OnInit {
           Validators.required,
         ]),
       ],
+      id: [''],
     }, {
       validator: MustMatch('contrasena', 'contrasena_confirm'),
     });
@@ -108,19 +110,22 @@ export class ModificarProveedorComponent implements OnInit {
 
   submit() {
     this.sumbitted = true;
+    this.providerDataForm.patchValue({
+      id: sessionStorage.getItem('id_proveedor'),
+    });
     if (!this.providerDataForm.valid) {
       return;
     }
-    // this.authService.providerUpdate(this.providerDataForm.value)
-    // .subscribe((res) => {
-    //   if (res.status === 'success') {
-    //     this.router.navigate(['']); // Ir al inicio
-    //   } else {
-    //     // Mostrar Error
-    //   }
-    // }, (err) => {
-    //   // Mostrar Error
-    // });
+    this.authService.proveedorUpdate(this.providerDataForm.value)
+    .subscribe((res) => {
+      if (res.status === 'success') {
+        this.router.navigate(['']); // Ir al inicio
+      } else {
+        setTimeout(() => this.alerta = res.message, 0);
+      }
+    }, (err) => {
+      setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
+    });
   }
 
 }
