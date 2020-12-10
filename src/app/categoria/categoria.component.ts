@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../api/auth.service';
+import { ProductService } from '../api/product.service';
 
 @Component({
   selector: 'app-categoria',
@@ -16,7 +16,7 @@ export class CategoriaComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private productService: ProductService,
+    private productService: ProductService,
     private router: Router,
   ) { }
 
@@ -51,17 +51,18 @@ export class CategoriaComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    // this.productService.addCategory(this.form.value)
-    //   .subscribe((res) => {
-    //     if (res.status === 'success') {
-    //       // Accion de éxito
-    //     } else {
-    //       // Accion de fallo
-    //       setTimeout(() => this.alerta = res.message, 0);
-    //     }
-    //   }, (err) => {
-    //     // Accion de error
-    //     setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
-    //   });
+    this.productService.addCategory(this.form.value)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          // Accion de éxito
+          this.router.navigate(['']); // Ir al inicio
+        } else {
+          // Accion de fallo
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        // Accion de error
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+      });
   }
 }

@@ -87,6 +87,9 @@
                   <div *ngIf="Form.contrasena_confirm.errors.required" class="invalid-feedback d-block text-right">
                     Requerido
                   </div>
+                  <div *ngIf="Form.contrasena_confirm.errors.mustMatch" class="invalid-feedback d-block text-right">
+                    Constraseñas no coinciden
+                  </div>
                 </div>
               </form>
               <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}</div>
