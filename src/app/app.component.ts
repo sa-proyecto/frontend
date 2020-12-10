@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
     }
   }
   ngOnInit() {
+    // tslint:disable-next-line: deprecation
     this.onWindowScroll(event);
   }
 }

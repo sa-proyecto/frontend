@@ -28,6 +28,7 @@ import { AuthService } from './api/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ModificarClienteComponent } from './modificar-cliente/modificar-cliente.component';
 import { ModificarProveedorComponent } from './modificar-proveedor/modificar-proveedor.component';
+import { CategoriaComponent } from './categoria/categoria.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ModificarProveedorComponent } from './modificar-proveedor/modificar-pro
     RegisterpageComponent,
     ModificarClienteComponent,
     ModificarProveedorComponent,
+    CategoriaComponent,
   ],
   imports: [
     CommonModule,

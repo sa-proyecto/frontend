@@ -15,7 +15,6 @@ describe('ModificarProveedorComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([]),
-
       ],
       declarations: [ LoginpageComponent ]
     })
