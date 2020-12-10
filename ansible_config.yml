@@ -6,7 +6,12 @@
       apt:
         name: "apache2"
         state: "present"
-    - name: star apache server
+    - name: Enable rewrite module
+      apache2_module:
+        name: rewrite
+        state: present
+        ignore_configcheck: True
+    - name: start apache server
       service:
         name: apache2
         state: started
