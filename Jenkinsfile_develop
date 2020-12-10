@@ -1,0 +1,25 @@
+#!/usr/bin/env groovy
+/* groovylint-disable-next-line CompileStatic */
+pipeline {
+    agent any
+    stages {
+        stage('Install') {
+            steps {
+                echo 'Installing...'
+                sh 'npm i'
+            }
+        }
+        stage('Lint') {
+            steps {
+                echo 'Checking lint. '
+                sh 'npm run lint'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                sh 'npm run test -- --watch=false --browsers=ChromeHeadless'
+            }
+        }
+    }
+}

@@ -30,4 +30,21 @@ describe('ProductoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('formulario invalido cuando esta vacio', () => {
+    expect(component.form.valid).toBeFalsy();
+  });
+
+  it('validar formulario', () => {
+    component.form.patchValue({
+      nombre: 'a',
+      descripcion: 'a',
+      stock: '12345678',
+      precio: '1111',
+      categoria: '1',
+      proveedor: '1',
+      foto: 'imagen.png'
+    });
+    expect(component.form.valid).toBeTruthy();
+  });
 });
