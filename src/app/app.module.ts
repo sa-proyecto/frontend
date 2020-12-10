@@ -29,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModificarClienteComponent } from './modificar-cliente/modificar-cliente.component';
 import { ModificarProveedorComponent } from './modificar-proveedor/modificar-proveedor.component';
 import { CategoriaComponent } from './categoria/categoria.component';
+import { ProductoComponent } from './producto/producto.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { CategoriaComponent } from './categoria/categoria.component';
     ModificarClienteComponent,
     ModificarProveedorComponent,
     CategoriaComponent,
+    ProductoComponent,
   ],
   imports: [
     CommonModule,

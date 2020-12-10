@@ -1,0 +1,104 @@
+<div class="wrapper">
+  <div class="page-header">
+    <div class="page-header-image"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-12 mx-auto">
+          <div class="square square-7" id="square7"></div>
+          <div class="square square-8" id="square8"></div>
+          <div class="card card-nav-tabs text-center">
+            <div class="card-header card-header-primary">
+              <h1 class="card-title">{{Form.nombre.value}}</h1>
+            </div>
+            <!--  -->
+            <div class="card-body">
+              <form class="form" [formGroup]="form">
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus1 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-bag-16"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Nombre" type="text" (blur)="Focus1 = false"
+                    (focus)="Focus1 = true" formControlName="nombre" />
+                </div>
+                <div *ngIf="Submitted && Form.nombre.errors">
+                  <div *ngIf="Form.nombre.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus2 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-single-copy-04"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Descripcion" type="text" (blur)="Focus2 = false"
+                    (focus)="Focus2 = true" formControlName="descripcion" />
+                </div>
+                <div *ngIf="Submitted && Form.descripcion.errors">
+                  <div *ngIf="Form.descripcion.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus3 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-simple-add"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Stock" type="number" (blur)="Focus3 = false"
+                    (focus)="Focus3 = true" formControlName="stock" />
+                </div>
+                <div *ngIf="Submitted && Form.stock.errors">
+                  <div *ngIf="Form.stock.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus4 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-coins"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Precio" type="number" (blur)="Focus4 = false"
+                    (focus)="Focus4 = true" formControlName="precio" />
+                </div>
+                <div *ngIf="Submitted && Form.precio.errors">
+                  <div *ngIf="Form.precio.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <select class="form-control" placeholder="Tipo usuario" type="number" (blur)="Focus5 = false"
+                  (focus)="Focus5 = true" formControlName="categoria">
+                  <option value="" disabled selected hidden>Seleccione la categoría</option>
+                  <option *ngFor="let cat of Categorias" [value]="cat.id">{{cat.text}}</option>
+                </select>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus6 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-image-02"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Imagen" type="text" (blur)="Focus6 = false"
+                    (focus)="Focus6 = true" formControlName="foto" />
+                </div>
+                <div *ngIf="Submitted && Form.foto.errors">
+                  <div *ngIf="Form.foto.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+              </form>
+              <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
+              </div>
+              <button class="btn btn-danger btn-round btn-lg" (click)="submit()">
+                Actualizar Cliente
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="register-bg"></div>
+  </div>
+</div>
