@@ -2,16 +2,16 @@
 - hosts: webservers
   become: True
   tasks:
-    - name: install node
-      become: yes
-      shell: |
-        curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && sudo apt-get install -y nodejs
-    - name: instalar pm2
-      become: yes
-      shell: npm i -g pm2
-    - name: limpiar pm2
-      become: yes
-      shell: pm2 delete all
-    - name: iniciar pm2
-      become: yes
-      shell: pm2 start "npm run start -- --liveReload=false --watch=false --host=0.0.0.0 --disableHostCheck=true" --name "frontend"
+    - name: install packages
+      apt:
+        name: "apache2"
+        state: "present"
+    - name: star apache server
+      service:
+        name: apache2
+        state: started
+        enabled: True
+    - name: deploy static website
+      copy:
+        src: dist/
+        dest: /var/www/html
