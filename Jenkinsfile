@@ -33,5 +33,10 @@ pipeline {
                 sh 'pm2 restart "frontend"'
             }
         }
+        stage('Ansible') {
+            steps {
+                ansiblePlaybook installation: 'ansible2', inventory: 'dev.inv', playbook: 'ansible_config.yml'
+            }
+        }
     }
 }

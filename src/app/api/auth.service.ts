@@ -9,7 +9,7 @@ const httpOptions = {
   })
 };
 
-const httpAddress = 'http://34.122.172.226:3000';
+const httpAddress = 'http://35.192.186.31:3000';
 
 @Injectable({
   providedIn: 'root'
