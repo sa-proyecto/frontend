@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../api/auth.service';
+import { ProductService } from '../api/product.service';
 
 @Component({
   selector: 'app-producto',
@@ -15,13 +15,13 @@ export class ProductoComponent implements OnInit {
   private focus4: boolean;
   private focus5: boolean;
   private sumbitted = false;
-  private categorias: any;
+  private categorias: {id_categoria:number, nombre:string};
   form: FormGroup;
   alerta = '';
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private productService: ProductService,
     private router: Router,
   ) { }
 
@@ -115,19 +115,19 @@ export class ProductoComponent implements OnInit {
         ]),
       ],
     });
-    this.form.patchValue({ proveedor: localStorage.getItem('id_proveedor') });
-    // this.productService.getCategories()
-    //   .subscribe((res) => {
-    //     if (res.status === 'success') {
-    //       this.categorias = data;
-    //     } else {
-    //       // Accion de fallo
-    //       setTimeout(() => this.alerta = res.message, 0);
-    //     }
-    //   }, (err) => {
-    //     // Accion de error
-    //     setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
-    //   });
+    this.form.patchValue({ proveedor: sessionStorage.getItem('id_proveedor') });
+    this.productService.getCategories()
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          this.categorias = res.data;
+        } else {
+          // Accion de fallo
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        // Accion de error
+        setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
+      });
   }
 
   submit() {
@@ -135,17 +135,17 @@ export class ProductoComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    // this.productService.addProduct(this.form.value)
-    //   .subscribe((res) => {
-    //     if (res.status === 'success') {
-    //       // Accion de éxito
-    //     } else {
-    //       // Accion de fallo
-    //       setTimeout(() => this.alerta = res.message, 0);
-    //     }
-    //   }, (err) => {
-    //     // Accion de error
-    //     setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
-    //   });
+    this.productService.addProduct(this.form.value)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          // Accion de éxito
+        } else {
+          // Accion de fallo
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        // Accion de error
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+      });
   }
 }

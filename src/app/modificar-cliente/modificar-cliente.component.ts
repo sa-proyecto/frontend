@@ -109,19 +109,25 @@ export class ModificarClienteComponent implements OnInit {
           Validators.required,
         ]),
       ],
-      idcliente: [''],
-      foto: [''],
+      idcliente: ['',
+        Validators.compose([
+          Validators.required,
+        ]),],
+      foto: ['',
+        Validators.compose([
+          Validators.required,
+        ]),],
     }, {
       validator: MustMatch('contrasena', 'contrasena_confirm'),
+    });
+    this.clientDataForm.patchValue({
+      idcliente: sessionStorage.getItem('id_cliente'),
+      foto: sessionStorage.getItem('foto'),
     });
   }
 
   submit() {
     this.sumbitted = true;
-    this.clientDataForm.patchValue({
-      idcliente: sessionStorage.getItem('id_cliente'),
-      foto: sessionStorage.getItem('foto'),
-    });
     if (!this.clientDataForm.valid) {
       return;
     }

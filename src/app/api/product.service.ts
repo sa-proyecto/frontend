@@ -21,4 +21,12 @@ export class ProductService {
   addCategory(formData: {nombre: string}): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/crearCategoria', formData, httpOptions);
   }
+
+  getCategories(): Observable<ResponseObject> {
+    return this.httpClient.get<ResponseObject>(httpAddress + '/verCategorias', httpOptions);
+  }
+
+  addProduct(formData: {nombre: string}): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/crearProducto', formData, httpOptions);
+  }
 }
