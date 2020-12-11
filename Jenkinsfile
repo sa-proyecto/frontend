@@ -15,10 +15,16 @@ pipeline {
                 sh 'npm run lint'
             }
         }
-        stage('Test') {
+        stage('Unit Test') {
             steps {
-                echo 'Testing...'
+                echo 'Unit Testing...'
                 sh 'npm run test -- --watch=false --browsers=ChromeHeadless'
+            }
+        }
+        stage('Functional Test') {
+            steps {
+                echo 'Functional Testing...'
+                sh 'npm run e2e'
             }
         }
         stage('Build') {
