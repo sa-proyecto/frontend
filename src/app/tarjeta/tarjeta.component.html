@@ -1,0 +1,83 @@
+<div class="wrapper">
+    <div class="page-header">
+      <div class="page-header-image"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-12 mx-auto">
+            <div class="square square-7" id="square7"></div>
+            <div class="square square-8" id="square8"></div>
+            <div class="card card-nav-tabs text-center">
+              <div class="card-header card-header-primary">
+                <h1 class="card-title">Registro de tarjeta.</h1>
+              </div>
+              <!--  -->
+              <div class="card-body">
+                <form class="form" [formGroup]="form">
+                  <div class="input-group" [ngClass]="{ 'input-group-focus': Focus1 === true }">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="tim-icons icon-credit-card"> </i>
+                      </div>
+                    </div>
+                    <input class="form-control" placeholder="Numero de tarjeta" type="number" (blur)="Focus1 = false"
+                      (focus)="Focus1 = true" formControlName="numerotarjeta" />
+                  </div>
+                  <div *ngIf="Submitted && Form.numerotarjeta.errors">
+                    <div *ngIf="Form.numerotarjeta.errors.required" class="invalid-feedback d-block text-right">
+                      Requerido
+                    </div>
+                  </div>
+                  <div class="input-group" [ngClass]="{ 'input-group-focus': Focus2 === true }">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="tim-icons icon-key-25"> </i>
+                      </div>
+                    </div>
+                    <input class="form-control" placeholder="Pin" type="text" (blur)="Focus2 = false"
+                      (focus)="Focus2 = true" formControlName="pin" />
+                  </div>
+                  <div *ngIf="Submitted && Form.pin.errors">
+                    <div *ngIf="Form.pin.errors.required" class="invalid-feedback d-block text-right">
+                      Requerido
+                    </div>
+                    <div *ngIf="Form.pin.errors.minlength" class="invalid-feedback d-block text-right">
+                      Debe ingresar por lo menos 3 dígitos.
+                    </div>
+                    <div *ngIf="Form.pin.errors.maxlength" class="invalid-feedback d-block text-right">
+                      Debe de tener un máximo de 4 dígitos.
+                    </div>
+                  </div>
+                  <div class="input-group" [ngClass]="{ 'input-group-focus': Focus3 === true }">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="tim-icons icon-calendar-60"> </i>
+                      </div>
+                    </div>
+                    <input class="form-control" placeholder="Fecha de vencimiento" type="date" (blur)="Focus3 = false"
+                      (focus)="Focus3 = true" formControlName="fecha_vencimiento" />
+                  </div>
+                  <div *ngIf="Submitted && Form.fecha_vencimiento.errors">
+                    <div *ngIf="Form.fecha_vencimiento.errors.required" class="invalid-feedback d-block text-right">
+                      Requerido
+                    </div>
+                  </div>
+                  <select class="form-control" placeholder="Estado" type="number" (blur)="Focus5 = false"
+                    (focus)="Focus5 = true" formControlName="estado">
+                    <option value="" disabled selected hidden>Estado</option>
+                    <option value="0">Estado 0</option>
+                    <option value="1">Estado 1</option>
+                  </select>
+                </form>
+                <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
+                </div>
+                <button class="btn btn-danger btn-round btn-lg" (click)="submit()">
+                  Guardar Cambios
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="register-bg"></div>
+    </div>
+  </div>

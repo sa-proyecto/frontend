@@ -138,7 +138,8 @@ export class ProductoComponent implements OnInit {
     this.productService.addProduct(this.form.value)
       .subscribe((res) => {
         if (res.status === 'success') {
-          // Accion de éxito
+          this.form.reset();
+          this.sumbitted = false;
         } else {
           // Accion de fallo
           setTimeout(() => this.alerta = res.message, 0);

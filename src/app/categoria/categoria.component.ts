@@ -55,7 +55,9 @@ export class CategoriaComponent implements OnInit {
       .subscribe((res) => {
         if (res.status === 'success') {
           // Accion de éxito
-          this.router.navigate(['']); // Ir al inicio
+          // this.router.navigate(['categoria']);
+          this.form.reset();
+          this.sumbitted = false;
         } else {
           // Accion de fallo
           setTimeout(() => this.alerta = res.message, 0);

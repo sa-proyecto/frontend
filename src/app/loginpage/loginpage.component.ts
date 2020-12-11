@@ -83,12 +83,13 @@ export class LoginpageComponent implements OnInit, OnDestroy {
           } else {
             sessionStorage.setItem('id_proveedor', res.data);
           }
-          this.router.navigate([''])
+          this.loginForm.reset();
+          this.submitted = false;
+          this.router.navigate(['']);
         } else {
           setTimeout(() => this.alerta = res.message, 0);
         }
       }, (err) => {
-        console.log(err);
         setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
       });
   }

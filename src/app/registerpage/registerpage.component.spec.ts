@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { RegisterpageComponent } from './registerpage.component';
 
@@ -14,6 +15,7 @@ describe('RegisterpageComponent', () => {
       imports: [
         ReactiveFormsModule,
         HttpClientTestingModule,
+        TabsModule.forRoot(),
         RouterTestingModule.withRoutes([]),
 
       ],
@@ -70,7 +72,6 @@ describe('RegisterpageComponent', () => {
     });
     const contrasena_confirm = component.registerProveedorForm.controls.contrasena_confirm;
     const errors = contrasena_confirm.errors;
-    console.log(errors);
     expect(errors.mustMatch).toBeTruthy();
   });
 
@@ -129,7 +130,6 @@ describe('RegisterpageComponent', () => {
     });
     const contrasena_confirm = component.registerClienteForm.controls.contrasena_confirm;
     const errors = contrasena_confirm.errors;
-    console.log(errors);
     expect(errors.mustMatch).toBeTruthy();
   });
 

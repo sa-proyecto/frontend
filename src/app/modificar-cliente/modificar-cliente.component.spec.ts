@@ -94,7 +94,6 @@ describe('ModificarClienteComponent', () => {
     });
     const contrasena_confirm = component.clientDataForm.controls.contrasena_confirm;
     const errors = contrasena_confirm.errors;
-    console.log(errors);
     expect(errors.mustMatch).toBeTruthy();
   });
 
