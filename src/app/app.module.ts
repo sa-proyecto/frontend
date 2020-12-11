@@ -30,6 +30,7 @@ import { ModificarClienteComponent } from './modificar-cliente/modificar-cliente
 import { ModificarProveedorComponent } from './modificar-proveedor/modificar-proveedor.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { ProductoComponent } from './producto/producto.component';
+import { TarjetaComponent } from './tarjeta/tarjeta.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ProductoComponent } from './producto/producto.component';
     ModificarProveedorComponent,
     CategoriaComponent,
     ProductoComponent,
+    TarjetaComponent,
   ],
   imports: [
     CommonModule,
