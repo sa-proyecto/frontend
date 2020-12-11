@@ -34,9 +34,46 @@ describe('TarjetaComponent', () => {
     expect(component.form.valid).toBeFalsy();
   });
 
+  it('validar formulario de tarjeta', () => {
+    component.form.patchValue({
+      numerotarjeta: 'a',
+      pin: '1234',
+      fecha_vencimiento: '12345678',
+      estado: '1111',
+      idcliente: '1',
+    });
+    expect(component.form.valid).toBeTruthy();
+  });
+
+  it('validar pin de tarjeta mínimo', () => {
+    component.form.patchValue({
+      numerotarjeta: '1212',
+      pin: '12',
+      fecha_vencimiento: '12/12/2020',
+      estado: '1111',
+      idcliente: '1',
+    });
+    const pin = component.form.controls.pin;
+    const errors = pin.errors;
+    expect(errors.minlength).toBeTruthy();
+  });
+
+  it('validar pin de tarjeta máxmo', () => {
+    component.form.patchValue({
+      numerotarjeta: '1212',
+      pin: '12345',
+      fecha_vencimiento: '12/12/2020',
+      estado: '0',
+      idcliente: '1',
+    });
+    const pin = component.form.controls.pin;
+    const errors = pin.errors;
+    expect(errors.maxlength).toBeTruthy();
+  });
+
   it('validar formulario registro de tarjeta', () => {
     component.form.patchValue({
-      pin: 12
+      pin: '12'
     });
     expect(component.form.valid).toBeFalse();
     expect(component.form.controls.numerotarjeta.hasError('required')).toBeTrue();

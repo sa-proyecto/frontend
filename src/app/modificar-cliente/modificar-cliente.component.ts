@@ -140,7 +140,8 @@ export class ModificarClienteComponent implements OnInit {
           sessionStorage.setItem('contrasena', this.clientDataForm.value.contrasena);
           sessionStorage.setItem('foto', this.clientDataForm.value.foto);
           sessionStorage.setItem('celular', this.clientDataForm.value.celular);
-          this.router.navigate(['']); // Ir al inicio
+          this.clientDataForm.reset();
+          this.sumbitted = false;
         } else {
           setTimeout(() => this.alerta = res.message, 0);
         }

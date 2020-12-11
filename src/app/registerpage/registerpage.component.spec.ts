@@ -72,7 +72,6 @@ describe('RegisterpageComponent', () => {
     });
     const contrasena_confirm = component.registerProveedorForm.controls.contrasena_confirm;
     const errors = contrasena_confirm.errors;
-    console.log(errors);
     expect(errors.mustMatch).toBeTruthy();
   });
 
@@ -131,7 +130,6 @@ describe('RegisterpageComponent', () => {
     });
     const contrasena_confirm = component.registerClienteForm.controls.contrasena_confirm;
     const errors = contrasena_confirm.errors;
-    console.log(errors);
     expect(errors.mustMatch).toBeTruthy();
   });
 

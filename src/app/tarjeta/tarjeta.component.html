@@ -33,17 +33,17 @@
                         <i class="tim-icons icon-key-25"> </i>
                       </div>
                     </div>
-                    <input class="form-control" placeholder="Pin" type="number" (blur)="Focus2 = false"
+                    <input class="form-control" placeholder="Pin" type="text" (blur)="Focus2 = false"
                       (focus)="Focus2 = true" formControlName="pin" />
                   </div>
                   <div *ngIf="Submitted && Form.pin.errors">
                     <div *ngIf="Form.pin.errors.required" class="invalid-feedback d-block text-right">
                       Requerido
                     </div>
-                    <div *ngIf="Form.pin.errors.minLength" class="invalid-feedback d-block text-right">
+                    <div *ngIf="Form.pin.errors.minlength" class="invalid-feedback d-block text-right">
                       Debe ingresar por lo menos 3 dígitos.
                     </div>
-                    <div *ngIf="Form.pin.errors.maxLength" class="invalid-feedback d-block text-right">
+                    <div *ngIf="Form.pin.errors.maxlength" class="invalid-feedback d-block text-right">
                       Debe de tener un máximo de 4 dígitos.
                     </div>
                   </div>

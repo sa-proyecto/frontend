@@ -280,6 +280,8 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
     this.authService.proveedorRegister(this.registerProveedorForm.value)
     .subscribe((res) => {
       if (res.status === 'success') {
+        this.registerProveedorForm.reset();
+        this.sumbitted = false;
         this.router.navigate(['login']);
       } else {
         setTimeout(() => this.alerta = res.message, 0);
@@ -294,10 +296,11 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
     if (!this.registerClienteForm.valid) {
       return;
     }
-    console.log(this.registerClienteForm.value);
     this.authService.clienteRegister(this.registerClienteForm.value)
     .subscribe((res) => {
       if (res.status === 'success') {
+        this.registerClienteForm.reset();
+        this.sumbitted2 = false;
         this.router.navigate(['login']);
       } else {
         setTimeout(() => this.alerta = res.message, 0);

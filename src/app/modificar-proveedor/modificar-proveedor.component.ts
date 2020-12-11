@@ -119,7 +119,8 @@ export class ModificarProveedorComponent implements OnInit {
     this.authService.proveedorUpdate(this.providerDataForm.value)
     .subscribe((res) => {
       if (res.status === 'success') {
-        this.router.navigate(['']); // Ir al inicio
+        this.providerDataForm.reset();
+        this.sumbitted = false;
       } else {
         setTimeout(() => this.alerta = res.message, 0);
       }

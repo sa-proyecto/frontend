@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { UserService } from '../api/user.service';
+import { UserService } from '../api/user.service';
 
 @Component({
   selector: 'app-tarjeta',
@@ -21,7 +21,7 @@ export class TarjetaComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private userService: UserService,
+    private userService: UserService,
     private router: Router,
   ) { }
 
@@ -115,16 +115,24 @@ export class TarjetaComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    // this.userService.addCard(this.form.value).subscribe((res) => {
-    //   if (res.status === 'success') {
-    //     // Accion de éxito
-    //   } else {
-    //     // Accion de fallo
-    //     setTimeout(() => this.alerta = res.message, 0);
-    //   }
-    // }, (err) => {
-    //   // Accion de error
-    //   setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
-    // });
+    this.userService.addCard(this.form.value).subscribe((res) => {
+      if (res.status === 'success') {
+        const index = parseInt(sessionStorage.getItem('tarjetas'), 10);
+        const tarjetas = index + 1;
+        sessionStorage.setItem('tarjetas', tarjetas.toString());
+        sessionStorage.setItem(index + 'estado', this.form.controls.estado.value);
+        sessionStorage.setItem(index + 'fecha_vencimiento', this.form.controls.fecha_vencimiento.value);
+        sessionStorage.setItem(index + 'numero_tarjeta', this.form.controls.numerotarjeta.value);
+        sessionStorage.setItem(index + 'pin', this.form.controls.pin.value);
+        this.form.reset();
+        this.sumbitted = false;
+      } else {
+        // Accion de fallo
+        setTimeout(() => this.alerta = res.message, 0);
+      }
+    }, (err) => {
+      // Accion de error
+      setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+    });
   }
 }
