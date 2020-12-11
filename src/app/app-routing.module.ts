@@ -8,6 +8,7 @@ import { ModificarClienteComponent } from './modificar-cliente/modificar-cliente
 import { ModificarProveedorComponent } from './modificar-proveedor/modificar-proveedor.component';
 import { ProductoComponent } from './producto/producto.component';
 import { RegisterpageComponent } from './registerpage/registerpage.component';
+import { TarjetaComponent } from './tarjeta/tarjeta.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'categoria', component: CategoriaComponent, pathMatch: 'full' },
   { path: 'producto', component: ProductoComponent, pathMatch: 'full' },
   { path: 'register', component: RegisterpageComponent, pathMatch: 'full' },
+  { path: 'tarjeta', component: TarjetaComponent, pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
