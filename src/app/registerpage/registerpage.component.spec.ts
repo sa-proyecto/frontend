@@ -75,7 +75,7 @@ describe('RegisterpageComponent', () => {
     expect(errors.mustMatch).toBeTruthy();
   });
 
-  it('formulario de proveedor invalido cuando esta vacio', () => {
+  it('formulario de cliente invalido cuando esta vacio', () => {
     expect(component.registerClienteForm.valid).toBeFalsy();
   });
 
