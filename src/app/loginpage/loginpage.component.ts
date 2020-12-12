@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../api/auth.service';
 import { Router } from '@angular/router';
+import { Cliente } from '../api/cliente';
 
 @Component({
   selector: 'app-loginpage',
@@ -65,23 +66,10 @@ export class LoginpageComponent implements OnInit, OnDestroy {
       .subscribe((res) => {
         if (res.status === 'success') {
           if (Number(this.loginForm.value.tipousuario) === 1) {
-            sessionStorage.setItem('apellido', res.data.apellido);
-            sessionStorage.setItem('celular', res.data.celular);
-            sessionStorage.setItem('contrasena', res.data.contrasena);
-            sessionStorage.setItem('email', res.data.email);
-            sessionStorage.setItem('foto', res.data.foto);
-            sessionStorage.setItem('id_cliente', res.data.id_cliente);
-            sessionStorage.setItem('nombre', res.data.nombre);
-            sessionStorage.setItem('tarjetas', res.data.tarjetas.length);
-            for (let index = 0; index < res.data.tarjetas.length; index++) {
-              const tarjeta = res.data.tarjetas[index];
-              sessionStorage.setItem(index + 'estado', tarjeta.estado);
-              sessionStorage.setItem(index + 'fecha_vencimiento', tarjeta.fecha_vencimiento);
-              sessionStorage.setItem(index + 'numero_tarjeta', tarjeta.numero_tarjeta);
-              sessionStorage.setItem(index + 'pin', tarjeta.pin);
-            }
+            const usuario: Cliente = res.data;
+            localStorage.setItem('cliente', JSON.stringify(usuario));
           } else {
-            sessionStorage.setItem('id_proveedor', res.data);
+            this.authService.refreshProvider(res.data);
           }
           this.loginForm.reset();
           this.submitted = false;

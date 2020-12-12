@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Cliente } from '../api/cliente';
+import { Tarjeta } from '../api/tarjeta';
 import { UserService } from '../api/user.service';
 
 @Component({
@@ -117,13 +119,14 @@ export class TarjetaComponent implements OnInit {
     }
     this.userService.addCard(this.form.value).subscribe((res) => {
       if (res.status === 'success') {
-        const index = parseInt(sessionStorage.getItem('tarjetas'), 10);
-        const tarjetas = index + 1;
-        sessionStorage.setItem('tarjetas', tarjetas.toString());
-        sessionStorage.setItem(index + 'estado', this.form.controls.estado.value);
-        sessionStorage.setItem(index + 'fecha_vencimiento', this.form.controls.fecha_vencimiento.value);
-        sessionStorage.setItem(index + 'numero_tarjeta', this.form.controls.numerotarjeta.value);
-        sessionStorage.setItem(index + 'pin', this.form.controls.pin.value);
+        const cliente: Cliente = JSON.parse(localStorage.getItem('cliente'));
+        const tmp = this.form.value;
+        tmp.numero_tarjeta = this.form.value.numerotarjeta.toString();
+        delete tmp.numerotarjeta;
+        delete tmp.idcliente;
+        const tarjeta: Tarjeta = tmp;
+        cliente.tarjetas.push(tarjeta);
+        localStorage.setItem('cliente', JSON.stringify(cliente));
         this.form.reset();
         this.sumbitted = false;
       } else {

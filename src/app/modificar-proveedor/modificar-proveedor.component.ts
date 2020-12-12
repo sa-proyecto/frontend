@@ -119,6 +119,7 @@ export class ModificarProveedorComponent implements OnInit {
     this.authService.proveedorUpdate(this.providerDataForm.value)
     .subscribe((res) => {
       if (res.status === 'success') {
+        this.authService.refreshProvider();
         this.providerDataForm.reset();
         this.sumbitted = false;
       } else {

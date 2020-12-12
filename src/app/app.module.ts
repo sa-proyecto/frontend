@@ -31,6 +31,7 @@ import { ModificarProveedorComponent } from './modificar-proveedor/modificar-pro
 import { CategoriaComponent } from './categoria/categoria.component';
 import { ProductoComponent } from './producto/producto.component';
 import { TarjetaComponent } from './tarjeta/tarjeta.component';
+import { MiPerfilComponent } from './mi-perfil/mi-perfil.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { TarjetaComponent } from './tarjeta/tarjeta.component';
     CategoriaComponent,
     ProductoComponent,
     TarjetaComponent,
+    MiPerfilComponent,
   ],
   imports: [
     CommonModule,
