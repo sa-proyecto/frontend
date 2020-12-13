@@ -68,12 +68,11 @@ export class LoginpageComponent implements OnInit, OnDestroy {
           if (Number(this.loginForm.value.tipousuario) === 1) {
             const usuario: Cliente = res.data;
             localStorage.setItem('cliente', JSON.stringify(usuario));
+            this.router.navigate(['tienda']);
           } else {
             this.authService.refreshProvider(res.data);
+            this.router.navigate(['mi-perfil']);
           }
-          this.loginForm.reset();
-          this.submitted = false;
-          this.router.navigate(['mi-perfil']);
         } else {
           setTimeout(() => this.alerta = res.message, 0);
         }
