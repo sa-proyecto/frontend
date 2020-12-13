@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Carrito } from '../api/carrito';
 import { CartService } from '../api/cart.service';
 import { Product } from '../api/product';
@@ -15,6 +16,7 @@ export class TiendaComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
+    private router: Router,
   ) {
 
   }
@@ -38,5 +40,9 @@ export class TiendaComponent implements OnInit {
 
   addToCart(prod: Product) {
     this.cart.add(prod);
+    this.cartService.setCart(this.cart);
+  }
+  goToCart() {
+    this.router.navigate(['carrito']);
   }
 }

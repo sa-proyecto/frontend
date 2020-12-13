@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ResponseObject } from './ResponseObject';
 
 const httpOptions = {
-  headers : new HttpHeaders({
+  headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
 };
@@ -32,5 +32,9 @@ export class UserService {
     numerotarjeta: string,
   }): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/eliminarTarjeta', form, httpOptions);
+  }
+
+  doPurchase(data: { numeroTarjeta: number, idCliente: number, items: Array<{ idProducto: number, cantidad: number }> }) {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/hacerCompra', data, httpOptions);
   }
 }

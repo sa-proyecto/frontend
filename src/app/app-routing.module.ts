@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CarritoComponent } from './carrito/carrito.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'tarjeta', component: TarjetaComponent, pathMatch: 'full' },
   { path: 'mi-perfil', component: MiPerfilComponent, pathMatch: 'full' },
   { path: 'tienda', component: TiendaComponent, pathMatch: 'full' },
+  { path: 'carrito', component: CarritoComponent, pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 

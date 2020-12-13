@@ -21,4 +21,8 @@ export class CartService {
   setCart(cart: Carrito) {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
+
+  removeCart() {
+    localStorage.removeItem('cart');
+  }
 }

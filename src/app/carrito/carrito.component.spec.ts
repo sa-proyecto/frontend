@@ -3,11 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TiendaComponent } from './tienda.component';
+import { CarritoComponent } from './carrito.component';
 
-describe('TiendaComponent', () => {
-  let component: TiendaComponent;
-  let fixture: ComponentFixture<TiendaComponent>;
+describe('CarritoComponent', () => {
+  let component: CarritoComponent;
+  let fixture: ComponentFixture<CarritoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -16,13 +16,13 @@ describe('TiendaComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([]),
       ],
-      declarations: [TiendaComponent]
+      declarations: [CarritoComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TiendaComponent);
+    fixture = TestBed.createComponent(CarritoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
