@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CarritoComponent } from './carrito/carrito.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 
 
@@ -10,6 +11,7 @@ import { ModificarProveedorComponent } from './modificar-proveedor/modificar-pro
 import { ProductoComponent } from './producto/producto.component';
 import { RegisterpageComponent } from './registerpage/registerpage.component';
 import { TarjetaComponent } from './tarjeta/tarjeta.component';
+import { TiendaComponent } from './tienda/tienda.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterpageComponent, pathMatch: 'full' },
   { path: 'tarjeta', component: TarjetaComponent, pathMatch: 'full' },
   { path: 'mi-perfil', component: MiPerfilComponent, pathMatch: 'full' },
+  { path: 'tienda', component: TiendaComponent, pathMatch: 'full' },
+  { path: 'carrito', component: CarritoComponent, pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 

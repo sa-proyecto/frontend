@@ -1,0 +1,31 @@
+$teal: #11cdef !default;
+$gray-800: #32325d !default; // Line heading color
+.store {
+    .store-title {
+        padding-top: 50px;
+    }
+    .btn-cart {
+        margin: 15px 15px 0;
+        .badge {
+            top: -10px;
+            right: -10px;
+            color: #ffffff;
+            background-color: #ffffff30;
+        }
+    }
+    .card.inner {
+        background-color: $teal;
+        color: $gray-800;
+        min-height: 480px;
+        margin-bottom: 30px;
+        padding: 15px;
+        .product-title {
+            height: 50px;
+        }
+    }
+    img {
+        max-height: 300px;
+        max-width: 50%;
+        margin: auto;
+    }
+}

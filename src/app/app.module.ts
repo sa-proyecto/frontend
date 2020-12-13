@@ -32,6 +32,8 @@ import { CategoriaComponent } from './categoria/categoria.component';
 import { ProductoComponent } from './producto/producto.component';
 import { TarjetaComponent } from './tarjeta/tarjeta.component';
 import { MiPerfilComponent } from './mi-perfil/mi-perfil.component';
+import { TiendaComponent } from './tienda/tienda.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { MiPerfilComponent } from './mi-perfil/mi-perfil.component';
     ProductoComponent,
     TarjetaComponent,
     MiPerfilComponent,
+    TiendaComponent,
+    CarritoComponent,
   ],
   imports: [
     CommonModule,
