@@ -57,6 +57,13 @@ describe('workspace-project App', () => {
     );
   });
 
+  it('should display Bienvenido in mi perfil', () => {
+    page.navigateToMiPerfil();
+    expect(page.getMiPerfilPageTitleText()).toEqual(
+      ''
+    );
+  });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser

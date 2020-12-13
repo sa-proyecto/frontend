@@ -1,3 +1,4 @@
+<div id="titulo-mi-perfil"></div>
 <div *ngIf="Cliente" class="mi-perfil row">
     <div class="col-md-8 offset-md-2">
         <div class="card">
@@ -10,11 +11,13 @@
                 <ng-container *ngIf="Cliente.tarjetas">
                     <div *ngFor="let tarjeta of Cliente.tarjetas">
                         <h1> <small>Tarjeta No:</small> {{tarjeta.numero_tarjeta}}
-                            <button class="btn btn-danger btn-fab btn-icon btn-round">
+                            <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                (click)="eliminarTarjeta(tarjeta.numero_tarjeta)">
                                 <i class="tim-icons icon-simple-remove"></i>
                             </button></h1>
                         <p class="card-text"> <small>Fecha de vencimiento:</small> {{tarjeta.fecha_vencimiento}}</p>
                         <p class="card-text"> <small>Estado:</small> {{tarjeta.estado}}</p>
+                        <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}</div>
                     </div>
                 </ng-container>
             </div>
@@ -26,7 +29,8 @@
     <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Bienvenido {{ Proveedor.nombre_empresa }} <small>({{ Proveedor.email }})</small></h4>
+                <h4 class="card-title">Bienvenido {{ Proveedor.nombre_empresa }} <small>({{ Proveedor.email }})</small>
+                </h4>
                 <p class="card-text">Esta es tu área Personal</p>
                 <p class="card-text">
                     <small class="text-muted">Dirección: </small> {{ Proveedor.direccion }}

@@ -27,4 +27,10 @@ export class UserService {
   }): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/crearTarjeta', form, httpOptions);
   }
+
+  removeCard(form: {
+    numerotarjeta: string,
+  }): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/eliminarTarjeta', form, httpOptions);
+  }
 }

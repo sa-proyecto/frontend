@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ProductService } from '../api/product.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class CategoriaComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
-    private router: Router,
   ) { }
 
   get Form(): { [key: string]: AbstractControl } {
