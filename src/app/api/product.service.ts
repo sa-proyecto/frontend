@@ -38,4 +38,8 @@ export class ProductService {
   getProducts(idproveedor: string): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verProductoProveedor', { idproveedor }, httpOptions);
   }
+
+  removeProduct(form): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/eliminarProducto', form, httpOptions);
+  }
 }

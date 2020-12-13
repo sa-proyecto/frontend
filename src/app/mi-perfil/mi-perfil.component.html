@@ -10,14 +10,17 @@
                 </p>
                 <ng-container *ngIf="Cliente.tarjetas">
                     <div *ngFor="let tarjeta of Cliente.tarjetas">
-                        <h1> <small>Tarjeta No:</small> {{tarjeta.numero_tarjeta}}
-                            <button class="btn btn-danger btn-fab btn-icon btn-round"
-                                (click)="eliminarTarjeta(tarjeta.numero_tarjeta)">
-                                <i class="tim-icons icon-simple-remove"></i>
-                            </button></h1>
-                        <p class="card-text"> <small>Fecha de vencimiento:</small> {{tarjeta.fecha_vencimiento}}</p>
-                        <p class="card-text"> <small>Estado:</small> {{tarjeta.estado}}</p>
-                        <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}</div>
+                        <ng-container *ngIf="tarjeta.estado === 0">
+                            <h1> <small>Tarjeta No:</small> {{tarjeta.numero_tarjeta}}
+                                <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                    (click)="eliminarTarjeta(tarjeta.numero_tarjeta)">
+                                    <i class="tim-icons icon-simple-remove"></i>
+                                </button></h1>
+                            <p class="card-text"> <small>Fecha de vencimiento:</small> {{tarjeta.fecha_vencimiento}}</p>
+                            <p class="card-text"> <small>Estado:</small> {{tarjeta.estado}}</p>
+                            <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
+                            </div>
+                        </ng-container>
                     </div>
                 </ng-container>
             </div>
@@ -35,6 +38,18 @@
                 <p class="card-text">
                     <small class="text-muted">Dirección: </small> {{ Proveedor.direccion }}
                 </p>
+                <ng-container *ngIf="Productos">
+                    <div *ngFor="let producto of Productos">
+                        <h1> <a [routerLink]="['/producto',producto.id_producto]"><small>Nombre producto: </small> {{producto.nombre}}
+                            </a>
+                            <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                (click)="eliminarProducto(producto.id_producto)">
+                                <i class="tim-icons icon-simple-remove"></i>
+                            </button></h1>
+                        <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
+                        </div>
+                    </div>
+                </ng-container>
             </div>
         </div>
     </div>
