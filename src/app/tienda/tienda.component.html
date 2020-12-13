@@ -1,0 +1,32 @@
+<div class="store row">
+    <div class="col-md-10 offset-md-1 store-title">
+        <h1>Tienda</h1>
+    </div>
+    <div class="col-md-10 offset-md-1">
+        <div class="card">
+            <button (click)="goToCart()" class="align-self-end btn btn-icon btn-cart">
+                <i class="tim-icons icon-cart"></i>
+                <span class="badge badge-white">{{CartCount}}</span>
+            </button>
+            <div class="card-body">
+                <div class="row">
+                    <div *ngFor="let prod of Productos" class="col-md-4">
+                        <div class="card inner">
+                            <h1 class="product-title">{{prod.nombre}}</h1>
+                            <h2 class="text-right text-dark"><strong>GTQ {{prod.precio_venta}}</strong></h2>
+                            <p>{{prod.descripcion}}</p>
+                            <img class="card-img-bottom" [src]="prod.foto" alt="Card image cap" />
+                            <p class="text-right">
+                                <small>
+                                    <button (click)="addToCart(prod)" class="btn btn-primary btn-sm">Agregar al
+                                        carrito</button>
+                                </small>
+                            </p>
+                            <p class="text-right"><small>Disponibles: </small>{{prod.stock}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
