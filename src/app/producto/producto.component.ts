@@ -184,7 +184,6 @@ export class ProductoComponent implements OnInit {
     this.productService.saveProduct({...this.form.value, ...{idproducto: this.id}})
       .subscribe((res) => {
         if (res.status === 'success') {
-          this.form.reset();
           this.sumbitted = false;
         } else {
           // Accion de fallo
