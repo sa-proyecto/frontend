@@ -22,6 +22,9 @@ export class AppPage {
   navigateToTarjeta() {
     return browser.get(browser.baseUrl + 'tarjeta') as Promise<any>;
   }
+  navigateToMiPerfil() {
+    return browser.get(browser.baseUrl + 'mi-perfil') as Promise<any>;
+  }
 
   getLoginPageTitleText() {
     return element(by.id('titulo-inicio')).getText() as Promise<string>;
@@ -49,5 +52,9 @@ export class AppPage {
 
   getTarjetaPageTitleText() {
     return element(by.id('titulo-registro-tarjeta')).getText() as Promise<string>;
+  }
+
+  getMiPerfilPageTitleText() {
+    return element(by.id('titulo-mi-perfil')).getText() as Promise<string>;
   }
 }

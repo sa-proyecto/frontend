@@ -91,7 +91,10 @@
               </form>
               <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
               </div>
-              <button class="btn btn-danger btn-round btn-lg" (click)="submit()">
+              <button *ngIf="id" class="btn btn-danger btn-round btn-lg" (click)="save()">
+                Guardar Cambios!
+              </button>
+              <button *ngIf="!id" class="btn btn-danger btn-round btn-lg" (click)="submit()">
                 Guardar Cambios
               </button>
             </div>

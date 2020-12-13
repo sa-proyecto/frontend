@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../api/auth.service';
+import { Cliente } from '../api/cliente';
 import { MustMatch } from '../must-mach.validator';
 
 @Component({
@@ -121,8 +122,8 @@ export class ModificarClienteComponent implements OnInit {
       validator: MustMatch('contrasena', 'contrasena_confirm'),
     });
     this.clientDataForm.patchValue({
-      idcliente: sessionStorage.getItem('id_cliente'),
-      foto: sessionStorage.getItem('foto'),
+      idcliente: JSON.parse(localStorage.getItem('cliente')) as Cliente,
+      foto: localStorage.getItem('foto'),
     });
   }
 
@@ -134,12 +135,8 @@ export class ModificarClienteComponent implements OnInit {
     this.authService.clienteUpdate(this.clientDataForm.value)
       .subscribe((res) => {
         if (res.status === 'success') {
-          sessionStorage.setItem('nombre', this.clientDataForm.value.nombre);
-          sessionStorage.setItem('apellido', this.clientDataForm.value.apellido);
-          sessionStorage.setItem('email', this.clientDataForm.value.email);
-          sessionStorage.setItem('contrasena', this.clientDataForm.value.contrasena);
-          sessionStorage.setItem('foto', this.clientDataForm.value.foto);
-          sessionStorage.setItem('celular', this.clientDataForm.value.celular);
+          const cliente: Cliente = { ...JSON.parse(localStorage.getItem('cliente')), ...this.clientDataForm.value };
+          localStorage.setItem('cliente', JSON.stringify(cliente));
           this.clientDataForm.reset();
           this.sumbitted = false;
         } else {

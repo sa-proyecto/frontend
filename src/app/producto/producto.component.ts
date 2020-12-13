@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../api/product.service';
 
 @Component({
@@ -14,8 +14,9 @@ export class ProductoComponent implements OnInit {
   private focus3: boolean;
   private focus4: boolean;
   private focus5: boolean;
+  private id: number;
   private sumbitted = false;
-  private categorias: {id_categoria:number, nombre:string};
+  private categorias: { id_categoria: number, nombre: string };
   form: FormGroup;
   alerta = '';
 
@@ -23,6 +24,7 @@ export class ProductoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   get Form(): { [key: string]: AbstractControl } {
@@ -128,6 +130,30 @@ export class ProductoComponent implements OnInit {
         // Accion de error
         setTimeout(() => this.alerta = 'Error: ' + err.error.message, 0);
       });
+
+    this.route.params.subscribe(params => {
+      this.id = params.id;
+      console.log(params);
+      console.log(this.id);
+      this.productService.getProducts((JSON.parse(localStorage.getItem('proveedor')).id_proveedor)).subscribe(res => {
+        const products = res.data;
+        const myProdArr = products.filter(o => Number(o.id_producto) === Number(this.id))
+        if (myProdArr.length) {
+          const myprod = myProdArr[0];
+          this.form.patchValue({
+            nombre: myprod.nombre,
+            descripcion: myprod.descripcion,
+            stock: myprod.stock,
+            precio: myprod.precio_venta,
+            foto: myprod.foto,
+            proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,
+          });
+          console.log(myprod)
+        }
+      }, err => {
+        console.error(err);
+      });
+    });
   }
 
   submit() {
@@ -136,6 +162,26 @@ export class ProductoComponent implements OnInit {
       return;
     }
     this.productService.addProduct(this.form.value)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          this.form.reset();
+          this.sumbitted = false;
+        } else {
+          // Accion de fallo
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        // Accion de error
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+      });
+  }
+  save() {
+    console.log(this.form);
+    this.sumbitted = true;
+    if (!this.form.valid) {
+      return;
+    }
+    this.productService.saveProduct({...this.form.value, ...{idproducto: this.id}})
       .subscribe((res) => {
         if (res.status === 'success') {
           this.form.reset();

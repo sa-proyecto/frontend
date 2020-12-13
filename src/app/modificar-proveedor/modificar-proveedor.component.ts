@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../api/auth.service';
+import { Proveedor } from '../api/proveedor';
 import { MustMatch } from '../must-mach.validator';
 
 @Component({
@@ -18,6 +19,7 @@ export class ModificarProveedorComponent implements OnInit {
   private sumbitted = false;
   providerDataForm: FormGroup;
   alerta = '';
+  private proveedor: Proveedor;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -75,6 +77,7 @@ export class ModificarProveedorComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.proveedor = JSON.parse(localStorage.getItem('proveedor'));
     this.providerDataForm = this.formBuilder.group({
       nombre: ['',
         Validators.compose([
@@ -111,7 +114,7 @@ export class ModificarProveedorComponent implements OnInit {
   submit() {
     this.sumbitted = true;
     this.providerDataForm.patchValue({
-      id: sessionStorage.getItem('id_proveedor'),
+      id: this.proveedor.id_proveedor,
     });
     if (!this.providerDataForm.valid) {
       return;
@@ -119,6 +122,7 @@ export class ModificarProveedorComponent implements OnInit {
     this.authService.proveedorUpdate(this.providerDataForm.value)
     .subscribe((res) => {
       if (res.status === 'success') {
+        this.authService.refreshProvider(this.proveedor.id_proveedor);
         this.providerDataForm.reset();
         this.sumbitted = false;
       } else {

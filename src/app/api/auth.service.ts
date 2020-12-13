@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ResponseObject } from './ResponseObject';
 
 const httpOptions = {
-  headers : new HttpHeaders({
+  headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
 };
@@ -18,7 +18,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  login(loginData: {username: string, password: string}): Observable<ResponseObject> {
+  login(loginData: { username: string, password: string }): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/login', loginData, httpOptions);
   }
 
@@ -36,6 +36,16 @@ export class AuthService {
 
   proveedorUpdate(proveedorData: {}): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/modificarProveedor', proveedorData, httpOptions);
+  }
+
+  refreshProvider(idproveedor: number) {
+    this.httpClient.post<ResponseObject>(httpAddress + '/verPerfilProveedor',
+      { idproveedor }, httpOptions).subscribe(res => {
+        console.log('¡Proveedor Actualizado!');
+        localStorage.setItem('proveedor', JSON.stringify({ ...res.data, ...{ id_proveedor: idproveedor } }));
+      }, err => {
+        console.error(err);
+      });
   }
 
 }

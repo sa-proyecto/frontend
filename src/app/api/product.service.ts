@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ResponseObject } from './ResponseObject';
 
 const httpOptions = {
-  headers : new HttpHeaders({
+  headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
 };
@@ -18,7 +18,7 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  addCategory(formData: {nombre: string}): Observable<ResponseObject> {
+  addCategory(formData: { nombre: string }): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/crearCategoria', formData, httpOptions);
   }
 
@@ -26,7 +26,16 @@ export class ProductService {
     return this.httpClient.get<ResponseObject>(httpAddress + '/verCategorias', httpOptions);
   }
 
-  addProduct(formData: {nombre: string}): Observable<ResponseObject> {
+  addProduct(formData): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/crearProducto', formData, httpOptions);
+  }
+
+  saveProduct(formData): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/modificacionProducto',
+      { ...formData, ...{ idcategoria: formData.categoria } }, httpOptions);
+  }
+
+  getProducts(idproveedor: string): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/verProductoProveedor', { idproveedor }, httpOptions);
   }
 }
