@@ -31,11 +31,19 @@ export class CarritoComponent implements OnInit {
     this.cliente = JSON.parse(localStorage.getItem('cliente'));
   }
   reducir(elemento) {
-    elemento.cantidad--;
+    if (elemento.cantidad <= 0) {
+      elemento.cantidad = 0;
+    } else {
+      elemento.cantidad--;
+    }
     this.saveCart();
   }
   aumentar(elemento) {
-    elemento.cantidad++;
+    if (elemento.producto.stock <= elemento.cantidad) {
+      elemento.cantidad = elemento.producto.stock;
+    } else {
+      elemento.cantidad++;
+    }
     this.saveCart();
   }
   eliminar(elemento) {
