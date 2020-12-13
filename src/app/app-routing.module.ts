@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'modificar-proveedor', component: ModificarProveedorComponent, pathMatch: 'full' },
   { path: 'categoria', component: CategoriaComponent, pathMatch: 'full' },
   { path: 'producto', component: ProductoComponent, pathMatch: 'full' },
+  { path: 'producto/:id', component: ProductoComponent, pathMatch: 'full' },
   { path: 'register', component: RegisterpageComponent, pathMatch: 'full' },
   { path: 'tarjeta', component: TarjetaComponent, pathMatch: 'full' },
   { path: 'mi-perfil', component: MiPerfilComponent, pathMatch: 'full' },
