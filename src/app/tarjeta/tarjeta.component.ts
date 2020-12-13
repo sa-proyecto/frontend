@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Cliente } from '../api/cliente';
 import { Tarjeta } from '../api/tarjeta';
 import { UserService } from '../api/user.service';
@@ -24,7 +23,6 @@ export class TarjetaComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router,
   ) { }
 
   get Form(): { [key: string]: AbstractControl } {

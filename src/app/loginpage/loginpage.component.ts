@@ -73,7 +73,7 @@ export class LoginpageComponent implements OnInit, OnDestroy {
           }
           this.loginForm.reset();
           this.submitted = false;
-          this.router.navigate(['']);
+          this.router.navigate(['mi-perfil']);
         } else {
           setTimeout(() => this.alerta = res.message, 0);
         }
