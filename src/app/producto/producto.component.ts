@@ -135,24 +135,26 @@ export class ProductoComponent implements OnInit {
       this.id = params.id;
       console.log(params);
       console.log(this.id);
-      this.productService.getProducts((JSON.parse(localStorage.getItem('proveedor')).id_proveedor)).subscribe(res => {
-        const products = res.data;
-        const myProdArr = products.filter(o => Number(o.id_producto) === Number(this.id))
-        if (myProdArr.length) {
-          const myprod = myProdArr[0];
-          this.form.patchValue({
-            nombre: myprod.nombre,
-            descripcion: myprod.descripcion,
-            stock: myprod.stock,
-            precio: myprod.precio_venta,
-            foto: myprod.foto,
-            proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,
-          });
-          console.log(myprod)
-        }
-      }, err => {
-        console.error(err);
-      });
+      if (this.id && JSON.parse(localStorage.getItem('proveedor'))) {
+        this.productService.getProducts((JSON.parse(localStorage.getItem('proveedor')).id_proveedor)).subscribe(res => {
+          const products = res.data;
+          const myProdArr = products.filter(o => Number(o.id_producto) === Number(this.id))
+          if (myProdArr.length) {
+            const myprod = myProdArr[0];
+            this.form.patchValue({
+              nombre: myprod.nombre,
+              descripcion: myprod.descripcion,
+              stock: myprod.stock,
+              precio: myprod.precio_venta,
+              foto: myprod.foto,
+              proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,
+            });
+            console.log(myprod)
+          }
+        }, err => {
+          console.error(err);
+        });
+      }
     });
   }
 
