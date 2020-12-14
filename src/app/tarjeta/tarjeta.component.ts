@@ -107,10 +107,10 @@ export class TarjetaComponent implements OnInit {
         ]),
       ],
     });
-    this.form.patchValue({ idcliente: JSON.parse(localStorage.getItem('cliente')).id_cliente });
   }
 
   submit() {
+    this.form.patchValue({ idcliente: JSON.parse(localStorage.getItem('cliente')).id_cliente });
     this.sumbitted = true;
     if (!this.form.valid) {
       return;

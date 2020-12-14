@@ -121,13 +121,13 @@ export class ModificarClienteComponent implements OnInit {
     }, {
       validator: MustMatch('contrasena', 'contrasena_confirm'),
     });
+  }
+
+  submit() {
     this.clientDataForm.patchValue({
       idcliente: JSON.parse(localStorage.getItem('cliente')).id_cliente,
       foto: JSON.parse(localStorage.getItem('cliente')).foto,
     });
-  }
-
-  submit() {
     this.sumbitted = true;
     if (!this.clientDataForm.valid) {
       return;

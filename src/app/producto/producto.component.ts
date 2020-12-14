@@ -116,7 +116,6 @@ export class ProductoComponent implements OnInit {
         ]),
       ],
     });
-    this.form.patchValue({ proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor });
     this.productService.getCategories()
       .subscribe((res) => {
         if (res.status === 'success') {
@@ -156,6 +155,7 @@ export class ProductoComponent implements OnInit {
   }
 
   submit() {
+    this.form.patchValue({ proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor });
     this.sumbitted = true;
     if (!this.form.valid) {
       return;
@@ -176,6 +176,7 @@ export class ProductoComponent implements OnInit {
       });
   }
   save() {
+    this.form.patchValue({ proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor });
     this.sumbitted = true;
     if (!this.form.valid) {
       return;
