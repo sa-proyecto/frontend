@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Cliente } from '../api/cliente';
 import { ProductService } from '../api/product.service';
 import { Proveedor } from '../api/proveedor';
@@ -23,7 +22,6 @@ export class MiPerfilComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private productService: ProductService,
-    private router: Router,
   ) { }
 
   get Cliente(): Cliente {
