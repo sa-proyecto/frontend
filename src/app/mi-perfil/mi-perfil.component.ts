@@ -78,6 +78,7 @@ export class MiPerfilComponent implements OnInit {
             break;
           }
         }
+        this.alerta = '';
       } else {
         setTimeout(() => this.alerta = res.message, 0);
       }
@@ -93,6 +94,7 @@ export class MiPerfilComponent implements OnInit {
         this.productos = this.productos.filter(o => {
           return o.id_producto !== idprod;
         })
+        this.alerta = '';
       } else {
         setTimeout(() => this.alerta = res.message, 0);
       }

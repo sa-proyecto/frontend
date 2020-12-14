@@ -139,6 +139,7 @@ export class ModificarClienteComponent implements OnInit {
           localStorage.setItem('cliente', JSON.stringify(cliente));
           this.clientDataForm.reset();
           this.sumbitted = false;
+          this.alerta = '';
         } else {
           setTimeout(() => this.alerta = res.message, 0);
         }

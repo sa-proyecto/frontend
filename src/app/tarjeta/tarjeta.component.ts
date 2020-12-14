@@ -127,6 +127,7 @@ export class TarjetaComponent implements OnInit {
         localStorage.setItem('cliente', JSON.stringify(cliente));
         this.form.reset();
         this.sumbitted = false;
+        this.alerta = '';
       } else {
         // Accion de fallo
         setTimeout(() => this.alerta = res.message, 0);

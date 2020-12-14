@@ -125,6 +125,7 @@ export class ModificarProveedorComponent implements OnInit {
         this.authService.refreshProvider(this.proveedor.id_proveedor);
         this.providerDataForm.reset();
         this.sumbitted = false;
+        this.alerta = '';
       } else {
         setTimeout(() => this.alerta = res.message, 0);
       }
