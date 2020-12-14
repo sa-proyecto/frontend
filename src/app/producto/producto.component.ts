@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../api/product.service';
 
 @Component({
@@ -23,7 +23,6 @@ export class ProductoComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
-    private router: Router,
     private route: ActivatedRoute,
   ) { }
 
@@ -117,7 +116,7 @@ export class ProductoComponent implements OnInit {
         ]),
       ],
     });
-    this.form.patchValue({ proveedor: sessionStorage.getItem('id_proveedor') });
+    this.form.patchValue({ proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor });
     this.productService.getCategories()
       .subscribe((res) => {
         if (res.status === 'success') {
@@ -133,8 +132,6 @@ export class ProductoComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.id = params.id;
-      console.log(params);
-      console.log(this.id);
       if (this.id && JSON.parse(localStorage.getItem('proveedor'))) {
         this.productService.getProducts((JSON.parse(localStorage.getItem('proveedor')).id_proveedor)).subscribe(res => {
           const products = res.data;
@@ -168,6 +165,7 @@ export class ProductoComponent implements OnInit {
         if (res.status === 'success') {
           this.form.reset();
           this.sumbitted = false;
+          this.alerta = '';
         } else {
           // Accion de fallo
           setTimeout(() => this.alerta = res.message, 0);
@@ -178,15 +176,15 @@ export class ProductoComponent implements OnInit {
       });
   }
   save() {
-    console.log(this.form);
     this.sumbitted = true;
     if (!this.form.valid) {
       return;
     }
-    this.productService.saveProduct({...this.form.value, ...{idproducto: this.id}})
+    this.productService.saveProduct({ ...this.form.value, ...{ idproducto: this.id } })
       .subscribe((res) => {
         if (res.status === 'success') {
           this.sumbitted = false;
+          this.alerta = '';
         } else {
           // Accion de fallo
           setTimeout(() => this.alerta = res.message, 0);

@@ -301,6 +301,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
       if (res.status === 'success') {
         this.registerClienteForm.reset();
         this.sumbitted2 = false;
+        this.alerta = '';
         this.router.navigate(['login']);
       } else {
         setTimeout(() => this.alerta = res.message, 0);
