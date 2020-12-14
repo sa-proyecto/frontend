@@ -27,7 +27,6 @@ export class CarritoComponent implements OnInit {
   }
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
-    console.log(this.cart);
     this.cliente = JSON.parse(localStorage.getItem('cliente'));
   }
   reducir(elemento) {

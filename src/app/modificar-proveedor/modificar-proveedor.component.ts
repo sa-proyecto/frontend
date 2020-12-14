@@ -122,9 +122,16 @@ export class ModificarProveedorComponent implements OnInit {
     this.authService.proveedorUpdate(this.providerDataForm.value)
     .subscribe((res) => {
       if (res.status === 'success') {
-        this.authService.refreshProvider(this.proveedor.id_proveedor);
+        const proveedor: Proveedor = JSON.parse(localStorage.getItem('proveedor'));
+        proveedor.contrasena = this.providerDataForm.value.contrasena;
+        proveedor.direccion = this.providerDataForm.value.direccion;
+        proveedor.email = this.providerDataForm.value.email;
+        proveedor.nombre_empresa = this.providerDataForm.value.nombre;
+        localStorage.setItem('proveedor', JSON.stringify(proveedor));
+        // this.authService.refreshProvider(this.proveedor.id_proveedor);
         this.providerDataForm.reset();
         this.sumbitted = false;
+        this.alerta = '';
       } else {
         setTimeout(() => this.alerta = res.message, 0);
       }

@@ -107,7 +107,7 @@ export class TarjetaComponent implements OnInit {
         ]),
       ],
     });
-    this.form.patchValue({ idcliente: sessionStorage.getItem('id_cliente') });
+    this.form.patchValue({ idcliente: JSON.parse(localStorage.getItem('cliente')).id_cliente });
   }
 
   submit() {
@@ -120,13 +120,16 @@ export class TarjetaComponent implements OnInit {
         const cliente: Cliente = JSON.parse(localStorage.getItem('cliente'));
         const tmp = this.form.value;
         tmp.numero_tarjeta = this.form.value.numerotarjeta.toString();
+        tmp.estado = Number(this.form.value.estado);
         delete tmp.numerotarjeta;
         delete tmp.idcliente;
         const tarjeta: Tarjeta = tmp;
+        console.log(tarjeta);
         cliente.tarjetas.push(tarjeta);
         localStorage.setItem('cliente', JSON.stringify(cliente));
         this.form.reset();
         this.sumbitted = false;
+        this.alerta = '';
       } else {
         // Accion de fallo
         setTimeout(() => this.alerta = res.message, 0);

@@ -38,14 +38,9 @@ export class AuthService {
     return this.httpClient.post<ResponseObject>(httpAddress + '/modificarProveedor', proveedorData, httpOptions);
   }
 
-  refreshProvider(idproveedor: number) {
-    this.httpClient.post<ResponseObject>(httpAddress + '/verPerfilProveedor',
-      { idproveedor }, httpOptions).subscribe(res => {
-        console.log('¡Proveedor Actualizado!');
-        localStorage.setItem('proveedor', JSON.stringify({ ...res.data, ...{ id_proveedor: idproveedor } }));
-      }, err => {
-        console.error(err);
-      });
+  refreshProvider(idproveedor: number): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/verPerfilProveedor',
+      { idproveedor }, httpOptions);
   }
 
 }

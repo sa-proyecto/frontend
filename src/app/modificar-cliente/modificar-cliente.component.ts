@@ -122,8 +122,8 @@ export class ModificarClienteComponent implements OnInit {
       validator: MustMatch('contrasena', 'contrasena_confirm'),
     });
     this.clientDataForm.patchValue({
-      idcliente: JSON.parse(localStorage.getItem('cliente')) as Cliente,
-      foto: localStorage.getItem('foto'),
+      idcliente: JSON.parse(localStorage.getItem('cliente')).id_cliente,
+      foto: JSON.parse(localStorage.getItem('cliente')).foto,
     });
   }
 
@@ -139,6 +139,7 @@ export class ModificarClienteComponent implements OnInit {
           localStorage.setItem('cliente', JSON.stringify(cliente));
           this.clientDataForm.reset();
           this.sumbitted = false;
+          this.alerta = '';
         } else {
           setTimeout(() => this.alerta = res.message, 0);
         }
