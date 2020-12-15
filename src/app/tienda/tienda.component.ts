@@ -53,6 +53,12 @@ export class TiendaComponent implements OnInit {
     this.cart.add(prod);
     this.cartService.setCart(this.cart);
   }
+
+  addToCartNow(prod: Product) {
+    this.addToCart(prod);
+    this.goToCart();
+  }
+
   goToCart() {
     this.router.navigate(['carrito']);
   }
