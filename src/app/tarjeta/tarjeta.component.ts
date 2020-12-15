@@ -110,7 +110,10 @@ export class TarjetaComponent implements OnInit {
   }
 
   submit() {
-    this.form.patchValue({ idcliente: JSON.parse(localStorage.getItem('cliente')).id_cliente });
+    this.form.patchValue({
+      idcliente: JSON.parse(localStorage.getItem('cliente')).id_cliente,
+      estado: '0',
+    });
     this.sumbitted = true;
     if (!this.form.valid) {
       return;
