@@ -13,6 +13,8 @@ import { ProductService } from '../api/product.service';
 export class TiendaComponent implements OnInit {
   private productos: Product[];
   private cart: Carrito;
+  private categorias: { id_categoria: number, nombre: string };
+  private filtro: number;
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -28,13 +30,23 @@ export class TiendaComponent implements OnInit {
     return this.cart && this.cart.elementos ? this.cart.totalItems : 0;
   }
 
+  get Categorias() {
+    return this.categorias;
+  }
+
   ngOnInit(): void {
-    this.productService.getProductsByCategory().subscribe(res => {
+    this.productService.getAllProducts().subscribe(res => {
       this.productos = res.data;
     }, err => {
       console.error(err);
     });
     this.cart = this.cartService.getCart();
+    this.productService.getCategories()
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          this.categorias = res.data;
+        }
+      });
   }
 
   addToCart(prod: Product) {
@@ -43,5 +55,13 @@ export class TiendaComponent implements OnInit {
   }
   goToCart() {
     this.router.navigate(['carrito']);
+  }
+
+  filtrar() {
+    this.productService.getProductsByCategory(this.filtro).subscribe(res => {
+      this.productos = res.data;
+    }, err => {
+      console.error(err);
+    })
   }
 }

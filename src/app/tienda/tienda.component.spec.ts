@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TiendaComponent } from './tienda.component';
@@ -12,9 +12,9 @@ describe('TiendaComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([]),
+        FormsModule,
       ],
       declarations: [TiendaComponent]
     })

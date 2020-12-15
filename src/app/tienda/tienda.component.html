@@ -8,6 +8,11 @@
                 <i class="tim-icons icon-cart"></i>
                 <span class="badge badge-white">{{CartCount}}</span>
             </button>
+            <select class="form-control" placeholder="Categoría" type="number" (blur)="Focus5 = false"
+                (focus)="Focus5 = true" (change)="filtrar()" [(ngModel)]="filtro">
+                <option value="0" selected >Ver todos</option>
+                <option *ngFor="let cat of Categorias" [value]="cat.id_categoria">{{cat.nombre}}</option>
+            </select>
             <div class="card-body">
                 <div class="row">
                     <div *ngFor="let prod of Productos" class="col-md-4">
