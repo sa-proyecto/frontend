@@ -4,27 +4,35 @@
             <div class="card-body">
                 <h4 class="card-title">Listo para realizar tu compra? <small>(Total: GTQ{{ Total }})</small>
                 </h4>
-                <ng-container *ngIf="Productos">
-                    <div *ngFor="let elemento of Productos">
-                        <p> <small>{{elemento.producto.nombre}}</small> x {{elemento.cantidad}}
-
-                            <button class="btn btn-sm btn-primary btn-icon" (click)="reducir(elemento)">
-                                <i class="tim-icons icon-simple-delete"></i>
-                            </button>
-                            <button class="btn btn-sm btn-primary btn-icon" (click)="aumentar(elemento)">
-                                <i class="tim-icons icon-simple-add"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger btn-icon" (click)="eliminar(elemento)">
-                                <i class="tim-icons icon-simple-remove"></i>
-                            </button>
-                        </p>
-                    </div>
-                </ng-container>
+                <div *ngIf="Tarjetas">
+                    <select class="form-control" placeholder="Tarjeta" (blur)="Focus5 = false" (focus)="Focus5 = true"
+                        [(ngModel)]="numeroTarjeta">
+                        <option *ngFor="let tarjeta of Tarjetas" [value]="tarjeta.numero_tarjeta">
+                            {{tarjeta.numero_tarjeta}}
+                        </option>
+                </select>
             </div>
-            
-            <button class="btn-compra btn btn-sm btn-primary" (click)="comprar(elemento)">
-                Comprar <i class="tim-icons icon-money-coins"></i>
-            </button>
+            <ng-container *ngIf="Productos">
+                <div *ngFor="let elemento of Productos">
+                    <p> <small>{{elemento.producto.nombre}}</small> x {{elemento.cantidad}}
+
+                        <button class="btn btn-sm btn-primary btn-icon" (click)="reducir(elemento)">
+                            <i class="tim-icons icon-simple-delete"></i>
+                        </button>
+                        <button class="btn btn-sm btn-primary btn-icon" (click)="aumentar(elemento)">
+                            <i class="tim-icons icon-simple-add"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger btn-icon" (click)="eliminar(elemento)">
+                            <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                    </p>
+                </div>
+            </ng-container>
         </div>
+
+        <button class="btn-compra btn btn-sm btn-primary" (click)="comprar(elemento)">
+            Comprar <i class="tim-icons icon-money-coins"></i>
+        </button>
     </div>
+</div>
 </div>
