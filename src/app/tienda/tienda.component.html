@@ -10,7 +10,7 @@
             </button>
             <select class="form-control" placeholder="Categoría" type="number" (blur)="Focus5 = false"
                 (focus)="Focus5 = true" (change)="filtrar()" [(ngModel)]="filtro">
-                <option value="0" selected >Ver todos</option>
+                <option value="0" selected>Ver todos</option>
                 <option *ngFor="let cat of Categorias" [value]="cat.id_categoria">{{cat.nombre}}</option>
             </select>
             <div class="card-body">
@@ -25,6 +25,8 @@
                                 <small>
                                     <button (click)="addToCart(prod)" class="btn btn-primary btn-sm">Agregar al
                                         carrito</button>
+                                    <button (click)="addToCartNow(prod)" class="btn btn-primary btn-sm">¡Comprar
+                                        ahora!</button>
                                 </small>
                             </p>
                             <p class="text-right"><small>Disponibles: </small>{{prod.stock}}</p>
