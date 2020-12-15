@@ -63,20 +63,23 @@ export class LoginpageComponent implements OnInit, OnDestroy {
       return;
     }
     this.authService.login(this.loginForm.value)
-      .subscribe(async (res) => {
+      .subscribe((res) => {
         if (res.status === 'success') {
           if (Number(this.loginForm.value.tipousuario) === 1) {
             const usuario: Cliente = res.data;
             localStorage.setItem('cliente', JSON.stringify(usuario));
-            this.router.navigate(['tienda']);
+            this.router.navigate(['tienda']).then(() => {
+              window.location.reload();
+            });
           } else {
             this.authService.refreshProvider(res.data).subscribe((res2) => {
               localStorage.setItem('proveedor', JSON.stringify({ ...res2.data, ...{ id_proveedor: res.data } }));
+              this.router.navigate(['mi-perfil']).then(() => {
+                window.location.reload();
+              });
             }, (err) => {
               setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
             });
-            await new Promise(resolve => setTimeout(resolve, 500));
-            this.router.navigate(['mi-perfil']);
           }
         } else {
           setTimeout(() => this.alerta = res.message, 0);
