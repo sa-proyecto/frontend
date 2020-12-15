@@ -37,4 +37,8 @@ export class UserService {
   doPurchase(data: { numeroTarjeta: number, idCliente: number, items: Array<{ idProducto: number, cantidad: number }> }) {
     return this.httpClient.post<ResponseObject>(httpAddress + '/hacerCompra', data, httpOptions);
   }
+
+  getVentas(idproveedor: string): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/verVentaProveedor', { idproveedor }, httpOptions);
+  }
 }

@@ -17,6 +17,8 @@ export class MiPerfilComponent implements OnInit {
   form: FormGroup;
   alerta = '';
   private productos;
+  private ventas;
+  private ver;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,8 +38,16 @@ export class MiPerfilComponent implements OnInit {
     return this.proveedor;
   }
 
+  get Ventas(): any[] {
+    return this.ventas;
+  }
+
   get Foto(): string {
     return this.cliente.foto && this.cliente.foto !== 'undefined' ? this.cliente.foto : '/assets/img/placeholder.jpg'
+  }
+
+  get Ver(): string {
+    return this.ver;
   }
 
   ngOnInit(): void {
@@ -48,7 +58,12 @@ export class MiPerfilComponent implements OnInit {
         this.productos = res.data;
       }, (err) => {
         console.error(err);
-      })
+      });
+      this.userService.getVentas(this.proveedor.id_proveedor.toString()).subscribe(res => {
+        this.ventas = res.data;
+      }, err => {
+        console.error(err);
+      });
     }
     this.form = this.formBuilder.group({
       numerotarjeta: ['',
