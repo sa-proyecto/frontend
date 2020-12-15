@@ -145,7 +145,6 @@ export class ProductoComponent implements OnInit {
               foto: myprod.foto,
               proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,
             });
-            console.log(myprod)
           }
         }, err => {
           console.error(err);

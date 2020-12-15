@@ -13,6 +13,8 @@ import { UserService } from '../api/user.service';
 export class CarritoComponent implements OnInit {
   private cart: Carrito;
   private cliente: Cliente;
+  private numeroTarjeta: number;
+  private tarjetas: any[];
   constructor(
     private userService: UserService,
     private cartService: CartService,
@@ -25,9 +27,19 @@ export class CarritoComponent implements OnInit {
   get Productos() {
     return this.cart ? this.cart.elementos : [];
   }
+
+  get Tarjetas(): any[] {
+    return this.tarjetas.filter(o => {
+      return Number(o.estado) === 0;
+    });
+  }
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
     this.cliente = JSON.parse(localStorage.getItem('cliente'));
+    this.tarjetas = [];
+    if (this.cliente) {
+      this.tarjetas = this.cliente.tarjetas;
+    }
   }
   reducir(elemento) {
     if (elemento.cantidad <= 0) {
@@ -61,7 +73,7 @@ export class CarritoComponent implements OnInit {
     if (!this.cliente.tarjetas || !this.cliente.tarjetas.length) {
       this.router.navigate(['tarjeta']);
     }
-    const numeroTarjeta = this.cliente.tarjetas[0].numero_tarjeta;
+    const numeroTarjeta = this.numeroTarjeta;
     const idCliente = this.cliente.id_cliente;
     const items = this.cart.elementos.map(o => {
       const ret = {
@@ -69,7 +81,7 @@ export class CarritoComponent implements OnInit {
         cantidad: o.cantidad,
       };
       return ret;
-    })
+    });
     this.userService.doPurchase({ numeroTarjeta, idCliente, items }).subscribe(res => {
       if (res.status === 'success') {
         this.cartService.removeCart();
