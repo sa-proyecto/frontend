@@ -1,0 +1,112 @@
+<div>navbar works!</div>
+<!-- <nav class="navbar navbar-expand-lg fixed-top" color-on-scroll="300" id="navbar-top">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" placement="bottom">
+                <span> Grupo 1• </span> EconoAhorro
+            </a>
+            <button aria-controls="navigation-index" aria-label="Toggle navigation" class="navbar-toggler"
+                [attr.aria-expanded]="!isCollapsed" (click)="isCollapsed = !isCollapsed" id="navigation" type="button">
+                <span class="navbar-toggler-bar bar1"> </span>
+                <span class="navbar-toggler-bar bar2"> </span>
+                <span class="navbar-toggler-bar bar3"> </span>
+            </button>
+        </div>
+        <div class="navbar-collapse" [collapse]="isCollapsed" id="navigation">
+            <div class="navbar-collapse-header">
+                <div class="row">
+                    <div class="col-6 collapse-brand">
+                        <a> Grupo 1• <span> EconoAhorro </span> </a>
+                    </div>
+                    <div class="col-6 collapse-close text-right">
+                        <button aria-controls="navigation-index" aria-label="Toggle navigation" class="navbar-toggler"
+                            [attr.aria-expanded]="!isCollapsed" (click)="isCollapsed = !isCollapsed" id="navigation"
+                            type="button">
+                            <i class="tim-icons icon-simple-remove"> </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <ul class="navbar-nav ml-auto">
+                <div *ngIf="ClienteConectado">
+                    <li class="dropdown nav-item" dropdown>
+                        <a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                            <i class="fa fa-cogs d-lg-none d-xl-none"> </i> Cliente
+                        </a>
+                        <div class="dropdown-menu dropdown-with-icons" *dropdownMenu>
+                            <a class="dropdown-item" [routerLink]="['modificar-cliente']">
+                                <i class="tim-icons icon-paper"> </i> Modificar Cliente
+                            </a>
+                            <a class="dropdown-item" [routerLink]="['tarjeta']">
+                                <i class="tim-icons icon-bullet-list-67"> </i> Tarjeta
+                            </a>
+                            <a class="dropdown-item" [routerLink]="['tienda']">
+                                <i class="tim-icons icon-bullet-list-67"> </i> Tienda
+                            </a>
+                            <a class="dropdown-item" [routerLink]="['carrito']">
+                                <i class="tim-icons icon-bullet-list-67"> </i> Carrito
+                            </a>
+                        </div>
+                    </li>
+                </div>
+                <div *ngIf="ProveedorConectado">
+                    <li class="nav-item dropdown" dropdown>
+                        <a class="nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" dropdownToggle
+                            id="navbarDropdownMenuLink">
+                            <i aria-hidden="true" class="tim-icons icon-paper"> </i>
+                            <p>Proveedor</p>
+                        </a>
+                        <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right"
+                            *dropdownMenu>
+                            <a class="dropdown-item" [routerLink]="['modificar-proveedor']">
+                                <i class="tim-icons icon-app"> </i> Modificar Proveedor
+                            </a>
+                            <a class="dropdown-item" [routerLink]="['categoria']">
+                                <i class="tim-icons icon-app"> </i> Categoria
+                            </a>
+                            <a class="dropdown-item" [routerLink]="['producto']">
+                                <i class="tim-icons icon-app"> </i> Producto
+                            </a>
+                        </div>
+                    </li>
+                </div>
+                <div *ngIf="!ClienteConectado && !ProveedorConectado">
+                    <li class="nav-item dropdown" dropdown [autoClose]="autoclose" (clickOutside)="autoclose = true">
+                        <a class="nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" dropdownToggle
+                            id="navbarDropdownMenuLink" (click)="autoclose = false">
+                            <i aria-hidden="true" class="tim-icons icon-book-bookmark"> </i>
+                            <p>Comenzar</p>
+                        </a>
+                        <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right"
+                            *dropdownMenu>
+                            <a class="dropdown-item" [routerLink]="['login']">
+                                <i class="tim-icons icon-bulb-63"> </i> Login
+                            </a>
+                            <a class="dropdown-item" [routerLink]="['register']">
+                                <i class="tim-icons icon-align-center"> </i> Registro
+                            </a>
+                        </div>
+                    </li>
+                </div>
+                <div *ngIf="ClienteConectado || ProveedorConectado">
+                    <li class="nav-item dropdown" dropdown [autoClose]="autoclose" (clickOutside)="autoclose = true">
+                        <a class="nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" dropdownToggle
+                            id="navbarDropdownMenuLink" (click)="autoclose = false">
+                            <i aria-hidden="true" class="tim-icons icon-book-bookmark"> </i>
+                            <p>Más...</p>
+                        </a>
+                        <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right"
+                            *dropdownMenu>
+                            <a class="dropdown-item" [routerLink]="['mi-perfil']">
+                                <i class="tim-icons icon-bulb-63"> </i> Mi perfil
+                            </a>
+                            <a class="dropdown-item" (click)="salir()">
+                                <i class="tim-icons icon-align-center"> </i> Salir
+                            </a>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+</nav> -->
