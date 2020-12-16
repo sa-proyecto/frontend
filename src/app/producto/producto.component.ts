@@ -225,32 +225,37 @@ export class ProductoComponent implements OnInit {
     if (!this.vender) {
       this.form.controls.precio.setValidators([
       ]);
+      this.form.patchValue({ precio: null });
+      this.form.controls.precio.updateValueAndValidity();
     }
     if (!this.subastar) {
       this.form.controls.precio_subasta.setValidators([
       ]);
       this.form.controls.fecha_subasta.setValidators([
       ]);
+      this.form.patchValue({ precio_subasta: null, fecha_subasta: null });
+      this.form.controls.precio_subasta.updateValueAndValidity();
+      this.form.controls.fecha_subasta.updateValueAndValidity();
     }
-    this.form.updateValueAndValidity();
     this.sumbitted = true;
     if (!this.form.valid) {
       return;
     }
-    this.productService.addProduct(this.form.value)
-      .subscribe((res) => {
-        if (res.status === 'success') {
-          this.form.reset();
-          this.sumbitted = false;
-          this.alerta = '';
-        } else {
-          // Accion de fallo
-          setTimeout(() => this.alerta = res.message, 0);
-        }
-      }, (err) => {
-        // Accion de error
-        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
-      });
+    console.log(this.form.value);
+    // this.productService.addProduct(this.form.value)
+    //   .subscribe((res) => {
+    //     if (res.status === 'success') {
+    //       this.form.reset();
+    //       this.sumbitted = false;
+    //       this.alerta = '';
+    //     } else {
+    //       // Accion de fallo
+    //       setTimeout(() => this.alerta = res.message, 0);
+    //     }
+    //   }, (err) => {
+    //     // Accion de error
+    //     setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+    //   });
   }
   save() {
     this.form.patchValue({ proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor });
