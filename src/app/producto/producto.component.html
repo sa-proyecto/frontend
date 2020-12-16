@@ -55,7 +55,23 @@
                     Requerido
                   </div>
                 </div>
-                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus4 === true }">
+                <div class="input-group">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" [(ngModel)]="Vender"
+                        [ngModelOptions]="{standalone: true}">
+                      Vender Producto
+                      <span class="form-check-sign">
+                        <span class="check"></span>
+                      </span>
+                      <small *ngIf="!Subastar && !Vender" class="invalid-feedback d-inline text-right">
+                        Requerido
+                      </small>
+                    </label>
+                  </div>
+                </div>
+
+                <div *ngIf="Vender" class="input-group" [ngClass]="{ 'input-group-focus': Focus4 === true }">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <i class="tim-icons icon-coins"> </i>
@@ -64,24 +80,75 @@
                   <input class="form-control" placeholder="Precio" type="number" (blur)="Focus4 = false"
                     (focus)="Focus4 = true" formControlName="precio" />
                 </div>
-                <div *ngIf="Submitted && Form.precio.errors">
-                  <div *ngIf="Form.precio.errors.required" class="invalid-feedback d-block text-right">
+                <div *ngIf="Vender && Submitted && Form.precio_subasta.errors">
+                  <div *ngIf="Form.precio_subasta.errors && Form.precio_subasta.errors.required" class="invalid-feedback d-block text-right">
                     Requerido
                   </div>
                 </div>
-                <select class="form-control" placeholder="Categoría" type="number" (blur)="Focus5 = false"
-                  (focus)="Focus5 = true" formControlName="categoria">
-                  <option value="" disabled selected hidden>Seleccione la categoría</option>
-                  <option *ngFor="let cat of Categorias" [value]="cat.id_categoria">{{cat.nombre}}</option>
-                </select>
-                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus6 === true }">
+                <div class="input-group">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" [(ngModel)]="Subastar"
+                        [ngModelOptions]="{standalone: true}">
+                      Subastar Producto
+                      <span class="form-check-sign">
+                        <span class="check"></span>
+                      </span>
+                      <small *ngIf="!Subastar && !Vender" class="invalid-feedback d-inline text-right">
+                        Requerido
+                      </small>
+                    </label>
+                  </div>
+                </div>
+
+                <div *ngIf="Subastar" class="input-group" [ngClass]="{ 'input-group-focus': Focus5 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-coins"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Precio inicial de subasta" type="number"
+                    (blur)="Focus5 = false" (focus)="Focus5 = true" formControlName="precio_subasta" />
+                </div>
+                <div *ngIf="Subastar && Submitted && Form.precio_subasta.errors">
+                  <div *ngIf="Form.precio_subasta.errors && Form.precio_subasta.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div *ngIf="Subastar" class="input-group" [ngClass]="{ 'input-group-focus': Focus6 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-calendar-60"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Fecha de cierre de subasta" type="datetime-local"
+                    (blur)="Focus6 = false" (focus)="Focus6 = true" formControlName="fecha_subasta" />
+                </div>
+                <div *ngIf="Subastar && Submitted && Form.fecha_subasta.errors">
+                  <div *ngIf="Form.fecha_subasta.errors && Form.fecha_subasta.errors.required" class="invalid-feedback d-block text-right">
+                    Requerido
+                  </div>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus7 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-tag"> </i>
+                    </div>
+                  </div>
+                  <select class="form-control" placeholder="Categoría" type="number" (blur)="Focus7 = false"
+                    (focus)="Focus7 = true" formControlName="categoria">
+                    <option value="" disabled selected hidden>Seleccione la categoría</option>
+                    <option *ngFor="let cat of Categorias" [value]="cat.id_categoria">{{cat.nombre}}</option>
+                  </select>
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus8 === true }">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <i class="tim-icons icon-image-02"> </i>
                     </div>
                   </div>
-                  <input class="form-control" placeholder="Imagen" type="text" (blur)="Focus6 = false"
-                    (focus)="Focus6 = true" formControlName="foto" />
+                  <input class="form-control" placeholder="Imagen" type="text" (blur)="Focus8 = false"
+                    (focus)="Focus8 = true" formControlName="foto" />
                 </div>
                 <div *ngIf="Submitted && Form.foto.errors">
                   <div *ngIf="Form.foto.errors.required" class="invalid-feedback d-block text-right">

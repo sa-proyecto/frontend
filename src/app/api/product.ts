@@ -3,6 +3,8 @@ export interface Product {
     nombre: string;
     descripcion: string;
     foto: string;
-    precio_venta: number;
+    precio_venta?: number;
     stock: number;
+    precio_subasta?: number;
+    fecha_fin_subasta?: string;
 }

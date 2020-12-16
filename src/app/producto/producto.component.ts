@@ -14,6 +14,11 @@ export class ProductoComponent implements OnInit {
   private focus3: boolean;
   private focus4: boolean;
   private focus5: boolean;
+  private focus6: boolean;
+  private focus7: boolean;
+  private focus8: boolean;
+  private vender: boolean;
+  private subastar: boolean;
   private id: number;
   private sumbitted = false;
   private categorias: { id_categoria: number, nombre: string };
@@ -70,6 +75,46 @@ export class ProductoComponent implements OnInit {
     this.focus5 = val;
   }
 
+  get Focus6(): boolean {
+    return this.focus6;
+  }
+
+  set Focus6(val: boolean) {
+    this.focus6 = val;
+  }
+
+  get Focus7(): boolean {
+    return this.focus7;
+  }
+
+  set Focus7(val: boolean) {
+    this.focus7 = val;
+  }
+
+  get Focus8(): boolean {
+    return this.focus8;
+  }
+
+  set Focus8(val: boolean) {
+    this.focus8 = val;
+  }
+
+  get Vender(): boolean {
+    return this.vender;
+  }
+
+  set Vender(val: boolean) {
+    this.vender = val;
+  }
+
+  get Subastar(): boolean {
+    return this.subastar;
+  }
+
+  set Subastar(val: boolean) {
+    this.subastar = val;
+  }
+
   get Submitted(): boolean {
     return this.sumbitted;
   }
@@ -115,6 +160,16 @@ export class ProductoComponent implements OnInit {
           Validators.required,
         ]),
       ],
+      precio_subasta: ['',
+        Validators.compose([
+          Validators.required,
+        ]),
+      ],
+      fecha_subasta: ['',
+        Validators.compose([
+          Validators.required,
+        ]),
+      ],
     });
     this.productService.getCategories()
       .subscribe((res) => {
@@ -155,6 +210,29 @@ export class ProductoComponent implements OnInit {
 
   submit() {
     this.form.patchValue({ proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor });
+    if (!this.vender && !this.subastar) {
+      return;
+    }
+    this.form.controls.precio.setValidators([
+      Validators.required,
+    ]);
+    this.form.controls.precio_subasta.setValidators([
+      Validators.required,
+    ]);
+    this.form.controls.fecha_subasta.setValidators([
+      Validators.required,
+    ]);
+    if (!this.vender) {
+      this.form.controls.precio.setValidators([
+      ]);
+    }
+    if (!this.subastar) {
+      this.form.controls.precio_subasta.setValidators([
+      ]);
+      this.form.controls.fecha_subasta.setValidators([
+      ]);
+    }
+    this.form.updateValueAndValidity();
     this.sumbitted = true;
     if (!this.form.valid) {
       return;
