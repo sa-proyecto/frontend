@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
 
 import { ProductoComponent } from './producto.component';
 
@@ -16,6 +17,7 @@ describe('ProductoComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([]),
+        FormsModule,
       ],
     })
       .compileComponents();
@@ -43,7 +45,9 @@ describe('ProductoComponent', () => {
       precio: '1111',
       categoria: '1',
       proveedor: '1',
-      foto: 'imagen.png'
+      foto: 'imagen.png',
+      precio_subasta: '10',
+      fecha_subasta: 'hoy',
     });
     expect(component.form.valid).toBeTruthy();
   });
