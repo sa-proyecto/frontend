@@ -27,6 +27,9 @@
                                         carrito</button>
                                     <button (click)="addToCartNow(prod)" class="btn btn-primary btn-sm">¡Comprar
                                         ahora!</button>
+                                    <button (click)="addFavorite(prod.id_producto)" class="btn btn-sm btn-icon btn-cart">
+                                        <i class="tim-icons icon-shape-star"></i>
+                                    </button>
                                 </small>
                             </p>
                             <p class="text-right"><small>Disponibles: </small>{{prod.stock}}</p>

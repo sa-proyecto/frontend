@@ -19,6 +19,7 @@ export class MiPerfilComponent implements OnInit {
   private productos;
   private ventas;
   private ver;
+  private favoritos;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,6 +27,15 @@ export class MiPerfilComponent implements OnInit {
     private productService: ProductService,
   ) { }
 
+  get Tarjetas(): any[] {
+    return this.cliente.tarjetas.filter(o => {
+      return Number(o.estado) === 0;
+    });
+  }
+
+  get Favoritos(): any[] {
+    return this.favoritos;
+  }
   get Cliente(): Cliente {
     return this.cliente;
   }
@@ -65,6 +75,12 @@ export class MiPerfilComponent implements OnInit {
         console.error(err);
       });
     }
+    if (this.cliente) {
+      this.productService.viewFavorite(this.cliente.id_cliente).subscribe(res => {
+        this.favoritos = res.data;
+        console.log(this.favoritos);
+      });
+    }
     this.form = this.formBuilder.group({
       numerotarjeta: ['',
         Validators.compose([
@@ -87,7 +103,7 @@ export class MiPerfilComponent implements OnInit {
           const tarjeta: Tarjeta = this.cliente.tarjetas[index];
           if (Number(tarjeta.numero_tarjeta) === Number(numerotarjeta)) {
             this.cliente.tarjetas.splice(index, 1);
-            localStorage.setItem('cliente',JSON.stringify(this.cliente));
+            localStorage.setItem('cliente', JSON.stringify(this.cliente));
             break;
           }
         }
@@ -102,7 +118,7 @@ export class MiPerfilComponent implements OnInit {
 
   eliminarProducto(idprod): void {
     const id_proveedor = this.proveedor.id_proveedor;
-    this.productService.removeProduct({id_producto: idprod, id_proveedor}).subscribe((res) => {
+    this.productService.removeProduct({ id_producto: idprod, id_proveedor }).subscribe((res) => {
       if (res.status === 'success') {
         this.productos = this.productos.filter(o => {
           return o.id_producto !== idprod;
@@ -113,6 +129,21 @@ export class MiPerfilComponent implements OnInit {
       }
     }, (err) => {
       setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+    });
+  }
+
+  removerFavorito(idprod): void {
+    const idcliente = JSON.parse(localStorage.getItem('cliente')).id_cliente;
+    this.productService.removeFavorite(idcliente, idprod).subscribe(res => {
+      if (res.status === 'success') {
+        for (let index = 0; index < this.favoritos.length; index++) {
+          const element:{nombre: string, id_producto: number} = this.favoritos[index];
+          if (Number(idprod) === Number(element.id_producto)) {
+            this.favoritos.splice(index,1);
+            break;
+          }
+        }
+      }
     });
   }
 

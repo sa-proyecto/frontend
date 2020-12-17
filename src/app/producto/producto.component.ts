@@ -196,10 +196,22 @@ export class ProductoComponent implements OnInit {
               nombre: myprod.nombre,
               descripcion: myprod.descripcion,
               stock: myprod.stock,
-              precio: myprod.precio_venta,
               foto: myprod.foto,
               proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,
             });
+            if (myprod.fecha_subasta || myprod.precio_subasta) {
+              this.form.patchValue({
+                fecha_subasta: myprod.fecha_subasta,
+                precio_subasta: myprod.precio_subasta,
+              });
+              this.subastar = true;
+            }
+            if (myprod.precio_venta) {
+              this.form.patchValue({
+              precio: myprod.precio_venta,
+              });
+              this.vender = true;
+            }
           }
         }, err => {
           console.error(err);
@@ -225,18 +237,23 @@ export class ProductoComponent implements OnInit {
     if (!this.vender) {
       this.form.controls.precio.setValidators([
       ]);
+      this.form.patchValue({ precio: null });
+      this.form.controls.precio.updateValueAndValidity();
     }
     if (!this.subastar) {
       this.form.controls.precio_subasta.setValidators([
       ]);
       this.form.controls.fecha_subasta.setValidators([
       ]);
+      this.form.patchValue({ precio_subasta: null, fecha_subasta: null });
+      this.form.controls.precio_subasta.updateValueAndValidity();
+      this.form.controls.fecha_subasta.updateValueAndValidity();
     }
-    this.form.updateValueAndValidity();
     this.sumbitted = true;
     if (!this.form.valid) {
       return;
     }
+    console.log(this.form.value);
     this.productService.addProduct(this.form.value)
       .subscribe((res) => {
         if (res.status === 'success') {
