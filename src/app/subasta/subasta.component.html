@@ -1,0 +1,93 @@
+<div class="wrapper">
+  <div class="page-header">
+    <div class="page-header-image"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-12 mx-auto">
+          <div class="card card-nav-tabs text-center">
+            <div class="card-header card-header-primary">
+              <h1 class="card-title" id="titulo-producto">Producto - {{Producto && Producto.nombre}}</h1>
+            </div>
+            <!--  -->
+            <div class="card-body">
+              <div class="form">
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus1 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text disabled">
+                      <i class="tim-icons icon-bag-16"> </i>
+                    </div>
+                  </div>
+                  <input disabled [value]="Producto && Producto.nombre" class="form-control" placeholder="Nombre"
+                    type="text" />
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus2 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text disabled">
+                      <i class="tim-icons icon-single-copy-04"> </i>
+                    </div>
+                  </div>
+                  <input disabled [value]="Producto && Producto.descripcion" class="form-control"
+                    placeholder="Descripcion" type="text" />
+                </div>
+                <img class="img-fluid" [src]="Producto && Producto.foto" alt="Imagen Producto" />
+              </div>
+              <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-md-12 mx-auto">
+          <div class="card card-nav-tabs text-center">
+            <div class="card-header card-header-primary">
+              <h1 class="card-title" id="titulo-producto">Puja Actual - {{ CurrentBid }}</h1>
+            </div>
+            <!--  -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="input-group" [ngClass]="{ 'input-group-focus': Focus === true }">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="tim-icons icon-upload"> </i>
+                      </div>
+                    </div>
+                    <input [(ngModel)]="NewBid" #nuevaOfertaCtrl="ngModel" class="form-control"
+                      placeholder="Nueva Oferta" type="number" (blur)="Focus = false" (focus)="Focus = true" required />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <button [disabled]="!nuevaOfertaCtrl.valid || NewBid<CurrentBid" [min]="CurrentBid + 1"
+                    class="btn btn-success btn-block btn-sm" (click)="save()">
+                    Hacer oferta
+                  </button>
+                </div>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Puja</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let bid of Bids; let i = index">
+                    <td class="text-center">{{i+1}}</td>
+                    <td>{{bid.fecha_puja}}</td>
+                    <td>{{bid.nombre_usuario}}</td>
+                    <td>{{bid.valor_puja | currency:'GTQ '}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="register-bg"></div>
+    </div>
+  </div>

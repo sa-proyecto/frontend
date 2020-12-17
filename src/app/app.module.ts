@@ -35,6 +35,7 @@ import { MiPerfilComponent } from './mi-perfil/mi-perfil.component';
 import { TiendaComponent } from './tienda/tienda.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SubastaComponent } from './subasta/subasta.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     TiendaComponent,
     CarritoComponent,
     NavbarComponent,
+    SubastaComponent,
   ],
   imports: [
     CommonModule,
