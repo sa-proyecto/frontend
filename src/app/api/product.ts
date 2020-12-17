@@ -6,5 +6,6 @@ export interface Product {
     precio_venta?: number;
     stock: number;
     precio_subasta?: number;
-    fecha_fin_subasta?: string;
+    precio_comprar_ahora?: number;
+    fecha_subasta?: string;
 }
