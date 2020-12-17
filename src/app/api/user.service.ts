@@ -41,4 +41,8 @@ export class UserService {
   getVentas(idproveedor: string): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verVentaProveedor', { idproveedor }, httpOptions);
   }
+
+  getFacturas(idcliente: string): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/verFacturaCliente', { idcliente }, httpOptions);
+  }
 }

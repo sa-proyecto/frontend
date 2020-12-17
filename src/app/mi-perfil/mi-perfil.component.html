@@ -71,6 +71,33 @@
                                     </table>
                                 </ng-container>
                             </tab>
+                            <tab>
+                                <ng-template tabHeading>
+                                    <i class="tim-icons icon-paper"> </i> Facturas
+                                </ng-template>
+                                <ng-container *ngIf="Facturas">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Número factura</th>
+                                                <th>Nombre</th>
+                                                <th>NIT</th>
+                                                <th>Dirección envío</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let factura of Facturas; let i = index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td>{{factura.numero_factura}}</td>
+                                                <td>{{factura.nombre}}</td>
+                                                <td>{{factura.nit}}</td>
+                                                <td>{{factura.direccion_envio}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </tab>
                         </tabset>
                     </div>
                 </div>
@@ -95,28 +122,49 @@
                     <option value="Productos" selected>Productos</option>
                 </select>
                 <ng-container *ngIf="Ventas && Ver === 'Ventas'">
-                    <div *ngFor="let venta of Ventas">
-                        <h1><small>Nombre producto: </small> {{venta.Producto}}
-                        </h1>
-                        <p>Cantidad: {{venta.Cantidad}}</p>
-                        <p>Total: {{venta.Total}}</p>
-                        <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
-                        </div>
-                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Nombre producto</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let venta of Ventas; let i = index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td>{{venta.Producto}}</td>
+                                <td>{{venta.Cantidad}}</td>
+                                <td>{{venta.Total}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </ng-container>
                 <ng-container *ngIf="Productos && Ver === 'Productos'">
-                    <div *ngFor="let producto of Productos">
-                        <h1> <a [routerLink]="['/producto',producto.id_producto]"><small>Nombre producto: </small>
-                                {{producto.nombre}}
-                            </a>
-                            <button class="btn btn-danger btn-fab btn-icon btn-round"
-                                (click)="eliminarProducto(producto.id_producto)">
-                                <i class="tim-icons icon-simple-remove"></i>
-                            </button>
-                        </h1>
-                        <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
-                        </div>
-                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Nombre producto</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let producto of Productos; let i = index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td><a [routerLink]="['/producto',producto.id_producto]">
+                                        {{producto.nombre}}
+                                    </a></td>
+                                <td>
+                                    <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                        (click)="eliminarProducto(producto.id_producto)">
+                                        <i class="tim-icons icon-simple-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </ng-container>
             </div>
         </div>
