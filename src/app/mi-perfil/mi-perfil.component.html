@@ -98,6 +98,29 @@
                                     </table>
                                 </ng-container>
                             </tab>
+                            <tab>
+                                <ng-template tabHeading>
+                                    <i class="tim-icons icon-basket-simple"> </i> Compras
+                                </ng-template>
+                                <ng-container *ngIf="Compras">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Producto</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let compra of Compras; let i = index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td>{{compra.Producto}}</td>
+                                                <td>{{compra.Total}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </tab>
                         </tabset>
                     </div>
                 </div>
@@ -116,56 +139,67 @@
                 <p class="card-text">
                     <small class="text-muted">Dirección: </small> {{ Proveedor.direccion }}
                 </p>
-                <select class="form-control" placeholder="Ver" (blur)="Focus5 = false" (focus)="Focus5 = true"
-                    [(ngModel)]="ver">
-                    <option value="Ventas" selected>Ventas</option>
-                    <option value="Productos" selected>Productos</option>
-                </select>
-                <ng-container *ngIf="Ventas && Ver === 'Ventas'">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th>Nombre producto</th>
-                                <th>Cantidad</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let venta of Ventas; let i = index">
-                                <td class="text-center">{{i+1}}</td>
-                                <td>{{venta.Producto}}</td>
-                                <td>{{venta.Cantidad}}</td>
-                                <td>{{venta.Total}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </ng-container>
-                <ng-container *ngIf="Productos && Ver === 'Productos'">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th>Nombre producto</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let producto of Productos; let i = index">
-                                <td class="text-center">{{i+1}}</td>
-                                <td><a [routerLink]="['/producto',producto.id_producto]">
-                                        {{producto.nombre}}
-                                    </a></td>
-                                <td>
-                                    <button class="btn btn-danger btn-fab btn-icon btn-round"
-                                        (click)="eliminarProducto(producto.id_producto)">
-                                        <i class="tim-icons icon-simple-remove"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </ng-container>
+                <div class="card">
+                    <div class="card-header">
+                        <tabset class="nav-tabs-primary">
+                            <tab>
+                                <ng-template tabHeading>
+                                    <i class="tim-icons icon-paper"> </i> Ventas
+                                </ng-template>
+                                <ng-container *ngIf="Ventas">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Nombre producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let venta of Ventas; let i = index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td>{{venta.Producto}}</td>
+                                                <td>{{venta.Cantidad}}</td>
+                                                <td>{{venta.Total}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </tab>
+                            <tab>
+                                <ng-template tabHeading>
+                                    <i class="tim-icons icon-basket-simple"> </i> Productos
+                                </ng-template>
+                                <ng-container *ngIf="Productos">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Nombre producto</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let producto of Productos; let i = index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td><a [routerLink]="['/producto',producto.id_producto]">
+                                                        {{producto.nombre}}
+                                                    </a></td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                                        (click)="eliminarProducto(producto.id_producto)">
+                                                        <i class="tim-icons icon-simple-remove"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -22,6 +22,7 @@ export class MiPerfilComponent implements OnInit {
   private ver;
   private favoritos;
   private facturas;
+  private compras;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +36,9 @@ export class MiPerfilComponent implements OnInit {
     });
   }
 
+  get Compras(): any[] {
+    return this.compras;
+  }
   get Favoritos(): any[] {
     return this.favoritos;
   }
@@ -89,6 +93,11 @@ export class MiPerfilComponent implements OnInit {
           this.facturas = res.data;
         }
       });
+      this.userService.getShopping(this.cliente.id_cliente.toString()).subscribe(res => {
+        if (res.status === 'success') {
+          this.compras = res.data;
+        }
+      })
     }
     this.form = this.formBuilder.group({
       numerotarjeta: ['',
