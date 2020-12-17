@@ -196,10 +196,22 @@ export class ProductoComponent implements OnInit {
               nombre: myprod.nombre,
               descripcion: myprod.descripcion,
               stock: myprod.stock,
-              precio: myprod.precio_venta,
               foto: myprod.foto,
               proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,
             });
+            if (myprod.fecha_subasta || myprod.precio_subasta) {
+              this.form.patchValue({
+                fecha_subasta: myprod.fecha_subasta,
+                precio_subasta: myprod.precio_subasta,
+              });
+              this.subastar = true;
+            }
+            if (myprod.precio_venta) {
+              this.form.patchValue({
+              precio: myprod.precio_venta,
+              });
+              this.vender = true;
+            }
           }
         }, err => {
           console.error(err);
@@ -242,20 +254,20 @@ export class ProductoComponent implements OnInit {
       return;
     }
     console.log(this.form.value);
-    // this.productService.addProduct(this.form.value)
-    //   .subscribe((res) => {
-    //     if (res.status === 'success') {
-    //       this.form.reset();
-    //       this.sumbitted = false;
-    //       this.alerta = '';
-    //     } else {
-    //       // Accion de fallo
-    //       setTimeout(() => this.alerta = res.message, 0);
-    //     }
-    //   }, (err) => {
-    //     // Accion de error
-    //     setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
-    //   });
+    this.productService.addProduct(this.form.value)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          this.form.reset();
+          this.sumbitted = false;
+          this.alerta = '';
+        } else {
+          // Accion de fallo
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        // Accion de error
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+      });
   }
   save() {
     this.form.patchValue({ proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor });
