@@ -71,6 +71,33 @@
                                     </table>
                                 </ng-container>
                             </tab>
+                            <tab>
+                                <ng-template tabHeading>
+                                    <i class="tim-icons icon-paper"> </i> Facturas
+                                </ng-template>
+                                <ng-container *ngIf="Facturas">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Número factura</th>
+                                                <th>Nombre</th>
+                                                <th>NIT</th>
+                                                <th>Dirección envío</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let factura of Facturas; let i = index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td>{{factura.numero_factura}}</td>
+                                                <td>{{factura.nombre}}</td>
+                                                <td>{{factura.nit}}</td>
+                                                <td>{{factura.direccion_envio}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </tab>
                         </tabset>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { idLocale } from 'ngx-bootstrap/chronos';
 import { Cliente } from '../api/cliente';
 import { ProductService } from '../api/product.service';
 import { Proveedor } from '../api/proveedor';
@@ -20,6 +21,7 @@ export class MiPerfilComponent implements OnInit {
   private ventas;
   private ver;
   private favoritos;
+  private facturas;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +37,9 @@ export class MiPerfilComponent implements OnInit {
 
   get Favoritos(): any[] {
     return this.favoritos;
+  }
+  get Facturas(): any[] {
+    return this.facturas;
   }
   get Cliente(): Cliente {
     return this.cliente;
@@ -78,7 +83,11 @@ export class MiPerfilComponent implements OnInit {
     if (this.cliente) {
       this.productService.viewFavorite(this.cliente.id_cliente).subscribe(res => {
         this.favoritos = res.data;
-        console.log(this.favoritos);
+      });
+      this.userService.getFacturas(this.cliente.id_cliente.toString()).subscribe(res => {
+        if (res.status === 'success') {
+          this.facturas = res.data;
+        }
       });
     }
     this.form = this.formBuilder.group({
