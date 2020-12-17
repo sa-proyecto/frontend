@@ -8,22 +8,72 @@
                 <p class="card-text">
                     <small class="text-muted">Número de contacto:</small> {{Cliente.celular}}
                 </p>
-                <ng-container *ngIf="Cliente.tarjetas">
-                    <div *ngFor="let tarjeta of Cliente.tarjetas">
-                        <ng-container *ngIf="tarjeta.estado === 0">
-                            <h1> <small>Tarjeta No:</small> {{tarjeta.numero_tarjeta}}
-                                <button class="btn btn-danger btn-fab btn-icon btn-round"
-                                    (click)="eliminarTarjeta(tarjeta.numero_tarjeta)">
-                                    <i class="tim-icons icon-simple-remove"></i>
-                                </button>
-                            </h1>
-                            <p class="card-text"> <small>Fecha de vencimiento:</small> {{tarjeta.fecha_vencimiento}}</p>
-                            <p class="card-text"> <small>Estado:</small> {{tarjeta.estado}}</p>
-                            <div id="notification" class="alert alert-danger" *ngIf="alerta" role="alert">{{ alerta }}
-                            </div>
-                        </ng-container>
+                <div class="card">
+                    <div class="card-header">
+                        <tabset class="nav-tabs-primary">
+                            <tab>
+                                <ng-template tabHeading>
+                                    <i class="tim-icons icon-credit-card"> </i> Tarjetas
+                                </ng-template>
+                                <ng-container *ngIf="Tarjetas">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Tarjeta No.</th>
+                                                <th>Fecha de vencimiento</th>
+                                                <th>Estado</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let tarjeta of Tarjetas; let i = index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td>{{tarjeta.numero_tarjeta}}</td>
+                                                <td>{{tarjeta.fecha_vencimiento}}</td>
+                                                <td>Activo</td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                                        (click)="eliminarTarjeta(tarjeta.numero_tarjeta)">
+                                                        <i class="tim-icons icon-simple-remove"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </tab>
+                            <tab>
+                                <ng-template tabHeading>
+                                    <i class="tim-icons icon-shape-star"> </i> Favoritos
+                                </ng-template>
+                                <ng-container *ngIf="Favoritos">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Producto</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let favorito of Favoritos; let i = index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td>{{favorito.nombre}}</td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                                        (click)="removerFavorito(favorito.id_producto)">
+                                                        <i class="tim-icons icon-simple-remove"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </tab>
+                        </tabset>
                     </div>
-                </ng-container>
+                </div>
             </div>
             <img class="card-img-bottom" [src]="Foto" alt="Card image cap" />
         </div>
@@ -39,8 +89,8 @@
                 <p class="card-text">
                     <small class="text-muted">Dirección: </small> {{ Proveedor.direccion }}
                 </p>
-                <select class="form-control" placeholder="Ver" (blur)="Focus5 = false"
-                    (focus)="Focus5 = true" [(ngModel)]="ver">
+                <select class="form-control" placeholder="Ver" (blur)="Focus5 = false" (focus)="Focus5 = true"
+                    [(ngModel)]="ver">
                     <option value="Ventas" selected>Ventas</option>
                     <option value="Productos" selected>Productos</option>
                 </select>

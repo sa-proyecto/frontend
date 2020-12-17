@@ -50,4 +50,16 @@ export class ProductService {
   removeProduct(form): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/eliminarProducto', form, httpOptions);
   }
+
+  addFavorite(idcliente: number, idproducto: number): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/anadirFavorito', { idcliente, idproducto }, httpOptions);
+  }
+
+  viewFavorite(idcliente: number): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/verFavoritoCliente', { idcliente }, httpOptions);
+  }
+
+  removeFavorite(idcliente: number, idproducto: number): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/eliminarfavorito', { idcliente, idproducto }, httpOptions);
+  }
 }
