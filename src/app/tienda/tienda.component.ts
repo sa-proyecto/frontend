@@ -15,6 +15,7 @@ export class TiendaComponent implements OnInit {
   private cart: Carrito;
   private categorias: { id_categoria: number, nombre: string };
   private filtro: number;
+  alerta = '';
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -49,25 +50,30 @@ export class TiendaComponent implements OnInit {
       });
   }
 
-  addToCart(prod: Product) {
+  addToCart(prod: Product): void {
     this.cart.add(prod);
     this.cartService.setCart(this.cart);
   }
 
-  addToCartNow(prod: Product) {
+  addToCartNow(prod: Product): void {
     this.addToCart(prod);
     this.goToCart();
   }
 
-  goToCart() {
+  goToCart(): void {
     this.router.navigate(['carrito']);
   }
 
-  filtrar() {
+  filtrar(): void {
     this.productService.getProductsByCategory(this.filtro).subscribe(res => {
       this.productos = res.data;
     }, err => {
       console.error(err);
     })
+  }
+
+  addFavorite(idProducto: number): void {
+    const idcliente = JSON.parse(localStorage.getItem('cliente')).id_cliente;
+    this.productService.addFavorite(idcliente, idProducto).subscribe();
   }
 }
