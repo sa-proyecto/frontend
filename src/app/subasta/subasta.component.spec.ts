@@ -1,5 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 import { SubastaComponent } from './subasta.component';
 
 describe('SubastaComponent', () => {
@@ -8,6 +10,11 @@ describe('SubastaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([]),
+        FormsModule,
+      ],
       declarations: [ SubastaComponent ]
     })
     .compileComponents();
