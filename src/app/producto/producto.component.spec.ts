@@ -48,6 +48,8 @@ describe('ProductoComponent', () => {
       foto: 'imagen.png',
       precio_subasta: '10',
       fecha_subasta: 'hoy',
+      precio_compra: '11',
+      cliente: '22'
     });
     expect(component.form.valid).toBeTruthy();
   });

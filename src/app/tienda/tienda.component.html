@@ -8,11 +8,19 @@
                 <i class="tim-icons icon-cart"></i>
                 <span class="badge badge-white">{{CartCount}}</span>
             </button>
-            <select class="form-control" placeholder="Categoría" type="number" (blur)="Focus5 = false"
-                (focus)="Focus5 = true" (change)="filtrar()" [(ngModel)]="filtro">
-                <option value="0" selected>Ver todos</option>
-                <option *ngFor="let cat of Categorias" [value]="cat.id_categoria">{{cat.nombre}}</option>
-            </select>
+            <div class="input-group" [ngClass]="{ 'input-group-focus': Focus5 === true }">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="tim-icons icon-tag"> </i>
+                    </div>
+                </div>
+                <select class="form-control" placeholder="Categoría" type="number" (blur)="Focus5 = false" (focus)="Focus5 = true"
+                    (change)="filtrar()" [(ngModel)]="filtro">
+                    <!-- <option disabled selected hidden>Seleccione la categoría</option> -->
+                    <option value="0">Ver todos</option>
+                    <option *ngFor="let cat of Categorias" [value]="cat.id_categoria">{{cat.nombre}}</option>
+                </select>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div *ngFor="let prod of Productos" class="col-md-4">
