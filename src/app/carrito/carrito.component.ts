@@ -75,22 +75,68 @@ export class CarritoComponent implements OnInit {
     }
     const numeroTarjeta = this.numeroTarjeta;
     const idCliente = this.cliente.id_cliente;
-    const items = this.cart.elementos.map(o => {
+    const itemsNormal = this.cart.elementos.filter(o => {
+      return o.producto.tipo_compra === 'normal';
+    }).map(o => {
       const ret = {
         idProducto: o.producto.id_producto,
         cantidad: o.cantidad,
       };
       return ret;
     });
-    this.userService.doPurchase({ numeroTarjeta, idCliente, items }).subscribe(res => {
-      if (res.status === 'success') {
-        this.cartService.removeCart();
-        this.router.navigate(['tienda']);
-        return;
-      }
-      console.error('Oopps')
-    }, err => {
-      console.error(err);
+    const itemsAhora = this.cart.elementos.filter(o => {
+      return o.producto.tipo_compra === 'ahora';
+    }).map(o => {
+      const ret = {
+        idProducto: o.producto.id_producto,
+        cantidad: o.cantidad,
+      };
+      return ret;
     });
+    const itemsSubasta = this.cart.elementos.filter(o => {
+      return o.producto.tipo_compra === 'subasta';
+    }).map(o => {
+      const ret = {
+        idProducto: o.producto.id_producto,
+        cantidad: o.cantidad,
+      };
+      return ret;
+    });
+    if (itemsNormal.length > 0) {
+      this.userService.doPurchase({ numeroTarjeta, idCliente, items: itemsNormal }).subscribe(res => {
+        if (res.status === 'success') {
+          this.cartService.removeCart();
+          this.router.navigate(['tienda']);
+          return;
+        }
+        console.error('Oopps')
+      }, err => {
+        console.error(err);
+      });
+    }
+    if (itemsAhora.length > 0) {
+      this.userService.doPurchaseNow({ numeroTarjeta, idCliente, items: itemsAhora }).subscribe(res => {
+        if (res.status === 'success') {
+          this.cartService.removeCart();
+          this.router.navigate(['tienda']);
+          return;
+        }
+        console.error('Oopps')
+      }, err => {
+        console.error(err);
+      });
+    }
+    // if (itemsNormal.length > 0) {
+    //   this.userService.doPurchase({ numeroTarjeta, idCliente, items: itemsNormal }).subscribe(res => {
+    //     if (res.status === 'success') {
+    //       this.cartService.removeCart();
+    //       this.router.navigate(['tienda']);
+    //       return;
+    //     }
+    //     console.error('Oopps')
+    //   }, err => {
+    //     console.error(err);
+    //   });
+    // }
   }
 }

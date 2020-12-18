@@ -316,6 +316,43 @@ export class ProductoComponent implements OnInit {
       });
   }
   save() {
+    if (!this.vender && !this.subastar) {
+      return;
+    }
+    this.form.controls.precio.setValidators([
+      Validators.required,
+    ]);
+    this.form.controls.precio_subasta.setValidators([
+      Validators.required,
+    ]);
+    this.form.controls.fecha_subasta.setValidators([
+      Validators.required,
+    ]);
+    this.form.controls.precio_compra.setValidators([
+      Validators.required,
+    ]);
+    if (!this.vender) {
+      this.form.controls.precio.setValidators([
+      ]);
+      this.form.patchValue({ precio: null });
+      this.form.controls.precio.updateValueAndValidity();
+    }
+    if (!this.subastar) {
+      this.form.controls.precio_subasta.setValidators([
+      ]);
+      this.form.controls.fecha_subasta.setValidators([
+      ]);
+      this.form.controls.precio_compra.setValidators([
+      ]);
+      this.form.patchValue({
+        precio_subasta: null,
+        fecha_subasta: null,
+        precio_compra: null,
+      });
+      this.form.controls.precio_subasta.updateValueAndValidity();
+      this.form.controls.fecha_subasta.updateValueAndValidity();
+      this.form.controls.precio_compra.updateValueAndValidity();
+    }
     if (JSON.parse(localStorage.getItem('proveedor'))) {
       this.form.patchValue({
         proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,

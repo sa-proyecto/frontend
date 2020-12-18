@@ -50,13 +50,14 @@ export class TiendaComponent implements OnInit {
       });
   }
 
-  addToCart(prod: Product): void {
-    this.cart.add(prod);
+  addToCartNormal(prod: Product): void {
+    this.cart.addNormal(prod);
     this.cartService.setCart(this.cart);
   }
 
-  addToCartNow(prod: Product): void {
-    this.addToCart(prod);
+  addToCartAhora(prod: Product): void {
+    this.cart.addAhora(prod);
+    this.cartService.setCart(this.cart);
     this.goToCart();
   }
 
