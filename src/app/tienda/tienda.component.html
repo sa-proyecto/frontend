@@ -36,7 +36,7 @@
                                     <div *ngIf="prod.sprecio_comprar">
                                         <button (click)="addToCartAhora(prod)" class="btn btn-primary btn-sm">¡Comprar
                                             ahora!</button>
-                                        <!-- <button (click)="addToCartNow(prod)" class="btn btn-primary btn-sm">¡Ir a Subasta!</button> -->
+                                        <button [routerLink]="['/subasta', prod.id_producto]" class="btn btn-primary btn-sm">¡Ir a Subasta!</button>
                                     </div>
                                     <button (click)="addFavorite(prod.id_producto)"
                                         class="btn btn-sm btn-icon btn-cart">

@@ -49,12 +49,9 @@ export class SubastaComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = Number(params.id);
-      if (this.id && JSON.parse(localStorage.getItem('proveedor'))) {
-        this.productService.getAllProducts(0).subscribe(res => {
-          this.producto = res.data.find(o => {
-            return Number(o.id_producto) === this.id;
-          });
-          console.log(this.producto);
+      if (this.id) {
+        this.productService.getProductById(this.id.toString()).subscribe(res => {
+          this.producto = res.data[0];
         }, err => {
           console.error(err);
         });

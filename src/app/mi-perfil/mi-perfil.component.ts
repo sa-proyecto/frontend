@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { idLocale } from 'ngx-bootstrap/chronos';
 import { Cliente } from '../api/cliente';
 import { ProductService } from '../api/product.service';
 import { Proveedor } from '../api/proveedor';
