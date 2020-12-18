@@ -7,6 +7,7 @@
                 <div *ngIf="Tarjetas">
                     <select class="form-control" placeholder="Tarjeta" (blur)="Focus5 = false" (focus)="Focus5 = true"
                         [(ngModel)]="numeroTarjeta">
+                        <option value="" disabled selected hidden>Seleccione tarjeta</option>
                         <option *ngFor="let tarjeta of Tarjetas" [value]="tarjeta.numero_tarjeta">
                             {{tarjeta.numero_tarjeta}}
                         </option>

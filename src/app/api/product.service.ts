@@ -39,6 +39,10 @@ export class ProductService {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verProductoProveedor', { idproveedor }, httpOptions);
   }
 
+  getProductById(idProducto: string): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/verproducto', { id_producto: idProducto }, httpOptions);
+  }
+
   getAllProducts(idcategoria: number = 0): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verCatalogoProductos', { idcategoria }, httpOptions);
   }

@@ -81,7 +81,8 @@
                     (focus)="Focus4 = true" formControlName="precio" />
                 </div>
                 <div *ngIf="Vender && Submitted && Form.precio_subasta.errors">
-                  <div *ngIf="Form.precio_subasta.errors && Form.precio_subasta.errors.required" class="invalid-feedback d-block text-right">
+                  <div *ngIf="Form.precio_subasta.errors && Form.precio_subasta.errors.required"
+                    class="invalid-feedback d-block text-right">
                     Requerido
                   </div>
                 </div>
@@ -110,8 +111,18 @@
                   <input class="form-control" placeholder="Precio inicial de subasta" type="number"
                     (blur)="Focus5 = false" (focus)="Focus5 = true" formControlName="precio_subasta" />
                 </div>
+                <div *ngIf="Subastar" class="input-group" [ngClass]="{ 'input-group-focus': Focus9 === true }">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tim-icons icon-coins"> </i>
+                    </div>
+                  </div>
+                  <input class="form-control" placeholder="Precio compra inmediata" type="number"
+                    (blur)="Focus9 = false" (focus)="Focus9 = true" formControlName="precio_compra" />
+                </div>
                 <div *ngIf="Subastar && Submitted && Form.precio_subasta.errors">
-                  <div *ngIf="Form.precio_subasta.errors && Form.precio_subasta.errors.required" class="invalid-feedback d-block text-right">
+                  <div *ngIf="Form.precio_subasta.errors && Form.precio_subasta.errors.required"
+                    class="invalid-feedback d-block text-right">
                     Requerido
                   </div>
                 </div>
@@ -125,7 +136,8 @@
                     (blur)="Focus6 = false" (focus)="Focus6 = true" formControlName="fecha_subasta" />
                 </div>
                 <div *ngIf="Subastar && Submitted && Form.fecha_subasta.errors">
-                  <div *ngIf="Form.fecha_subasta.errors && Form.fecha_subasta.errors.required" class="invalid-feedback d-block text-right">
+                  <div *ngIf="Form.fecha_subasta.errors && Form.fecha_subasta.errors.required"
+                    class="invalid-feedback d-block text-right">
                     Requerido
                   </div>
                 </div>

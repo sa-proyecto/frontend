@@ -17,6 +17,7 @@ export class ProductoComponent implements OnInit {
   private focus6: boolean;
   private focus7: boolean;
   private focus8: boolean;
+  private focus9: boolean;
   private vender: boolean;
   private subastar: boolean;
   private id: number;
@@ -99,6 +100,14 @@ export class ProductoComponent implements OnInit {
     this.focus8 = val;
   }
 
+  get Focus9(): boolean {
+    return this.focus9;
+  }
+
+  set Focus9(val: boolean) {
+    this.focus9 = val;
+  }
+
   get Vender(): boolean {
     return this.vender;
   }
@@ -170,6 +179,16 @@ export class ProductoComponent implements OnInit {
           Validators.required,
         ]),
       ],
+      precio_compra: ['',
+        Validators.compose([
+          Validators.required,
+        ]),
+      ],
+      cliente: ['',
+        Validators.compose([
+          Validators.required,
+        ]),
+      ],
     });
     this.productService.getCategories()
       .subscribe((res) => {
@@ -186,29 +205,30 @@ export class ProductoComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.id = params.id;
-      if (this.id && JSON.parse(localStorage.getItem('proveedor'))) {
-        this.productService.getProducts((JSON.parse(localStorage.getItem('proveedor')).id_proveedor)).subscribe(res => {
-          const products = res.data;
-          const myProdArr = products.filter(o => Number(o.id_producto) === Number(this.id))
-          if (myProdArr.length) {
-            const myprod = myProdArr[0];
+      if (this.id) {
+        this.productService.getProductById(this.id.toString()).subscribe(res => {
+          if (res.data.length) {
+            const myprod = res.data[0];
             this.form.patchValue({
               nombre: myprod.nombre,
               descripcion: myprod.descripcion,
               stock: myprod.stock,
               foto: myprod.foto,
-              proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,
+              proveedor: myprod.productopIdProveedor,
+              cliente: myprod.productocliIdCliente,
+              categoria: myprod.productoIdCategoria,
             });
-            if (myprod.fecha_subasta || myprod.precio_subasta) {
+            if (myprod.sfecha || myprod.sprecio_subasta) {
               this.form.patchValue({
-                fecha_subasta: myprod.fecha_subasta,
-                precio_subasta: myprod.precio_subasta,
+                fecha_subasta: myprod.sfecha,
+                precio_subasta: myprod.sprecio_subasta,
+                precio_compra: myprod.sprecio_comprar
               });
               this.subastar = true;
             }
-            if (myprod.precio_venta) {
+            if (myprod.precio) {
               this.form.patchValue({
-              precio: myprod.precio_venta,
+                precio: myprod.precio,
               });
               this.vender = true;
             }
@@ -221,7 +241,6 @@ export class ProductoComponent implements OnInit {
   }
 
   submit() {
-    this.form.patchValue({ proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor });
     if (!this.vender && !this.subastar) {
       return;
     }
@@ -232,6 +251,9 @@ export class ProductoComponent implements OnInit {
       Validators.required,
     ]);
     this.form.controls.fecha_subasta.setValidators([
+      Validators.required,
+    ]);
+    this.form.controls.precio_compra.setValidators([
       Validators.required,
     ]);
     if (!this.vender) {
@@ -245,15 +267,39 @@ export class ProductoComponent implements OnInit {
       ]);
       this.form.controls.fecha_subasta.setValidators([
       ]);
-      this.form.patchValue({ precio_subasta: null, fecha_subasta: null });
+      this.form.controls.precio_compra.setValidators([
+      ]);
+      this.form.patchValue({
+        precio_subasta: null,
+        fecha_subasta: null,
+        precio_compra: null,
+      });
       this.form.controls.precio_subasta.updateValueAndValidity();
       this.form.controls.fecha_subasta.updateValueAndValidity();
+      this.form.controls.precio_compra.updateValueAndValidity();
+    }
+    if (JSON.parse(localStorage.getItem('proveedor'))) {
+      this.form.patchValue({
+        proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,
+        cliente: null,
+      });
+      this.form.controls.cliente.setValidators([
+      ]);
+      this.form.controls.cliente.updateValueAndValidity();
+    }
+    if (JSON.parse(localStorage.getItem('cliente'))) {
+      this.form.patchValue({
+        cliente: JSON.parse(localStorage.getItem('cliente')).id_cliente,
+        proveedor: null,
+      });
+      this.form.controls.proveedor.setValidators([
+      ]);
+      this.form.controls.proveedor.updateValueAndValidity();
     }
     this.sumbitted = true;
     if (!this.form.valid) {
       return;
     }
-    console.log(this.form.value);
     this.productService.addProduct(this.form.value)
       .subscribe((res) => {
         if (res.status === 'success') {
@@ -270,12 +316,29 @@ export class ProductoComponent implements OnInit {
       });
   }
   save() {
-    this.form.patchValue({ proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor });
+    if (JSON.parse(localStorage.getItem('proveedor'))) {
+      this.form.patchValue({
+        proveedor: JSON.parse(localStorage.getItem('proveedor')).id_proveedor,
+        cliente: null,
+      });
+      this.form.controls.cliente.setValidators([
+      ]);
+      this.form.controls.cliente.updateValueAndValidity();
+    }
+    if (JSON.parse(localStorage.getItem('cliente'))) {
+      this.form.patchValue({
+        cliente: JSON.parse(localStorage.getItem('cliente')).id_cliente,
+        proveedor: null,
+      });
+      this.form.controls.proveedor.setValidators([
+      ]);
+      this.form.controls.proveedor.updateValueAndValidity();
+    }
     this.sumbitted = true;
     if (!this.form.valid) {
       return;
     }
-    this.productService.saveProduct({ ...this.form.value, ...{ idproducto: this.id } })
+    this.productService.saveProduct({ ...this.form.value, ...{ idproducto: this.id, idcategoria: this.form.value.categoria } })
       .subscribe((res) => {
         if (res.status === 'success') {
           this.sumbitted = false;
