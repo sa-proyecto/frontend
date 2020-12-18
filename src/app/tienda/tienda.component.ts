@@ -35,6 +35,11 @@ export class TiendaComponent implements OnInit {
     return this.categorias;
   }
 
+  VerificarFecha(prod: Product): boolean {
+    console.log(prod);
+    return true;
+  }
+
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => {
       this.productos = res.data;
