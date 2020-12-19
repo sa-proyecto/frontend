@@ -66,4 +66,16 @@ export class ProductService {
   removeFavorite(idcliente: number, idproducto: number): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/eliminarfavorito', { idcliente, idproducto }, httpOptions);
   }
+
+  verOfertas(idproducto: string): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/veroferta', { idproducto }, httpOptions);
+  }
+
+  hacerOfertas(idproducto: string, valorPuja: string, idcliente: string): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/haceroferta', {
+      idproducto,
+      valor_puja: valorPuja,
+      idcliente
+    }, httpOptions);
+  }
 }

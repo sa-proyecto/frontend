@@ -15,6 +15,8 @@ export class CarritoComponent implements OnInit {
   private cliente: Cliente;
   private numeroTarjeta: number;
   private tarjetas: any[];
+  private nit: number;
+  private direccion: string;
   constructor(
     private userService: UserService,
     private cartService: CartService,
@@ -75,22 +77,69 @@ export class CarritoComponent implements OnInit {
     }
     const numeroTarjeta = this.numeroTarjeta;
     const idCliente = this.cliente.id_cliente;
-    const items = this.cart.elementos.map(o => {
+    const itemsNormal = this.cart.elementos.filter(o => {
+      return o.producto.tipo_compra === 'normal';
+    }).map(o => {
       const ret = {
         idProducto: o.producto.id_producto,
         cantidad: o.cantidad,
       };
       return ret;
     });
-    this.userService.doPurchase({ numeroTarjeta, idCliente, items }).subscribe(res => {
-      if (res.status === 'success') {
-        this.cartService.removeCart();
-        this.router.navigate(['tienda']);
-        return;
-      }
-      console.error('Oopps')
-    }, err => {
-      console.error(err);
+    const itemsAhora = this.cart.elementos.filter(o => {
+      return o.producto.tipo_compra === 'ahora';
+    }).map(o => {
+      const ret = {
+        idProducto: o.producto.id_producto,
+        cantidad: o.cantidad,
+      };
+      return ret;
     });
+    const itemsSubasta = this.cart.elementos.filter(o => {
+      return o.producto.tipo_compra === 'subasta';
+    }).map(o => {
+      const ret = {
+        idProducto: o.producto.id_producto,
+        cantidad: o.cantidad,
+      };
+      return ret;
+    });
+    if (itemsNormal.length > 0) {
+      this.userService.doPurchase({ numeroTarjeta, idCliente, items: itemsNormal }).subscribe(res => {
+        if (res.status !== 'success') {
+          console.error('Oopps compra normal');
+        }
+      }, err => {
+        console.error(err);
+      });
+    }
+    if (itemsAhora.length > 0) {
+      this.userService.doPurchaseNow({ numeroTarjeta, idCliente, items: itemsAhora }).subscribe(res => {
+        if (res.status !== 'success') {
+          console.error('Oopps compra ahora')
+        }
+      }, err => {
+        console.error(err);
+      });
+    }
+    if (itemsSubasta.length > 0) {
+      // obtener datos de items a subastas
+      const subastas: { idSubasta: number }[] = [];
+      itemsSubasta.forEach(element => {
+        subastas.push({ idSubasta: element.idProducto });
+      });
+      const nit = this.nit;
+      const direccionEnvio = this.direccion;
+      this.userService.doPurchaseSubasta({ numeroTarjeta, idCliente, items: subastas,  nit, direccionEnvio}).subscribe(res => {
+        if (res.status !== 'success') {
+          console.error('Oopps compra subasta')
+        }
+      }, err => {
+        console.error(err);
+      });
+    }
+
+    this.cartService.removeCart();
+    this.router.navigate(['tienda']);
   }
 }

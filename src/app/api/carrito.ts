@@ -5,7 +5,13 @@ export class Carrito {
     get total(): number {
         let val = 0;
         for (const elemento of this.elementos) {
-            val += elemento.producto.precio_venta * elemento.cantidad;
+            val += (elemento.producto.sprecio_comprar
+            ? elemento.producto.sprecio_comprar
+            : (elemento.producto.precio_subasta
+            ? elemento.producto.precio_subasta
+            : (elemento.producto.precio_venta
+            ? elemento.producto.precio_venta
+            : 0))) * elemento.cantidad;
         }
         return val;
     }
@@ -16,15 +22,33 @@ export class Carrito {
         }
         return val;
     }
-    add(producto: Product) {
-        console.log(producto)
+    private add(producto: Product) {
         for (const elemento of this.elementos) {
-            if (elemento.producto.id_producto === producto.id_producto) {
+            if (elemento.producto.id_producto === producto.id_producto
+                && elemento.producto.tipo_compra === producto.tipo_compra) {
                 elemento.cantidad++;
                 return;
             }
         }
         this.elementos.push({ producto, cantidad: 1 })
+    }
+    addNormal(producto: Product) {
+        producto.tipo_compra = 'normal';
+        producto.sprecio_comprar = null;
+        producto.precio_subasta = null;
+        this.add(producto);
+    }
+    addSubasta(producto: Product) {
+        producto.tipo_compra = 'subasta';
+        producto.sprecio_comprar = null;
+        producto.precio_venta = null;
+        this.add(producto);
+    }
+    addAhora(producto: Product) {
+        producto.tipo_compra = 'ahora';
+        producto.precio_subasta = null;
+        producto.precio_venta = null;
+        this.add(producto);
     }
     substract(producto: Product) {
         for (const elemento of this.elementos) {

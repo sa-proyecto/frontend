@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../api/product';
 import { ProductService } from '../api/product.service';
 
@@ -11,27 +11,34 @@ import { ProductService } from '../api/product.service';
 export class SubastaComponent implements OnInit {
   private id: number;
   private producto: Product;
+  private focus: boolean;
+  private ofertas: { fecha_puja: string, nombre_usuario: string, id_usuario: number, valor_puja: number, }[] = [];
   private newBid: number;
 
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
+
+  get Focus(): boolean {
+    return this.focus;
+  }
+
+  set Focus(val: boolean) {
+    this.focus = val;
+  }
 
   get Producto(): Product {
     return this.producto;
   }
 
   get CurrentBid(): number {
-    return 99.25;
+    return this.ofertas.length > 0 ? this.ofertas[0].valor_puja : 0;
   }
 
-  get Bids(): { fecha_puja: string, nombre_usuario: string, id_usuario: number, valor_puja: number, }[] {
-    return [
-      { fecha_puja: '2020/01/02 14:42', nombre_usuario: 'Mario Alvarado', id_usuario: 22, valor_puja: 99.25 },
-      { fecha_puja: '2020/01/02 14:42', nombre_usuario: 'Guillermo Medinilla', id_usuario: 50, valor_puja: 30.50 },
-      { fecha_puja: '2020/01/01 12:33', nombre_usuario: 'Mario Alvarado', id_usuario: 22, valor_puja: 25.00 },
-    ];
+  get Ofertas(): { fecha_puja: string, nombre_usuario: string, id_usuario: number, valor_puja: number, }[] {
+    return this.ofertas;
   }
 
   get NewBid(): number {
@@ -43,23 +50,52 @@ export class SubastaComponent implements OnInit {
   }
 
   save() {
-    console.log(this.NewBid);
+    this.productService.hacerOfertas(
+      this.id.toString(),
+      this.newBid.toString(),
+      JSON.parse(localStorage.getItem('cliente')).id_cliente
+    ).subscribe(res => {
+      if (res.status === 'success') {
+        this.newBid = null;
+      }
+    });
+    this.verOfertas();
+  }
+
+  verOfertas(): void {
+    this.productService.verOfertas(this.id.toString()).subscribe(res => {
+      if (res.status === 'success') {
+        this.ofertas = res.data;
+      }
+    });
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = Number(params.id);
-      if (this.id && JSON.parse(localStorage.getItem('proveedor'))) {
-        this.productService.getAllProducts(0).subscribe(res => {
-          this.producto = res.data.find(o => {
-            return Number(o.id_producto) === this.id;
-          });
-          console.log(this.producto);
+      if (this.id) {
+        this.productService.getProductById(this.id.toString()).subscribe(res => {
+          this.producto = res.data[0];
+          this.producto.fecha_subasta = res.data[0].sfecha;
         }, err => {
           console.error(err);
         });
       }
     });
+    this.revisarOfertas();
+  }
+
+  revisarOfertas(): void {
+    this.verOfertas();
+    setTimeout(() => {
+      this.revisarOfertas();
+      const now = new Date().getTime() / 1000 - 360*60;
+      if (now > Number(this.producto.fecha_subasta)) {
+        this.router.navigate(['mi-perfil']).then(() => {
+          window.location.reload();
+        });
+      }
+    }, 5000);
   }
 
 }

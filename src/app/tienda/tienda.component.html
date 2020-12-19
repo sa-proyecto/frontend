@@ -14,8 +14,8 @@
                         <i class="tim-icons icon-tag"> </i>
                     </div>
                 </div>
-                <select class="form-control" placeholder="Categoría" type="number" (blur)="Focus5 = false" (focus)="Focus5 = true"
-                    (change)="filtrar()" [(ngModel)]="filtro">
+                <select class="form-control" placeholder="Categoría" type="number" (blur)="Focus5 = false"
+                    (focus)="Focus5 = true" (change)="filtrar()" [(ngModel)]="filtro">
                     <!-- <option disabled selected hidden>Seleccione la categoría</option> -->
                     <option value="0">Ver todos</option>
                     <option *ngFor="let cat of Categorias" [value]="cat.id_categoria">{{cat.nombre}}</option>
@@ -31,11 +31,21 @@
                             <img class="card-img-bottom" [src]="prod.foto" alt="Card image cap" />
                             <p class="text-right">
                                 <small>
-                                    <button (click)="addToCart(prod)" class="btn btn-primary btn-sm">Agregar al
-                                        carrito</button>
-                                    <button (click)="addToCartNow(prod)" class="btn btn-primary btn-sm">¡Comprar
-                                        ahora!</button>
-                                    <button (click)="addFavorite(prod.id_producto)" class="btn btn-sm btn-icon btn-cart">
+                                    <div *ngIf="prod.precio_venta">
+                                        <button (click)="addToCartNormal(prod)" class="btn btn-primary btn-sm">Agregar
+                                            al
+                                            carrito</button>
+                                    </div>
+                                    <div *ngIf="prod.sprecio_comprar">
+                                        <div *ngIf="VerificarFecha(prod)">
+                                            <button (click)="addToCartAhora(prod)" class="btn btn-primary btn-sm">¡Comprar
+                                                ahora!</button>
+                                            <button [routerLink]="['/subasta', prod.id_producto]"
+                                                class="btn btn-primary btn-sm">¡Ir a Subasta!</button>
+                                        </div>
+                                    </div>
+                                    <button (click)="addFavorite(prod.id_producto)"
+                                        class="btn btn-sm btn-icon btn-cart">
                                         <i class="tim-icons icon-shape-star"></i>
                                     </button>
                                 </small>

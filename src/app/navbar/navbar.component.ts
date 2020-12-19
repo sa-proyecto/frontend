@@ -32,6 +32,7 @@ export class NavbarComponent implements OnInit {
   salir(): void {
     localStorage.removeItem('cliente');
     localStorage.removeItem('proveedor');
+    localStorage.removeItem('cart');
     this.router.navigate(['login']).then(()=> {
       window.location.reload();
     });

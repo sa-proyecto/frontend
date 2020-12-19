@@ -11,29 +11,47 @@
                         <option *ngFor="let tarjeta of Tarjetas" [value]="tarjeta.numero_tarjeta">
                             {{tarjeta.numero_tarjeta}}
                         </option>
-                </select>
-            </div>
-            <ng-container *ngIf="Productos">
-                <div *ngFor="let elemento of Productos">
-                    <p> <small>{{elemento.producto.nombre}}</small> x {{elemento.cantidad}}
-
-                        <button class="btn btn-sm btn-primary btn-icon" (click)="reducir(elemento)">
-                            <i class="tim-icons icon-simple-delete"></i>
-                        </button>
-                        <button class="btn btn-sm btn-primary btn-icon" (click)="aumentar(elemento)">
-                            <i class="tim-icons icon-simple-add"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger btn-icon" (click)="eliminar(elemento)">
-                            <i class="tim-icons icon-simple-remove"></i>
-                        </button>
-                    </p>
+                    </select>
                 </div>
-            </ng-container>
-        </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus9 === true }">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="tim-icons icon-paper"> </i>
+                        </div>
+                    </div>
+                    <input [(ngModel)]="nit" class="form-control" placeholder="NIT" type="number"
+                        (blur)="Focus9 = false" (focus)="Focus9 = true" />
+                </div>
+                <div class="input-group" [ngClass]="{ 'input-group-focus': Focus10 === true }">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="tim-icons icon-square-pin"> </i>
+                        </div>
+                    </div>
+                    <input [(ngModel)]="direccion" class="form-control" placeholder="Dirección" type="text"
+                        (blur)="Focus10 = false" (focus)="Focus10 = true" />
+                </div>
+                <ng-container *ngIf="Productos">
+                    <div *ngFor="let elemento of Productos">
+                        <p> <small>{{elemento.producto.nombre}}</small> x {{elemento.cantidad}}
 
-        <button class="btn-compra btn btn-sm btn-primary" (click)="comprar(elemento)">
-            Comprar <i class="tim-icons icon-money-coins"></i>
-        </button>
+                            <button class="btn btn-sm btn-primary btn-icon" (click)="reducir(elemento)">
+                                <i class="tim-icons icon-simple-delete"></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary btn-icon" (click)="aumentar(elemento)">
+                                <i class="tim-icons icon-simple-add"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger btn-icon" (click)="eliminar(elemento)">
+                                <i class="tim-icons icon-simple-remove"></i>
+                            </button>
+                        </p>
+                    </div>
+                </ng-container>
+            </div>
+
+            <button class="btn-compra btn btn-sm btn-primary" (click)="comprar()">
+                Comprar <i class="tim-icons icon-money-coins"></i>
+            </button>
+        </div>
     </div>
-</div>
 </div>
