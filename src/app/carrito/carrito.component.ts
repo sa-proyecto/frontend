@@ -104,8 +104,10 @@ export class CarritoComponent implements OnInit {
       };
       return ret;
     });
+    const nit = this.nit;
+    const direccionEnvio = this.direccion;
     if (itemsNormal.length > 0) {
-      this.userService.doPurchase({ numeroTarjeta, idCliente, items: itemsNormal }).subscribe(res => {
+      this.userService.doPurchase({ numeroTarjeta, idCliente, items: itemsNormal, nit, direccionEnvio }).subscribe(res => {
         if (res.status !== 'success') {
           console.error('Oopps compra normal');
         }
@@ -114,7 +116,7 @@ export class CarritoComponent implements OnInit {
       });
     }
     if (itemsAhora.length > 0) {
-      this.userService.doPurchaseNow({ numeroTarjeta, idCliente, items: itemsAhora }).subscribe(res => {
+      this.userService.doPurchaseNow({ numeroTarjeta, idCliente, items: itemsAhora, nit, direccionEnvio }).subscribe(res => {
         if (res.status !== 'success') {
           console.error('Oopps compra ahora')
         }
@@ -128,8 +130,6 @@ export class CarritoComponent implements OnInit {
       itemsSubasta.forEach(element => {
         subastas.push({ idSubasta: element.idProducto });
       });
-      const nit = this.nit;
-      const direccionEnvio = this.direccion;
       this.userService.doPurchaseSubasta({ numeroTarjeta, idCliente, items: subastas,  nit, direccionEnvio}).subscribe(res => {
         if (res.status !== 'success') {
           console.error('Oopps compra subasta')

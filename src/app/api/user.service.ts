@@ -34,11 +34,23 @@ export class UserService {
     return this.httpClient.post<ResponseObject>(httpAddress + '/eliminarTarjeta', form, httpOptions);
   }
 
-  doPurchase(data: { numeroTarjeta: number, idCliente: number, items: Array<{ idProducto: number, cantidad: number }> }) {
+  doPurchase(data: {
+    numeroTarjeta: number,
+    idCliente: number,
+    items: Array<{ idProducto: number, cantidad: number }>,
+    nit: number,
+    direccionEnvio: string
+  }) {
     return this.httpClient.post<ResponseObject>(httpAddress + '/hacerCompra', data, httpOptions);
   }
 
-  doPurchaseNow(data: { numeroTarjeta: number, idCliente: number, items: Array<{ idProducto: number, cantidad: number }> }) {
+  doPurchaseNow(data: {
+    numeroTarjeta: number,
+    idCliente: number,
+    items: Array<{ idProducto: number, cantidad: number }>,
+    nit: number,
+    direccionEnvio: string
+  }) {
     return this.httpClient.post<ResponseObject>(httpAddress + '/hacerCompraSubastaDirecta', data, httpOptions);
   }
 
