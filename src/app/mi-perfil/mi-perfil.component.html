@@ -121,6 +121,36 @@
                                     </table>
                                 </ng-container>
                             </tab>
+                            <tab>
+                                <ng-template tabHeading>
+                                    <i class="tim-icons icon-tap-02"> </i> Subastas
+                                </ng-template>
+                                <ng-container *ngIf="Subastas">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Subasta identificador</th>
+                                                <th>Total</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let subasta of Subastas; let i = index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td>{{subasta.id_subasta}}</td>
+                                                <td>{{subasta.valor}}</td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                                        (click)="pagar(subasta.id_subasta, subasta.valor)">
+                                                        <i class="tim-icons icon-check-2"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </tab>
                         </tabset>
                     </div>
                 </div>

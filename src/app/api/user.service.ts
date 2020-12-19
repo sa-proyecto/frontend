@@ -38,6 +38,21 @@ export class UserService {
     return this.httpClient.post<ResponseObject>(httpAddress + '/hacerCompra', data, httpOptions);
   }
 
+  doPurchaseNow(data: { numeroTarjeta: number, idCliente: number, items: Array<{ idProducto: number, cantidad: number }> }) {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/hacerCompraSubastaDirecta', data, httpOptions);
+  }
+
+  doPurchaseSubasta(data: {
+    numeroTarjeta: number,
+    idCliente: number,
+    items: Array<{ idSubasta: number }>,
+    nit: number,
+    direccionEnvio: string
+  }) {
+    console.log(data);
+    return this.httpClient.post<ResponseObject>(httpAddress + '/hacerCompraSubasta', data, httpOptions);
+  }
+
   getVentas(idproveedor: string): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verVentaProveedor', { idproveedor }, httpOptions);
   }
@@ -48,5 +63,13 @@ export class UserService {
 
   getShopping(idcliente: string): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verCompraCliente', { idcliente }, httpOptions);
+  }
+
+  getSubastasGanadas(idcliente: string): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/versubastaganada', { idcliente }, httpOptions);
+  }
+
+  getSubastasParticipadas(idcliente: string): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/versubasta', { idcliente }, httpOptions);
   }
 }

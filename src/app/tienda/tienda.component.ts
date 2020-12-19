@@ -35,6 +35,11 @@ export class TiendaComponent implements OnInit {
     return this.categorias;
   }
 
+  VerificarFecha(prod: Product): boolean {
+    const now = new Date().getTime() / 1000 - 360*60;
+    return prod.fecha_subasta ? Number(prod.fecha_subasta) > now: false;
+  }
+
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => {
       this.productos = res.data;
@@ -44,19 +49,21 @@ export class TiendaComponent implements OnInit {
     this.cart = this.cartService.getCart();
     this.productService.getCategories()
       .subscribe((res) => {
+        console.log(res);
         if (res.status === 'success') {
           this.categorias = res.data;
         }
       });
   }
 
-  addToCart(prod: Product): void {
-    this.cart.add(prod);
+  addToCartNormal(prod: Product): void {
+    this.cart.addNormal(prod);
     this.cartService.setCart(this.cart);
   }
 
-  addToCartNow(prod: Product): void {
-    this.addToCart(prod);
+  addToCartAhora(prod: Product): void {
+    this.cart.addAhora(prod);
+    this.cartService.setCart(this.cart);
     this.goToCart();
   }
 

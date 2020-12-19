@@ -74,11 +74,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let bid of Bids; let i = index">
+                  <tr *ngFor="let oferta of Ofertas; let i = index">
                     <td class="text-center">{{i+1}}</td>
-                    <td>{{bid.fecha_puja}}</td>
-                    <td>{{bid.nombre_usuario}}</td>
-                    <td>{{bid.valor_puja | currency:'GTQ '}}</td>
+                    <td>{{oferta.fecha_puja}}</td>
+                    <td>{{oferta.nombre_usuario}}</td>
+                    <td>{{oferta.valor_puja | currency:'GTQ '}}</td>
                   </tr>
                 </tbody>
               </table>
