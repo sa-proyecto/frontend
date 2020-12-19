@@ -15,6 +15,8 @@ export class CarritoComponent implements OnInit {
   private cliente: Cliente;
   private numeroTarjeta: number;
   private tarjetas: any[];
+  private nit: number;
+  private direccion: string;
   constructor(
     private userService: UserService,
     private cartService: CartService,
@@ -104,39 +106,40 @@ export class CarritoComponent implements OnInit {
     });
     if (itemsNormal.length > 0) {
       this.userService.doPurchase({ numeroTarjeta, idCliente, items: itemsNormal }).subscribe(res => {
-        if (res.status === 'success') {
-          this.cartService.removeCart();
-          this.router.navigate(['tienda']);
-          return;
+        if (res.status !== 'success') {
+          console.error('Oopps compra normal');
         }
-        console.error('Oopps')
       }, err => {
         console.error(err);
       });
     }
     if (itemsAhora.length > 0) {
       this.userService.doPurchaseNow({ numeroTarjeta, idCliente, items: itemsAhora }).subscribe(res => {
-        if (res.status === 'success') {
-          this.cartService.removeCart();
-          this.router.navigate(['tienda']);
-          return;
+        if (res.status !== 'success') {
+          console.error('Oopps compra ahora')
         }
-        console.error('Oopps')
       }, err => {
         console.error(err);
       });
     }
-    // if (itemsNormal.length > 0) {
-    //   this.userService.doPurchase({ numeroTarjeta, idCliente, items: itemsNormal }).subscribe(res => {
-    //     if (res.status === 'success') {
-    //       this.cartService.removeCart();
-    //       this.router.navigate(['tienda']);
-    //       return;
-    //     }
-    //     console.error('Oopps')
-    //   }, err => {
-    //     console.error(err);
-    //   });
-    // }
+    if (itemsSubasta.length > 0) {
+      // obtener datos de items a subastas
+      const subastas: { idSubasta: number }[] = [];
+      itemsSubasta.forEach(element => {
+        subastas.push({ idSubasta: element.idProducto });
+      });
+      const nit = this.nit;
+      const direccionEnvio = this.direccion;
+      this.userService.doPurchaseSubasta({ numeroTarjeta, idCliente, items: subastas,  nit, direccionEnvio}).subscribe(res => {
+        if (res.status !== 'success') {
+          console.error('Oopps compra subasta')
+        }
+      }, err => {
+        console.error(err);
+      });
+    }
+
+    this.cartService.removeCart();
+    this.router.navigate(['tienda']);
   }
 }

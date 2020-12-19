@@ -36,8 +36,8 @@ export class TiendaComponent implements OnInit {
   }
 
   VerificarFecha(prod: Product): boolean {
-    console.log(prod);
-    return true;
+    const now = new Date().getTime() / 1000 - 360*60;
+    return prod.fecha_subasta ? Number(prod.fecha_subasta) > now: false;
   }
 
   ngOnInit(): void {
@@ -49,6 +49,7 @@ export class TiendaComponent implements OnInit {
     this.cart = this.cartService.getCart();
     this.productService.getCategories()
       .subscribe((res) => {
+        console.log(res);
         if (res.status === 'success') {
           this.categorias = res.data;
         }

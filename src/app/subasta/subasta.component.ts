@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../api/product';
 import { ProductService } from '../api/product.service';
 
@@ -18,6 +18,7 @@ export class SubastaComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   get Focus(): boolean {
@@ -39,14 +40,6 @@ export class SubastaComponent implements OnInit {
   get Ofertas(): { fecha_puja: string, nombre_usuario: string, id_usuario: number, valor_puja: number, }[] {
     return this.ofertas;
   }
-
-  // get Bids(): { fecha_puja: string, nombre_usuario: string, id_usuario: number, valor_puja: number, }[] {
-  //   return [
-  //     { fecha_puja: '2020/01/02 14:42', nombre_usuario: 'Mario Alvarado', id_usuario: 22, valor_puja: 99.25 },
-  //     { fecha_puja: '2020/01/02 14:42', nombre_usuario: 'Guillermo Medinilla', id_usuario: 50, valor_puja: 30.50 },
-  //     { fecha_puja: '2020/01/01 12:33', nombre_usuario: 'Mario Alvarado', id_usuario: 22, valor_puja: 25.00 },
-  //   ];
-  // }
 
   get NewBid(): number {
     return this.newBid;
@@ -83,6 +76,7 @@ export class SubastaComponent implements OnInit {
       if (this.id) {
         this.productService.getProductById(this.id.toString()).subscribe(res => {
           this.producto = res.data[0];
+          this.producto.fecha_subasta = res.data[0].sfecha;
         }, err => {
           console.error(err);
         });
@@ -95,7 +89,13 @@ export class SubastaComponent implements OnInit {
     this.verOfertas();
     setTimeout(() => {
       this.revisarOfertas();
-    }, 10000);
+      const now = new Date().getTime() / 1000 - 360*60;
+      if (now > Number(this.producto.fecha_subasta)) {
+        this.router.navigate(['mi-perfil']).then(() => {
+          window.location.reload();
+        });
+      }
+    }, 5000);
   }
 
 }

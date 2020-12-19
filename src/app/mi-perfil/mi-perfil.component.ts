@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Carrito } from '../api/carrito';
+import { CartService } from '../api/cart.service';
 import { Cliente } from '../api/cliente';
+import { Product } from '../api/product';
 import { ProductService } from '../api/product.service';
 import { Proveedor } from '../api/proveedor';
 import { Tarjeta } from '../api/tarjeta';
@@ -22,11 +26,15 @@ export class MiPerfilComponent implements OnInit {
   private favoritos;
   private facturas;
   private compras;
+  private subastas: { id_subasta: number, valor: number }[] = [];
+  private cart: Carrito;
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private productService: ProductService,
+    private cartService: CartService,
+    private router: Router,
   ) { }
 
   get Tarjetas(): any[] {
@@ -35,6 +43,9 @@ export class MiPerfilComponent implements OnInit {
     });
   }
 
+  get Subastas(): any[] {
+    return this.subastas;
+  }
   get Compras(): any[] {
     return this.compras;
   }
@@ -96,7 +107,12 @@ export class MiPerfilComponent implements OnInit {
         if (res.status === 'success') {
           this.compras = res.data;
         }
-      })
+      });
+      this.userService.getSubastasGanadas(this.cliente.id_cliente.toString()).subscribe(res => {
+        if (res.status === 'success') {
+          this.subastas = res.data;
+        }
+      });
     }
     this.form = this.formBuilder.group({
       numerotarjeta: ['',
@@ -154,12 +170,48 @@ export class MiPerfilComponent implements OnInit {
     this.productService.removeFavorite(idcliente, idprod).subscribe(res => {
       if (res.status === 'success') {
         for (let index = 0; index < this.favoritos.length; index++) {
-          const element:{nombre: string, id_producto: number} = this.favoritos[index];
+          const element: { nombre: string, id_producto: number } = this.favoritos[index];
           if (Number(idprod) === Number(element.id_producto)) {
-            this.favoritos.splice(index,1);
+            this.favoritos.splice(index, 1);
             break;
           }
         }
+      }
+    });
+  }
+
+  pagar(idsubasta, preciosubasta): void {
+    // usar versubasta para traer todas las subastas
+    let subasta;
+    const idcliente = JSON.parse(localStorage.getItem('cliente')).id_cliente;
+    this.userService.getSubastasParticipadas(idcliente).subscribe(res => {
+      if (res.status === 'success') {
+        subasta = res.data.filter(o => {
+          // comparar con la subasta idsubasta para obtener los productos
+          return Number(o.subasta) === Number(idsubasta);
+        });
+        // agregar los productos al carrito
+        const prod: Product = {
+          id_producto: idsubasta,
+          nombre: subasta.nombre_producto,
+          descripcion: null,
+          foto: null,
+          precio_venta: null,
+          stock: null,
+          // actualizar el precio_subasta con el total de la subasta
+          precio_subasta: preciosubasta,
+          sprecio_comprar: null,
+          fecha_subasta: null,
+          tipo_compra: 'subasta'
+        }
+        // obtener carrito
+        this.cart = this.cartService.getCart();
+        // agregar el prod al carrito
+        this.cart.addSubasta(prod);
+        // guardar el carrito
+        this.cartService.setCart(this.cart);
+        // ir a carrito
+        this.router.navigate(['carrito']);
       }
     });
   }

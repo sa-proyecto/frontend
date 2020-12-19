@@ -5,7 +5,6 @@ export class Carrito {
     get total(): number {
         let val = 0;
         for (const elemento of this.elementos) {
-            console.log(elemento);
             val += (elemento.producto.sprecio_comprar
             ? elemento.producto.sprecio_comprar
             : (elemento.producto.precio_subasta
