@@ -33,16 +33,19 @@
                             <i class="fa fa-cogs d-lg-none d-xl-none"> </i> Cliente
                         </a>
                         <div class="dropdown-menu dropdown-with-icons" *dropdownMenu>
-                            <a class="dropdown-item" [routerLink]="['modificar-cliente']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['producto']">
+                                <i class="tim-icons icon-app"> </i> Producto
+                            </a>
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['modificar-cliente']">
                                 <i class="tim-icons icon-paper"> </i> Modificar Cliente
                             </a>
-                            <a class="dropdown-item" [routerLink]="['tarjeta']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['tarjeta']">
                                 <i class="tim-icons icon-bullet-list-67"> </i> Tarjeta
                             </a>
-                            <a class="dropdown-item" [routerLink]="['tienda']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['tienda']">
                                 <i class="tim-icons icon-bullet-list-67"> </i> Tienda
                             </a>
-                            <a class="dropdown-item" [routerLink]="['carrito']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['carrito']">
                                 <i class="tim-icons icon-bullet-list-67"> </i> Carrito
                             </a>
                         </div>
@@ -57,13 +60,13 @@
                         </a>
                         <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right"
                             *dropdownMenu>
-                            <a class="dropdown-item" [routerLink]="['modificar-proveedor']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['modificar-proveedor']">
                                 <i class="tim-icons icon-app"> </i> Modificar Proveedor
                             </a>
-                            <a class="dropdown-item" [routerLink]="['categoria']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['categoria']">
                                 <i class="tim-icons icon-app"> </i> Categoria
                             </a>
-                            <a class="dropdown-item" [routerLink]="['producto']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['producto']">
                                 <i class="tim-icons icon-app"> </i> Producto
                             </a>
                         </div>
@@ -78,10 +81,10 @@
                         </a>
                         <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right"
                             *dropdownMenu>
-                            <a class="dropdown-item" [routerLink]="['login']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['login']">
                                 <i class="tim-icons icon-bulb-63"> </i> Login
                             </a>
-                            <a class="dropdown-item" [routerLink]="['register']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['register']">
                                 <i class="tim-icons icon-align-center"> </i> Registro
                             </a>
                         </div>
@@ -96,7 +99,7 @@
                         </a>
                         <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right"
                             *dropdownMenu>
-                            <a class="dropdown-item" [routerLink]="['mi-perfil']">
+                            <a class="dropdown-item" routerLinkActive="active" [routerLink]="['mi-perfil']">
                                 <i class="tim-icons icon-bulb-63"> </i> Mi perfil
                             </a>
                             <a class="dropdown-item" (click)="salir()">

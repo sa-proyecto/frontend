@@ -35,8 +35,12 @@ export class ProductService {
       { ...formData, ...{ idcategoria: formData.categoria } }, httpOptions);
   }
 
-  getProducts(idproveedor: string): Observable<ResponseObject> {
+  getProductsProvider(idproveedor: string): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verProductoProveedor', { idproveedor }, httpOptions);
+  }
+
+  getProductsClient(idcliente: string): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/verProductoCliente', { idcliente }, httpOptions);
   }
 
   getProductById(idProducto: string): Observable<ResponseObject> {
@@ -51,8 +55,12 @@ export class ProductService {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verCatalogoProductos', { idcategoria }, httpOptions);
   }
 
-  removeProduct(form): Observable<ResponseObject> {
+  removeProductProvider(form): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/eliminarProducto', form, httpOptions);
+  }
+
+  removeProductClient(form): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/eliminarProductocliente', form, httpOptions);
   }
 
   addFavorite(idcliente: number, idproducto: number): Observable<ResponseObject> {

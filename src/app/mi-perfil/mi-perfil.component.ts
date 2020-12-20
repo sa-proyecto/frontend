@@ -83,7 +83,7 @@ export class MiPerfilComponent implements OnInit {
     this.cliente = JSON.parse(localStorage.getItem('cliente'));
     this.proveedor = JSON.parse(localStorage.getItem('proveedor'));
     if (this.proveedor) {
-      this.productService.getProducts(this.proveedor.id_proveedor.toString()).subscribe((res) => {
+      this.productService.getProductsProvider(this.proveedor.id_proveedor.toString()).subscribe((res) => {
         this.productos = res.data;
       }, (err) => {
         console.error(err);
@@ -95,6 +95,11 @@ export class MiPerfilComponent implements OnInit {
       });
     }
     if (this.cliente) {
+      this.productService.getProductsClient(this.cliente.id_cliente.toString()).subscribe((res) => {
+        this.productos = res.data;
+      }, (err) => {
+        console.error(err);
+      });
       this.productService.viewFavorite(this.cliente.id_cliente).subscribe(res => {
         this.favoritos = res.data;
       });
@@ -149,9 +154,25 @@ export class MiPerfilComponent implements OnInit {
     });
   }
 
-  eliminarProducto(idprod): void {
+  eliminarProductoProveedor(idprod): void {
     const id_proveedor = this.proveedor.id_proveedor;
-    this.productService.removeProduct({ id_producto: idprod, id_proveedor }).subscribe((res) => {
+    this.productService.removeProductProvider({ id_producto: idprod, id_proveedor }).subscribe((res) => {
+      if (res.status === 'success') {
+        this.productos = this.productos.filter(o => {
+          return o.id_producto !== idprod;
+        })
+        this.alerta = '';
+      } else {
+        setTimeout(() => this.alerta = res.message, 0);
+      }
+    }, (err) => {
+      setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+    });
+  }
+
+  eliminarProductoCliente(idprod): void {
+    const idcliente = this.cliente.id_cliente;
+    this.productService.removeProductClient({ id_producto: idprod, idcliente }).subscribe((res) => {
       if (res.status === 'success') {
         this.productos = this.productos.filter(o => {
           return o.id_producto !== idprod;
