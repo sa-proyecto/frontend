@@ -36,8 +36,8 @@ export class TiendaComponent implements OnInit {
   }
 
   VerificarFecha(prod: Product): boolean {
-    const now = new Date().getTime() / 1000 - 360*60;
-    return prod.fecha_subasta ? Number(prod.fecha_subasta) > now: false;
+    const now = new Date().getTime();
+    return prod.fecha_subasta ? Number(prod.fecha_subasta)*1000 > now: false;
   }
 
   ngOnInit(): void {
