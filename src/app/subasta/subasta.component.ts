@@ -34,7 +34,7 @@ export class SubastaComponent implements OnInit {
   }
 
   get CurrentBid(): number {
-    return this.ofertas.length > 0 ? this.ofertas[0].valor_puja : 0;
+    return this.ofertas.length > 0 ? this.ofertas[0].valor_puja : this.producto.precio_subasta;
   }
 
   get Ofertas(): { fecha_puja: string, nombre_usuario: string, id_usuario: number, valor_puja: number, }[] {
