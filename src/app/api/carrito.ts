@@ -32,19 +32,25 @@ export class Carrito {
         }
         this.elementos.push({ producto, cantidad: 1 })
     }
-    addNormal(producto: Product) {
+    clonarProducto(prod: Product): Product {
+        return { ...prod };
+    }
+    addNormal(prod: Product) {
+        const producto = this.clonarProducto(prod);
         producto.tipo_compra = 'normal';
         producto.sprecio_comprar = null;
         producto.precio_subasta = null;
         this.add(producto);
     }
-    addSubasta(producto: Product) {
+    addSubasta(prod: Product) {
+        const producto = this.clonarProducto(prod);
         producto.tipo_compra = 'subasta';
         producto.sprecio_comprar = null;
         producto.precio_venta = null;
         this.add(producto);
     }
-    addAhora(producto: Product) {
+    addAhora(prod: Product) {
+        const producto = this.clonarProducto(prod);
         producto.tipo_compra = 'ahora';
         producto.precio_subasta = null;
         producto.precio_venta = null;
