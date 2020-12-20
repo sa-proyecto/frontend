@@ -151,6 +151,36 @@
                                     </table>
                                 </ng-container>
                             </tab>
+                            <tab>
+                                <ng-template tabHeading>
+                                    <i class="tim-icons icon-basket-simple"> </i> Productos
+                                </ng-template>
+                                <ng-container *ngIf="Productos">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Nombre producto</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let producto of Productos; let i = index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td><a [routerLink]="['/producto',producto.id_producto]">
+                                                        {{producto.nombre}}
+                                                    </a></td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                                        (click)="eliminarProductoCliente(producto.id_producto)">
+                                                        <i class="tim-icons icon-simple-remove"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </tab>
                         </tabset>
                     </div>
                 </div>
@@ -218,7 +248,7 @@
                                                     </a></td>
                                                 <td>
                                                     <button class="btn btn-danger btn-fab btn-icon btn-round"
-                                                        (click)="eliminarProducto(producto.id_producto)">
+                                                        (click)="eliminarProductoProveedor(producto.id_producto)">
                                                         <i class="tim-icons icon-simple-remove"></i>
                                                     </button>
                                                 </td>
