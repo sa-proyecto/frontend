@@ -30,6 +30,10 @@ export class LoginpageComponent implements OnInit, OnDestroy {
     return this.submitted;
   }
 
+  get IsAdmin(): boolean {
+    return this.f.email.value === 'admin@econoahorro.com';
+  }
+
   ngOnInit() {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('login-page');
@@ -59,6 +63,13 @@ export class LoginpageComponent implements OnInit, OnDestroy {
 
   login(): void {
     this.submitted = true;
+    // credenciales de admin
+    if (this.loginForm.value.email === 'admin@econoahorro.com'
+    && this.loginForm.value.contrasena === 'admin') {
+      this.router.navigate(['admin']).then(() => {
+        window.location.reload();
+      });
+    }
     if (!this.loginForm.valid) {
       return;
     }
