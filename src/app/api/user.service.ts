@@ -9,7 +9,7 @@ const httpOptions = {
   })
 };
 
-const httpAddress = 'http://35.192.186.31:3000';
+const httpAddress = 'http://busg1.us-e2.cloudhub.io';
 
 @Injectable({
   providedIn: 'root'
