@@ -36,6 +36,7 @@ import { TiendaComponent } from './tienda/tienda.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SubastaComponent } from './subasta/subasta.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { SubastaComponent } from './subasta/subasta.component';
     CarritoComponent,
     NavbarComponent,
     SubastaComponent,
+    AdminComponent,
   ],
   imports: [
     CommonModule,

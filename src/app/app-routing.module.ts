@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminComponent } from './admin/admin.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 
@@ -16,6 +17,7 @@ import { TiendaComponent } from './tienda/tienda.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'admin', component: AdminComponent, pathMatch: 'full' },
   { path: 'login', component: LoginpageComponent, pathMatch: 'full' },
   { path: 'modificar-cliente', component: ModificarClienteComponent, pathMatch: 'full' },
   { path: 'modificar-proveedor', component: ModificarProveedorComponent, pathMatch: 'full' },
