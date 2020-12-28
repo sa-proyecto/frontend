@@ -55,6 +55,20 @@ export class MiPerfilComponent implements OnInit {
   get Facturas(): any[] {
     return this.facturas;
   }
+  obtenerEstado(estado: number): string {
+    switch (estado) {
+      case 2:
+        return 'Despachado por proveedor';
+      case 3:
+        return 'En Tienda';
+      case 4:
+        return 'En camino';
+      case 5:
+        return 'Entregado';
+      default:
+        return 'Comprado';
+    }
+  }
   get Cliente(): Cliente {
     return this.cliente;
   }
