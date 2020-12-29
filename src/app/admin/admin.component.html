@@ -8,8 +8,8 @@
                         <tr>
                             <th class="text-center">#</th>
                             <th>Número factura</th>
-                            <th>Nombre</th>
-                            <th>NIT</th>
+                            <th>Id cliente</th>
+                            <th>Total</th>
                             <th>Dirección envío</th>
                             <th>Estado</th>
                             <th></th>
@@ -18,13 +18,16 @@
                     <tbody>
                         <tr *ngFor="let factura of Facturas; let i = index">
                             <td class="text-center">{{i+1}}</td>
-                            <td>{{factura.numero_factura}}</td>
-                            <td>{{factura.nombre}}</td>
-                            <td>{{factura.nit}}</td>
-                            <td>{{factura.direccion_envio}}</td>
+                            <td>{{factura.id_factura}}</td>
+                            <td>{{factura.id_cliente}}</td>
+                            <td>{{factura.total}}</td>
+                            <td>{{obtenerEntrega(factura.entrega)}}</td>
                             <td>{{obtenerEstado(factura.estado)}}</td>
                             <td>
-                                <select>
+                                <select class="form-control" (blur)="focus2 = false" (focus)="focus2 = true"
+                                    (change)="onEditClick($event.target.value, factura.id_factura, factura.entrega)">
+                                    <option value="0" disabled selected hidden>{{obtenerEstado(factura.estado)}}
+                                    </option>
                                     <option value="1">Comprado</option>
                                     <option value="2">Despachado por proveedor</option>
                                     <option value="3">En Tienda</option>

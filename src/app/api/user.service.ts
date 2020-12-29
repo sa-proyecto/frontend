@@ -76,6 +76,14 @@ export class UserService {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verFacturaCliente', { idcliente }, httpOptions);
   }
 
+  getCompras(): Observable<ResponseObject> {
+    return this.httpClient.get<ResponseObject>(httpAddress + '/verCompras', httpOptions);
+  }
+
+  cambiarEstado(idfactura: number, estado: number): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/cambiotraking', { idfactura, estado }, httpOptions);
+  }
+
   getShopping(idcliente: string): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verCompraCliente', { idcliente }, httpOptions);
   }

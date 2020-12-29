@@ -49,7 +49,6 @@ export class TiendaComponent implements OnInit {
     this.cart = this.cartService.getCart();
     this.productService.getCategories()
       .subscribe((res) => {
-        console.log(res);
         if (res.status === 'success') {
           this.categorias = res.data;
         }
