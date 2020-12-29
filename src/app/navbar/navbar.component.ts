@@ -124,6 +124,7 @@ export class NavbarComponent implements OnInit {
 
   desconectar(): void {
     ExternalService.selectedGroup = null;
+    this.salir();
     this.router.navigate(['login']).then(() => {
       window.location.reload();
     });

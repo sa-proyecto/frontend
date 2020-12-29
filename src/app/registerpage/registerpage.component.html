@@ -36,6 +36,33 @@
                           Requerido
                         </div>
                       </div>
+
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus11 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-single-02"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Nombre proveedor" type="text"
+                          (blur)="Focus11 = false" (focus)="Focus11 = true" formControlName="nombre" />
+                      </div>
+                      <div *ngIf="Submitted && fproveedor.nombre.errors">
+                        <div *ngIf="fproveedor.nombre.errors.required"
+                          class="invalid-feedback d-block text-right">
+                          Requerido
+                        </div>
+                      </div>
+
+                      <div class="input-group" [ngClass]="{ 'input-group-focus': Focus12 === true }">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="tim-icons icon-single-02"> </i>
+                          </div>
+                        </div>
+                        <input class="form-control" placeholder="Apellido proveedor" type="text"
+                          (blur)="Focus12 = false" (focus)="Focus12 = true" formControlName="apellido" />
+                      </div>
+                      
                       <div class="input-group" [ngClass]="{ 'input-group-focus': Focus2 === true }">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
