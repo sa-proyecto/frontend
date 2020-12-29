@@ -65,7 +65,7 @@ export class LoginpageComponent implements OnInit, OnDestroy {
     this.submitted = true;
     // credenciales de admin
     if (this.loginForm.value.email === 'admin@econoahorro.com'
-    && this.loginForm.value.contrasena === 'admin') {
+      && this.loginForm.value.contrasena === 'admin') {
       this.router.navigate(['admin']).then(() => {
         window.location.reload();
       });
@@ -73,6 +73,10 @@ export class LoginpageComponent implements OnInit, OnDestroy {
     if (!this.loginForm.valid) {
       return;
     }
+    this.localLogin();
+  }
+
+  localLogin() {
     this.authService.login(this.loginForm.value)
       .subscribe((res) => {
         if (res.status === 'success') {
@@ -99,5 +103,4 @@ export class LoginpageComponent implements OnInit, OnDestroy {
         setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
       });
   }
-
 }
