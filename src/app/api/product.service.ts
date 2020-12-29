@@ -48,11 +48,11 @@ export class ProductService {
   }
 
   getAllProducts(idcategoria: number = 0): Observable<ResponseObject> {
-    return this.httpClient.post<ResponseObject>(httpAddress + '/verCatalogoProductos', { idcategoria }, httpOptions);
+    return this.httpClient.post<ResponseObject>(httpAddress + '/VerCatalogoProductos', { idcategoria }, httpOptions);
   }
 
   getProductsByCategory(idcategoria: number): Observable<ResponseObject> {
-    return this.httpClient.post<ResponseObject>(httpAddress + '/verCatalogoProductos', { idcategoria }, httpOptions);
+    return this.httpClient.post<ResponseObject>(httpAddress + '/VerCatalogoProductos', { idcategoria }, httpOptions);
   }
 
   removeProductProvider(form): Observable<ResponseObject> {
