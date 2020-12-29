@@ -4,6 +4,7 @@ import { AuthService } from '../api/auth.service';
 import { Router } from '@angular/router';
 import { Cliente } from '../api/cliente';
 import { ExternalService } from '../api/external.service';
+import { Proveedor } from '../api/proveedor';
 
 @Component({
   selector: 'app-loginpage',
@@ -128,6 +129,26 @@ export class LoginpageComponent implements OnInit, OnDestroy {
         }, (err) => {
           setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
         });
+      return;
     }
+    this.externalService.loginProveedor(this.loginForm.value)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          const tmp = res.data;
+          tmp.id_proveedor = tmp.id;
+          delete tmp.id;
+          tmp.nombre_empresa = tmp.empresa;
+          delete tmp.empresa;
+          const usuario: Proveedor = tmp;
+          localStorage.setItem('proveedor', JSON.stringify(usuario));
+          this.router.navigate(['producto']).then(() => {
+            window.location.reload();
+          });
+        } else {
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+      });
   }
 }
