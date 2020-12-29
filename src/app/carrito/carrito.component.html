@@ -4,10 +4,10 @@
             <div class="card-body">
                 <h4 class="card-title">Listo para realizar tu compra? <small>(Total: GTQ{{ Total }})</small>
                 </h4>
-                <div *ngIf="Tarjetas">
+                <div *ngIf="Tarjetas" class="input-group">
                     <select class="form-control" placeholder="Tarjeta" (blur)="Focus5 = false" (focus)="Focus5 = true"
                         [(ngModel)]="numeroTarjeta">
-                        <option value="" disabled selected hidden>Seleccione tarjeta</option>
+                        <option value="0" disabled selected hidden>Seleccione tarjeta</option>
                         <option *ngFor="let tarjeta of Tarjetas" [value]="tarjeta.numero_tarjeta">
                             {{tarjeta.numero_tarjeta}}
                         </option>
@@ -30,6 +30,14 @@
                     </div>
                     <input [(ngModel)]="direccion" class="form-control" placeholder="Dirección" type="text"
                         (blur)="Focus10 = false" (focus)="Focus10 = true" />
+                </div>
+                <div>
+                    <select class="form-control" placeholder="Tipo de Entrega" (blur)="Focus15 = false" (focus)="Focus15 = true"
+                    [(ngModel)]="tipoEntrega">
+                        <option value="0" disabled selected hidden>Seleccione tipo de entrega</option>
+                        <option value="1">Recoger en tienda</option>
+                        <option value="2">Entrega en casa</option>
+                    </select>
                 </div>
                 <ng-container *ngIf="Productos">
                     <div *ngFor="let elemento of Productos">

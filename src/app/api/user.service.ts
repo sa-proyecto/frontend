@@ -35,6 +35,7 @@ export class UserService {
   }
 
   doPurchase(data: {
+    entrega: number,
     numeroTarjeta: number,
     idCliente: number,
     items: Array<{ idProducto: number, cantidad: number }>,
@@ -45,6 +46,7 @@ export class UserService {
   }
 
   doPurchaseNow(data: {
+    entrega: number,
     numeroTarjeta: number,
     idCliente: number,
     items: Array<{ idProducto: number, cantidad: number }>,
@@ -55,6 +57,7 @@ export class UserService {
   }
 
   doPurchaseSubasta(data: {
+    entrega: number,
     numeroTarjeta: number,
     idCliente: number,
     items: Array<{ idSubasta: number }>,

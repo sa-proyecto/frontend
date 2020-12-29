@@ -13,7 +13,8 @@ import { UserService } from '../api/user.service';
 export class CarritoComponent implements OnInit {
   private cart: Carrito;
   private cliente: Cliente;
-  private numeroTarjeta: number;
+  private numeroTarjeta = 0;
+  private tipoEntrega = 0;
   private tarjetas: any[];
   private nit: number;
   private direccion: string;
@@ -107,7 +108,10 @@ export class CarritoComponent implements OnInit {
     const nit = this.nit;
     const direccionEnvio = this.direccion;
     if (itemsNormal.length > 0) {
-      this.userService.doPurchase({ numeroTarjeta, idCliente, items: itemsNormal, nit, direccionEnvio }).subscribe(res => {
+      this.userService.doPurchase({
+        entrega: this.tipoEntrega,
+        numeroTarjeta, idCliente, items: itemsNormal, nit, direccionEnvio
+      }).subscribe(res => {
         if (res.status !== 'success') {
           console.error('Oopps compra normal');
         }
@@ -116,7 +120,10 @@ export class CarritoComponent implements OnInit {
       });
     }
     if (itemsAhora.length > 0) {
-      this.userService.doPurchaseNow({ numeroTarjeta, idCliente, items: itemsAhora, nit, direccionEnvio }).subscribe(res => {
+      this.userService.doPurchaseNow({
+        entrega: this.tipoEntrega,
+        numeroTarjeta, idCliente, items: itemsAhora, nit, direccionEnvio
+      }).subscribe(res => {
         if (res.status !== 'success') {
           console.error('Oopps compra ahora')
         }
@@ -130,7 +137,10 @@ export class CarritoComponent implements OnInit {
       itemsSubasta.forEach(element => {
         subastas.push({ idSubasta: element.idProducto });
       });
-      this.userService.doPurchaseSubasta({ numeroTarjeta, idCliente, items: subastas,  nit, direccionEnvio}).subscribe(res => {
+      this.userService.doPurchaseSubasta({
+        entrega: this.tipoEntrega,
+        numeroTarjeta, idCliente, items: subastas, nit, direccionEnvio
+      }).subscribe(res => {
         if (res.status !== 'success') {
           console.error('Oopps compra subasta')
         }
