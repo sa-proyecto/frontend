@@ -61,22 +61,22 @@ export class NavbarComponent implements OnInit {
       nombreGrupo: 'Grupo 11',
       idGrupo: 'grupo11'
     },
-    {
-      nombreGrupo: 'Grupo 12',
-      idGrupo: 'grupo12'
-    },
+    // {
+    //   nombreGrupo: 'Grupo 12',
+    //   idGrupo: 'grupo12'
+    // },
     {
       nombreGrupo: 'Grupo 13',
       idGrupo: 'grupo13'
     },
-    // {
-    //   nombreGrupo: 'Grupo 14',
-    //   idGrupo: 'grupo14'
-    // },
-    // {
-    //   nombreGrupo: 'Grupo 15',
-    //   idGrupo: 'grupo15'
-    // },
+    {
+      nombreGrupo: 'Grupo 14',
+      idGrupo: 'grupo14'
+    },
+    {
+      nombreGrupo: 'Grupo 15',
+      idGrupo: 'grupo15'
+    },
     // {
     //   nombreGrupo: 'Grupo 16',
     //   idGrupo: 'grupo16'
