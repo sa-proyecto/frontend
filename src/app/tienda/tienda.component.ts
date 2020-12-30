@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Carrito } from '../api/carrito';
 import { CartService } from '../api/cart.service';
+import { ExternalService } from '../api/external.service';
 import { Product } from '../api/product';
 import { ProductService } from '../api/product.service';
 
@@ -17,6 +18,7 @@ export class TiendaComponent implements OnInit {
   private filtro: number;
   alerta = '';
   constructor(
+    private externalService: ExternalService,
     private productService: ProductService,
     private cartService: CartService,
     private router: Router,
@@ -41,6 +43,21 @@ export class TiendaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (ExternalService.selectedGroup) {
+      this.externalService.verProductos().subscribe(res => {
+        this.productos = res.data;
+      }, err => {
+        console.error(err);
+      });
+      this.cart = this.cartService.getCart();
+      this.productService.getCategories()
+        .subscribe((res) => {
+          if (res.status === 'success') {
+            this.categorias = res.data;
+          }
+        });
+    return;
+    }
     this.productService.getAllProducts().subscribe(res => {
       this.productos = res.data;
     }, err => {
@@ -49,7 +66,6 @@ export class TiendaComponent implements OnInit {
     this.cart = this.cartService.getCart();
     this.productService.getCategories()
       .subscribe((res) => {
-        console.log(res);
         if (res.status === 'success') {
           this.categorias = res.data;
         }

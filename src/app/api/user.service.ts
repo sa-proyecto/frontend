@@ -9,7 +9,7 @@ const httpOptions = {
   })
 };
 
-const httpAddress = 'http://35.192.186.31:3000';
+const httpAddress = 'http://busg1.us-e2.cloudhub.io';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,7 @@ export class UserService {
   }
 
   doPurchase(data: {
+    entrega: number,
     numeroTarjeta: number,
     idCliente: number,
     items: Array<{ idProducto: number, cantidad: number }>,
@@ -45,6 +46,7 @@ export class UserService {
   }
 
   doPurchaseNow(data: {
+    entrega: number,
     numeroTarjeta: number,
     idCliente: number,
     items: Array<{ idProducto: number, cantidad: number }>,
@@ -55,6 +57,7 @@ export class UserService {
   }
 
   doPurchaseSubasta(data: {
+    entrega: number,
     numeroTarjeta: number,
     idCliente: number,
     items: Array<{ idSubasta: number }>,
@@ -71,6 +74,14 @@ export class UserService {
 
   getFacturas(idcliente: string): Observable<ResponseObject> {
     return this.httpClient.post<ResponseObject>(httpAddress + '/verFacturaCliente', { idcliente }, httpOptions);
+  }
+
+  getCompras(): Observable<ResponseObject> {
+    return this.httpClient.get<ResponseObject>(httpAddress + '/verCompras', httpOptions);
+  }
+
+  cambiarEstado(idfactura: number, estado: number): Observable<ResponseObject> {
+    return this.httpClient.post<ResponseObject>(httpAddress + '/cambiotraking', { idfactura, estado }, httpOptions);
   }
 
   getShopping(idcliente: string): Observable<ResponseObject> {

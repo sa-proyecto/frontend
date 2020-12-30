@@ -1,0 +1,44 @@
+<div class="admin row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card">
+            <h1>Bienvenido Administrador</h1>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>Número factura</th>
+                            <th>Id cliente</th>
+                            <th>Total</th>
+                            <th>Dirección envío</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let factura of Facturas; let i = index">
+                            <td class="text-center">{{i+1}}</td>
+                            <td>{{factura.id_factura}}</td>
+                            <td>{{factura.id_cliente}}</td>
+                            <td>{{factura.total}}</td>
+                            <td>{{obtenerEntrega(factura.entrega)}}</td>
+                            <td>{{obtenerEstado(factura.estado)}}</td>
+                            <td>
+                                <select class="form-control" (blur)="focus2 = false" (focus)="focus2 = true"
+                                    (change)="onEditClick($event.target.value, factura.id_factura, factura.entrega)">
+                                    <option value="0" disabled selected hidden>{{obtenerEstado(factura.estado)}}
+                                    </option>
+                                    <option value="1">Comprado</option>
+                                    <option value="2">Despachado por proveedor</option>
+                                    <option value="3">En Tienda</option>
+                                    <option value="4">En camino</option>
+                                    <option value="5">Entregado</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

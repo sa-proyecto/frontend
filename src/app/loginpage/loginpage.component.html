@@ -50,10 +50,11 @@
                 </span>
               </div>
 
-              <select class="form-control" placeholder="Tipo usuario" type="number" (blur)="focus2 = false"
-                (focus)="focus2 = true" formControlName="tipousuario">
+              <select [attr.disabled]="IsAdmin ? true: null" class="form-control" placeholder="Tipo usuario"
+                type="number" (blur)="focus2 = false" (focus)="focus2 = true" formControlName="tipousuario">
                 <option value="" disabled selected hidden>Seleccione el tipo de usuario</option>
-                <option [value]="item.id" *ngFor="let item of tipoUsuario">{{item.text}}</option>
+                <option *ngFor="let item of tipoUsuario" [value]="item.id">{{item.text}}</option>
+                <option value="0" *ngIf="IsAdmin" [selected]="IsAdmin">Admin</option>
               </select>
             </div>
             <div *ngIf="Submitted && f.tipousuario.errors">

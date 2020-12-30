@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar-translate">
             <a class="navbar-brand" placement="bottom">
-                <span> Grupo 1• </span> EconoAhorro
+                <span> Grupo 1• </span> EconoAhorro <span *ngIf="ConexionExterna">Conectado a {{ConexionExterna}}</span>
             </a>
             <button aria-controls="navigation-index" aria-label="Toggle navigation" class="navbar-toggler"
                 [attr.aria-expanded]="!isCollapsed" (click)="isCollapsed = !isCollapsed" id="navigation" type="button">
@@ -105,6 +105,34 @@
                             <a class="dropdown-item" (click)="salir()">
                                 <i class="tim-icons icon-align-center"> </i> Salir
                             </a>
+                        </div>
+                    </li>
+                </div>
+                <div>
+                    <li class="nav-item dropdown" dropdown [autoClose]="autoclose2" (clickOutside)="autoclose2 = true">
+                        <a class="nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" dropdownToggle
+                            id="navbarDropdownMenuLinkLevel1" (click)="autoclose2 = false">
+                            <i aria-hidden="true" class="tim-icons icon-world"> </i>
+                            <p>Conexión externa</p>
+                        </a>
+                        <div aria-labelledby="navbarDropdownMenuLinkLevel1" class="dropdown-menu dropdown-menu-right"
+                            *dropdownMenu>
+                            <a class="dropdown-item" (click)="desconectar()">
+                                <i class="tim-icons icon-cloud-download-93"> </i> Desconectar
+                            </a>
+                            <div class="dropdown" dropdown>
+                                <a class="dropdown-item dropdown-toggle dropdown-toggle" data-toggle="dropdown" dropdownToggle
+                                    id="navbarDropdownMenuLinkLevel2" (click)="$event.preventDefault()" href="#">
+                                    <i aria-hidden="true" class="tim-icons icon-bus-front-12"> </i>
+                                    Bus integración
+                                </a>
+                                <div aria-labelledby="navbarDropdownMenuLinkLevel2" class="dropdown-menu"
+                                    *dropdownMenu>
+                                    <a *ngFor="let grupo of Grupos" class="dropdown-item" (click)="conectar(grupo.idGrupo)">
+                                        <i class="tim-icons icon-cloud-upload-94"> </i> {{grupo.nombreGrupo}}
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </li>
                 </div>

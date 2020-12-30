@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ExternalService } from '../api/external.service';
 import { ProductService } from '../api/product.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class ProductoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private route: ActivatedRoute,
+    private externalService: ExternalService,
   ) { }
 
   get Form(): { [key: string]: AbstractControl } {
@@ -300,6 +302,74 @@ export class ProductoComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+    if (ExternalService.selectedGroup) {
+      this.productoExternalAdd();
+      return;
+    }
+    this.productoLocalAdd();
+  }
+
+  productoExternalProviderAdd(): void {
+    const tmp = this.form.value;
+    tmp.id_proveedor = tmp.proveedor;
+    delete tmp.proveedor;
+    tmp.precio_venta = tmp.precio;
+    delete tmp.precio;
+    tmp.precio_inicial_subasta = tmp.precio_subasta;
+    delete tmp.precio_subasta;
+    tmp.precio_compralo_ahora = tmp.precio_compra;
+    delete tmp.precio_compra;
+    this.externalService.crearProductoProveedor(tmp)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          this.form.reset();
+          this.sumbitted = false;
+          this.alerta = '';
+        } else {
+          // Accion de fallo
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        // Accion de error
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+      });
+  }
+
+  productoExternalClientAdd(): void {
+    const tmp = this.form.value;
+    tmp.id_cliente = tmp.cliente;
+    delete tmp.cliente;
+    tmp.precio_venta = tmp.precio;
+    delete tmp.precio;
+    tmp.precio_inicial_subasta = tmp.precio_subasta;
+    delete tmp.precio_subasta;
+    tmp.precio_compralo_ahora = tmp.precio_compra;
+    delete tmp.precio_compra;
+    this.externalService.crearProductoCliente(tmp)
+    .subscribe((res) => {
+      if (res.status === 'success') {
+        this.form.reset();
+        this.sumbitted = false;
+        this.alerta = '';
+      } else {
+        // Accion de fallo
+        setTimeout(() => this.alerta = res.message, 0);
+      }
+    }, (err) => {
+      // Accion de error
+      setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+    });
+  }
+
+  productoExternalAdd(): void {
+    if (JSON.parse(localStorage.getItem('proveedor'))) {
+      this.productoExternalProviderAdd();
+      return;
+    }
+    this.productoExternalClientAdd();
+  }
+
+  productoLocalAdd(): void {
     this.productService.addProduct(this.form.value)
       .subscribe((res) => {
         if (res.status === 'success') {

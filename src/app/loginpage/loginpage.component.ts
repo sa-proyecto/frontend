@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../api/auth.service';
 import { Router } from '@angular/router';
 import { Cliente } from '../api/cliente';
+import { ExternalService } from '../api/external.service';
+import { Proveedor } from '../api/proveedor';
 
 @Component({
   selector: 'app-loginpage',
@@ -19,6 +21,7 @@ export class LoginpageComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private externalService: ExternalService,
     private router: Router,
   ) { }
 
@@ -28,6 +31,10 @@ export class LoginpageComponent implements OnInit, OnDestroy {
 
   get Submitted(): boolean {
     return this.submitted;
+  }
+
+  get IsAdmin(): boolean {
+    return this.f.email.value === 'admin@econoahorro.com';
   }
 
   ngOnInit() {
@@ -59,9 +66,24 @@ export class LoginpageComponent implements OnInit, OnDestroy {
 
   login(): void {
     this.submitted = true;
+    // credenciales de admin
+    if (this.loginForm.value.email === 'admin@econoahorro.com'
+      && this.loginForm.value.contrasena === 'admin') {
+      this.router.navigate(['admin']).then(() => {
+        window.location.reload();
+      });
+    }
     if (!this.loginForm.valid) {
       return;
     }
+    if (ExternalService.selectedGroup) {
+      this.externalLogin();
+      return;
+    }
+    this.localLogin();
+  }
+
+  localLogin() {
     this.authService.login(this.loginForm.value)
       .subscribe((res) => {
         if (res.status === 'success') {
@@ -88,5 +110,45 @@ export class LoginpageComponent implements OnInit, OnDestroy {
         setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
       });
   }
-
+  externalLogin() {
+    if (Number(this.loginForm.controls.tipousuario.value) === 1) {
+      this.externalService.loginCliente(this.loginForm.value)
+        .subscribe((res) => {
+          if (res.status === 'success') {
+            const tmp = res.data;
+            tmp.id_cliente = tmp.id;
+            delete tmp.id;
+            const usuario: Cliente = tmp;
+            localStorage.setItem('cliente', JSON.stringify(usuario));
+            this.router.navigate(['tienda']).then(() => {
+              window.location.reload();
+            });
+          } else {
+            setTimeout(() => this.alerta = res.message, 0);
+          }
+        }, (err) => {
+          setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+        });
+      return;
+    }
+    this.externalService.loginProveedor(this.loginForm.value)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          const tmp = res.data;
+          tmp.id_proveedor = tmp.id;
+          delete tmp.id;
+          tmp.nombre_empresa = tmp.empresa;
+          delete tmp.empresa;
+          const usuario: Proveedor = tmp;
+          localStorage.setItem('proveedor', JSON.stringify(usuario));
+          this.router.navigate(['producto']).then(() => {
+            window.location.reload();
+          });
+        } else {
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+      });
+  }
 }

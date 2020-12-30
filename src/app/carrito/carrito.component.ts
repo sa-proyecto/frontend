@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Carrito } from '../api/carrito';
 import { CartService } from '../api/cart.service';
 import { Cliente } from '../api/cliente';
+import { ExternalService } from '../api/external.service';
 import { UserService } from '../api/user.service';
 
 @Component({
@@ -13,11 +14,13 @@ import { UserService } from '../api/user.service';
 export class CarritoComponent implements OnInit {
   private cart: Carrito;
   private cliente: Cliente;
-  private numeroTarjeta: number;
+  private numeroTarjeta = 0;
+  private tipoEntrega = 0;
   private tarjetas: any[];
   private nit: number;
   private direccion: string;
   constructor(
+    private externalService: ExternalService,
     private userService: UserService,
     private cartService: CartService,
     private router: Router,
@@ -31,9 +34,9 @@ export class CarritoComponent implements OnInit {
   }
 
   get Tarjetas(): any[] {
-    return this.tarjetas.filter(o => {
+    return this.tarjetas ? this.tarjetas.filter(o => {
       return Number(o.estado) === 0;
-    });
+    }) : [];
   }
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
@@ -77,6 +80,13 @@ export class CarritoComponent implements OnInit {
     }
     const numeroTarjeta = this.numeroTarjeta;
     const idCliente = this.cliente.id_cliente;
+    const itemsExternal = this.cart.elementos.map(o => {
+      const ret = {
+        id_producto: o.producto.id_producto,
+        cantidad: o.cantidad,
+      };
+      return ret;
+    });
     const itemsNormal = this.cart.elementos.filter(o => {
       return o.producto.tipo_compra === 'normal';
     }).map(o => {
@@ -106,8 +116,24 @@ export class CarritoComponent implements OnInit {
     });
     const nit = this.nit;
     const direccionEnvio = this.direccion;
+
+    if (ExternalService.selectedGroup && itemsExternal.length > 0) {
+      this.externalService.comprar({
+        id_cliente: idCliente,
+        productos: itemsExternal,
+      }).subscribe(res => {
+        if (res.status !== 'success') {
+          console.error('Oopps compra externa');
+        }
+      }, err => {
+        console.error(err);
+      });
+    }
     if (itemsNormal.length > 0) {
-      this.userService.doPurchase({ numeroTarjeta, idCliente, items: itemsNormal, nit, direccionEnvio }).subscribe(res => {
+      this.userService.doPurchase({
+        entrega: this.tipoEntrega,
+        numeroTarjeta, idCliente, items: itemsNormal, nit, direccionEnvio
+      }).subscribe(res => {
         if (res.status !== 'success') {
           console.error('Oopps compra normal');
         }
@@ -116,7 +142,10 @@ export class CarritoComponent implements OnInit {
       });
     }
     if (itemsAhora.length > 0) {
-      this.userService.doPurchaseNow({ numeroTarjeta, idCliente, items: itemsAhora, nit, direccionEnvio }).subscribe(res => {
+      this.userService.doPurchaseNow({
+        entrega: this.tipoEntrega,
+        numeroTarjeta, idCliente, items: itemsAhora, nit, direccionEnvio
+      }).subscribe(res => {
         if (res.status !== 'success') {
           console.error('Oopps compra ahora')
         }
@@ -130,7 +159,10 @@ export class CarritoComponent implements OnInit {
       itemsSubasta.forEach(element => {
         subastas.push({ idSubasta: element.idProducto });
       });
-      this.userService.doPurchaseSubasta({ numeroTarjeta, idCliente, items: subastas,  nit, direccionEnvio}).subscribe(res => {
+      this.userService.doPurchaseSubasta({
+        entrega: this.tipoEntrega,
+        numeroTarjeta, idCliente, items: subastas, nit, direccionEnvio
+      }).subscribe(res => {
         if (res.status !== 'success') {
           console.error('Oopps compra subasta')
         }
