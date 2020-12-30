@@ -128,6 +128,7 @@ export class CarritoComponent implements OnInit {
       }, err => {
         console.error(err);
       });
+      return;
     }
     if (itemsNormal.length > 0) {
       this.userService.doPurchase({
