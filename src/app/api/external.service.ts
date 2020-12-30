@@ -13,7 +13,17 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ExternalService {
-  public static selectedGroup: string = null;
+  public static get selectedGroup(): string {
+    return localStorage.getItem('selectedGroup');
+  }
+
+  public static set selectedGroup(val: string) {
+    if (val) {
+      localStorage.setItem('selectedGroup', val)
+    } else {
+      localStorage.removeItem('selectedGroup');
+    }
+  }
 
   constructor(private httpClient: HttpClient) { }
   // Registro

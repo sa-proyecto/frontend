@@ -5,8 +5,8 @@ export interface Cliente {
     celular: number;
     contrasena: string;
     email: string;
-    foto: string;
+    foto?: string;
     id_cliente: number;
     nombre: string;
-    tarjetas: Array<Tarjeta>;
+    tarjetas?: Array<Tarjeta>;
 }

@@ -93,6 +93,10 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  get ConexionExterna(): string {
+    return ExternalService.selectedGroup;
+  }
+
   get Grupos(): Array<{ nombreGrupo: string, idGrupo: string }> {
     return this.grupos;
   }
@@ -120,6 +124,7 @@ export class NavbarComponent implements OnInit {
 
   desconectar(): void {
     ExternalService.selectedGroup = null;
+    this.salir();
     this.router.navigate(['login']).then(() => {
       window.location.reload();
     });
@@ -127,7 +132,7 @@ export class NavbarComponent implements OnInit {
 
   conectar(idGrupo: string): void {
     this.salir();
-    ExternalService.selectedGroup = environment.groupsUrls[idGrupo];
+    ExternalService.selectedGroup = idGrupo;
     this.router.navigate(['login']).then(() => {
       window.location.reload();
     });

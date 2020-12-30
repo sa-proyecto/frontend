@@ -3,6 +3,7 @@ import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../api/auth.service';
+import { ExternalService } from '../api/external.service';
 import { MustMatch } from '../must-mach.validator';
 
 @Component({
@@ -29,6 +30,7 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private externalService: ExternalService,
     private router: Router,
   ) { }
 
@@ -203,6 +205,13 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('register-page');
     this.registerProveedorForm = this.formBuilder.group({
+      nombre: ['',
+        Validators.compose([
+          Validators.required,
+        ]),
+      ],
+      apellido: ['',
+      ],
       nombre_empresa: ['',
         Validators.compose([
           Validators.required,
@@ -277,18 +286,44 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
     if (!this.registerProveedorForm.valid) {
       return;
     }
+    if (ExternalService.selectedGroup) {
+      this.proveedorExternalRegister();
+      return;
+    }
+    this.proveedorLocalRegister();
+  }
+
+  proveedorExternalRegister() {
+    const tmp = this.registerProveedorForm.value;
+    tmp.empresa = tmp.nombre_empresa;
+    delete tmp.nombre_empresa;
+    this.externalService.registrarProveedor(tmp)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          this.registerProveedorForm.reset();
+          this.sumbitted = false;
+          this.router.navigate(['login']).then(() => {
+            window.location.reload();
+          });
+        } else {
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      });
+  }
+
+  proveedorLocalRegister() {
     this.authService.proveedorRegister(this.registerProveedorForm.value)
-    .subscribe((res) => {
-      if (res.status === 'success') {
-        this.registerProveedorForm.reset();
-        this.sumbitted = false;
-        this.router.navigate(['login']);
-      } else {
-        setTimeout(() => this.alerta = res.message, 0);
-      }
-    }, (err) => {
-      setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
-    });
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          this.registerProveedorForm.reset();
+          this.sumbitted = false;
+          this.router.navigate(['login']);
+        } else {
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+      });
   }
 
   clienteRegister() {
@@ -296,7 +331,16 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
     if (!this.registerClienteForm.valid) {
       return;
     }
-    this.authService.clienteRegister(this.registerClienteForm.value)
+    if (ExternalService.selectedGroup) {
+      this.clienteExternalRegister();
+      return;
+    }
+    this.clienteLocalRegister();
+  }
+
+  clienteExternalRegister() {
+    console.log(this.registerClienteForm.value);
+    this.externalService.registrarCliente(this.registerClienteForm.value)
     .subscribe((res) => {
       if (res.status === 'success') {
         this.registerClienteForm.reset();
@@ -309,6 +353,22 @@ export class RegisterpageComponent implements OnInit, OnDestroy {
     }, (err) => {
       setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
     });
+  }
+
+  clienteLocalRegister() {
+    this.authService.clienteRegister(this.registerClienteForm.value)
+      .subscribe((res) => {
+        if (res.status === 'success') {
+          this.registerClienteForm.reset();
+          this.sumbitted2 = false;
+          this.alerta = '';
+          this.router.navigate(['login']);
+        } else {
+          setTimeout(() => this.alerta = res.message, 0);
+        }
+      }, (err) => {
+        setTimeout(() => this.alerta = 'Error: ' + err.message, 0);
+      });
   }
 
   ngOnDestroy() {
