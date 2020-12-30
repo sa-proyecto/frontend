@@ -21,10 +21,10 @@ export class NavbarComponent implements OnInit {
       nombreGrupo: 'Grupo 1',
       idGrupo: 'grupo1'
     },
-    {
-      nombreGrupo: 'Grupo 2',
-      idGrupo: 'grupo2'
-    },
+    // {
+    //   nombreGrupo: 'Grupo 2',
+    //   idGrupo: 'grupo2'
+    // },
     {
       nombreGrupo: 'Grupo 3',
       idGrupo: 'grupo3'
@@ -37,10 +37,10 @@ export class NavbarComponent implements OnInit {
       nombreGrupo: 'Grupo 5',
       idGrupo: 'grupo5'
     },
-    {
-      nombreGrupo: 'Grupo 6',
-      idGrupo: 'grupo6'
-    },
+    // {
+    //   nombreGrupo: 'Grupo 6',
+    //   idGrupo: 'grupo6'
+    // },
     {
       nombreGrupo: 'Grupo 7',
       idGrupo: 'grupo7'
@@ -69,22 +69,22 @@ export class NavbarComponent implements OnInit {
       nombreGrupo: 'Grupo 13',
       idGrupo: 'grupo13'
     },
-    {
-      nombreGrupo: 'Grupo 14',
-      idGrupo: 'grupo14'
-    },
-    {
-      nombreGrupo: 'Grupo 15',
-      idGrupo: 'grupo15'
-    },
-    {
-      nombreGrupo: 'Grupo 16',
-      idGrupo: 'grupo16'
-    },
-    {
-      nombreGrupo: 'Grupo 17',
-      idGrupo: 'grupo17'
-    },
+    // {
+    //   nombreGrupo: 'Grupo 14',
+    //   idGrupo: 'grupo14'
+    // },
+    // {
+    //   nombreGrupo: 'Grupo 15',
+    //   idGrupo: 'grupo15'
+    // },
+    // {
+    //   nombreGrupo: 'Grupo 16',
+    //   idGrupo: 'grupo16'
+    // },
+    // {
+    //   nombreGrupo: 'Grupo 17',
+    //   idGrupo: 'grupo17'
+    // },
   ]
   constructor(private router: Router) {
     router.events.subscribe(val => {
