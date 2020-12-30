@@ -41,6 +41,7 @@ describe('RegisterpageComponent', () => {
   it('validar formulario proveedor', () => {
     component.registerProveedorForm.patchValue({
       nombre_empresa: 'a',
+      nombre: 'a',
       email: 'a@a',
       direccion: 'a',
       contrasena: 'a',
@@ -52,6 +53,7 @@ describe('RegisterpageComponent', () => {
   it('validar formulario proveedor correo correcto', () => {
     component.registerProveedorForm.patchValue({
       nombre_empresa: 'a',
+      nombre: 'a',
       email: 'a',
       direccion: 'a',
       contrasena: 'a',
@@ -65,6 +67,7 @@ describe('RegisterpageComponent', () => {
   it('validar formulario proveedor contrasena correcto', () => {
     component.registerProveedorForm.patchValue({
       nombre_empresa: 'a',
+      nombre: 'a',
       email: 'a',
       direccion: 'a',
       contrasena: 'a',
