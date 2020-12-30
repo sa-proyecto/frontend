@@ -75,7 +75,8 @@ export class CarritoComponent implements OnInit {
     if (!this.cliente) {
       this.router.navigate(['login']);
     }
-    if (!this.cliente.tarjetas || !this.cliente.tarjetas.length) {
+    if (!ExternalService.selectedGroup
+      && (!this.cliente.tarjetas || !this.cliente.tarjetas.length)) {
       this.router.navigate(['tarjeta']);
     }
     const numeroTarjeta = this.numeroTarjeta;
@@ -122,7 +123,10 @@ export class CarritoComponent implements OnInit {
         id_cliente: idCliente,
         productos: itemsExternal,
       }).subscribe(res => {
-        if (res.status !== 'success') {
+        if (res.status === 'success') {
+          this.cartService.removeCart();
+          this.router.navigate(['tienda']);
+        } else {
           console.error('Oopps compra externa');
         }
       }, err => {
