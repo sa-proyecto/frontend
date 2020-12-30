@@ -10,7 +10,7 @@ export const environment = {
     grupo3: 'http://35.206.98.190',
     grupo4: 'http://esb4.djgg.ml:3030',
     grupo5: 'http://34.123.238.63:8280/services/integrador',
-    grupo6: '',
+    grupo6: 'http://35.184.63.236:3004',
     grupo7: 'http://68.183.102.104:3000',
     grupo8: 'http://35.232.242.252:9999',
     grupo9: 'http://sa-g9.us-e2.cloudhub.io',

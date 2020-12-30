@@ -37,10 +37,10 @@ export class NavbarComponent implements OnInit {
       nombreGrupo: 'Grupo 5',
       idGrupo: 'grupo5'
     },
-    // {
-    //   nombreGrupo: 'Grupo 6',
-    //   idGrupo: 'grupo6'
-    // },
+    {
+      nombreGrupo: 'Grupo 6',
+      idGrupo: 'grupo6'
+    },
     {
       nombreGrupo: 'Grupo 7',
       idGrupo: 'grupo7'
