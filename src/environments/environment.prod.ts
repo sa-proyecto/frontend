@@ -13,7 +13,7 @@ export const environment = {
     grupo10: 'http://34.73.157.172:5005',
     grupo11: 'http://soagrupo11.us-e2.cloudhub.io',
     grupo12: '',
-    grupo13: '',
+    grupo13: 'http://www.sa-proyecto.tk',
     grupo14: '',
     grupo15: '',
     grupo16: '',
